@@ -4,7 +4,6 @@ import Footer from "./Components/Footer/Footer";
 import PageTitleUpdater from "./Components/TitleUpdater/PageTitleUpdater";
 
 const Layout = () => {
-
   return (
     <div className="overflow-x-hidden w-full">
       <PageTitleUpdater />

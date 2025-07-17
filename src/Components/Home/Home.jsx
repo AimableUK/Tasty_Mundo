@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import client from "../../assets/client.png";
+import CosmosCanvas from "../canvas/CosmosCanvas";
 
 const Home = () => {
   const faqs = [
@@ -65,7 +67,99 @@ const Home = () => {
     },
   ];
 
-  return <div></div>;
+  return (
+    <div>
+      {/* Welcome Text */}
+      <div className="text-white">
+        <CosmosCanvas />
+        <div className="absolute inset-0 flex items-center justify-center">erdf</div>
+      </div>
+      <section className="m-10 flex flex-col md:flex-row">
+        <div>
+          <img src={client} alt="Tasty Mundo Client" className="w-[400px]" />
+        </div>
+        <div className="">
+          <h2 className="font-roboto text-3xl font-bold">
+            "Unlock a World of Culinary Creativity!
+          </h2>
+          <p>
+            Transform your kitchen with Our App! <br />
+            Discover endless recipe ideas using fresh ingredients and cook like
+            a Professional Chef. Start your culinary journey today!"
+          </p>
+        </div>
+      </section>
+
+      {/* Generate Recipe */}
+      <section>
+        <div></div>
+        <div></div>
+      </section>
+
+      {/* Trending Flavors */}
+      <section>
+        {/* Header */}
+        <div>
+          <h1></h1>
+          <div></div>
+        </div>
+
+        {/* Flavors */}
+        <div></div>
+      </section>
+
+      {/* New From TastyMundo */}
+      <section>
+        <h1></h1>
+        <div></div>
+      </section>
+
+      {/* Testimonial */}
+      <section>
+        {/* Picture */}
+        <div></div>
+
+        {/* Details */}
+        <div>
+          {/* stars */}
+          <div></div>
+
+          {/* Testimonial */}
+          <div></div>
+
+          {/* Name + Other */}
+          <div>
+            <div></div>
+            <div></div>
+          </div>
+        </div>
+      </section>
+
+      {/* Your Recent Discorvies */}
+      <section>
+        <h1></h1>
+        <div></div>
+      </section>
+
+      {/* Trending in Season */}
+      <section>
+        {/* Header */}
+        <div>
+          <h1></h1>
+          <div></div>
+        </div>
+
+        {/* Flavors */}
+        <div></div>
+      </section>
+
+      {/* FAQ */}
+      <section>
+        <div></div>
+        <div></div>
+      </section>
+    </div>
+  );
 };
 
 export default Home;
