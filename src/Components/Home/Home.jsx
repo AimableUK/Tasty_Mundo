@@ -143,16 +143,31 @@ const Home = () => {
       </div>
 
       {/* Why US */}
-      <section className="p-10 flex flex-col md:flex-row bg-[#06071b]">
-        <div className="main max-w-7xl mx-auto relative z-20 grid md:grid-cols-2 gap-12 items-center">
+      <section className="p-3 md:p-10 flex flex-col md:flex-row bg-[#06071b]">
+        <div className="main wrapper">
+          {/* Images */}
+          <div className="relative px-4 md:px-0 p-2">
+            <div className="images-section flex flex-row flex-nowrap gap-3">
+              <img
+                src={client}
+                alt="Why we Exist"
+                className="card p-1 relative rounded-xl shadow-xl object-cover hover:opacity-90 transition-opacity duration-300"
+              />
+              <img
+                src={clientResult}
+                alt="Why we Exist"
+                className="card p-1 relative rounded-xl shadow-xl object-cover hover:opacity-90 transition-opacity duration-300"
+              />
+            </div>
+          </div>
           {/* <!-- Text Content --> */}
-          <div className="p-8 rounded-xl shadow-lg hover:scale-105 transform transition duration-300 ease-in-out">
-            <h2 className="text-4xl font-extrabold text-gray-300 mb-4">
+          <div className="p-4 md:p-8 rounded-xl shadow-lg hover:scale-105 transform transition duration-300 ease-in-out">
+            <h2 className="text-2xl md:text-4xl lg:text-5xl font-extrabold text-gray-300 mb-4">
               "Unlock a World of Culinary Creativity!
             </h2>
             <div className="main flex items-center space-x-4 p-4">
               <div>
-                <h3 className="text-xl font-semibold text-gray-400">
+                <h3 className="md:text-xl font-semibold text-gray-400">
                   Got food? Let's cook!
                 </h3>
                 <p className="text-gray-300 text-sm">
@@ -161,22 +176,6 @@ const Home = () => {
                   like a Professional Chef. Start your culinary journey today!"
                 </p>
               </div>
-            </div>
-          </div>
-
-          {/* Images */}
-          <div className="relative p-2">
-            <div className="flex flex-row flex-nowrap gap-3">
-              <img
-                src={client}
-                alt="Why we Exist"
-                className="card p-1 w-full relative rounded-xl shadow-xl object-cover hover:opacity-90 transition-opacity duration-300"
-              />
-              <img
-                src={clientResult}
-                alt="Why we Exist"
-                className="card p-1 w-full relative rounded-xl shadow-xl object-cover hover:opacity-90 transition-opacity duration-300"
-              />
             </div>
           </div>
         </div>
