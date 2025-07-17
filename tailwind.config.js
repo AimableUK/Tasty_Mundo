@@ -12,6 +12,7 @@ export default {
       fontFamily: {
         nunito: ["nunito"],
         roboto: ["roboto"],
+        homenaje: ["homenaje"],
       },
     },
   },
