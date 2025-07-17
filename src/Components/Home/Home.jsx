@@ -1,10 +1,95 @@
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import client from "../../assets/client.png";
 import clientResult from "../../assets/clientResult.png";
+import avocadoImg from "../../assets/avocado.jpg";
+import riceImg from "../../assets/rice.jpg";
+import berriesImg from "../../assets/berries.jpg";
+import mushroomImg from "../../assets/mushroom.jpg";
+import salmonImg from "../../assets/salmon.jpg";
+import lentilsImg from "../../assets/lentils.jpg";
+import potatoesImg from "../../assets/potatoes.jpg";
+import cabbageImg from "../../assets/cabbage.jpg";
 import CosmosCanvas from "../canvas/CosmosCanvas";
 
 const Home = () => {
+  const taglines = [
+    "Unleash Your Inner Chef.",
+    "Flavorful Creativity, Unlocked.",
+    "Turn Ingredients into Inspiration.",
+    "AI That Cooks with You.",
+    "Cook Smarter with AI.",
+    "Your Imagination, Our Intelligence.",
+    "Recipes Born from Your Pantry.",
+    "Discover Dishes, Not Limits.",
+    "Creativity Meets Cuisine.",
+    "From Ingredients to Ideas.",
+    "Food Ideas, Reimagined.",
+    "Smart Cooking Starts Here.",
+    "Inspiration, Served Fresh.",
+    "A New Recipe Every Time.",
+    "Generative AI, Tasty Results.",
+    "Let AI Stir Your Imagination.",
+    "Your Ingredients, Infinite Recipes.",
+    "Think It. Taste It.",
+    "Cooking Reimagined by AI.",
+    "Invent Your Next Favorite Dish.",
+  ];
+
+  const subTaglines = [
+    "Let our intelligent recipe engine turn your everyday ingredients into exciting, chef-inspired meals in seconds.",
+    "Tired of wondering what to cook? Simply enter what you have, and let our AI serve up delicious recipe ideas tailored just for you.",
+    "Discover how cutting-edge generative AI can revolutionize your kitchen—turning simple groceries into gourmet inspiration.",
+    "From what's left in your fridge to a full dinner plan, our AI helps you make the most of every ingredient you have.",
+    "Generate unique, step-by-step recipes using AI trained to understand flavors, combinations, and your personal preferences.",
+    "Experience a smarter way to cook: just type in your ingredients and watch our AI create something extraordinary for you.",
+    "Let go of the guesswork—our platform analyzes your inputs to deliver curated, creative, and delicious recipes in real time.",
+    "Empower your cooking journey with AI that understands your pantry, your taste, and your time constraints.",
+    "With every reload, discover a new idea—our generative AI brings unlimited culinary creativity right to your fingertips.",
+    "AI-driven cooking isn't the future—it's now. Explore intelligent recipes built from the items you already own.",
+    "Say goodbye to boring meals. Our platform transforms basic supplies into mouthwatering experiences using smart technology.",
+    "Your kitchen companion for effortless cooking—AI helps you plan, create, and enjoy meals like never before.",
+    "We combine artificial intelligence and culinary knowledge to help you make the most of every bite.",
+    "Enter your ingredients and explore creative meal ideas you never knew you could cook at home.",
+    "No matter your skill level, our AI guides you through personalized recipe creation, one smart suggestion at a time.",
+    "Build better meals without the stress—our AI helps you discover, adapt, and create recipes based on your lifestyle.",
+    "An effortless cooking assistant that listens to what you have and tells you what to make.",
+    "Experience the joy of cooking without the planning—our recipe AI handles that for you with a fresh twist every time.",
+    "Whether you're meal prepping or improvising dinner, our AI is here to inspire your inner chef.",
+    "Cooking should be fun, not frustrating. Let our AI simplify your decisions and spice up your meals.",
+  ];
+
+  const placeholders = [
+    "What's in your fridge?",
+    "Enter what you have...",
+    "Type your ingredients...",
+    "Got veggies? Type here...",
+    "What are you cooking with?",
+    "List your ingredients...",
+    "Tell me what's at home...",
+    "Share your ingredients...",
+    "Got food? Let's cook!",
+    "Start with what you have...",
+    "Any leftovers to use?",
+    "What do you have today?",
+    "Input what's on hand...",
+    "Cooking with what today?",
+    "Have tomatoes? Or rice?",
+    "Type what's in the kitchen...",
+    "What's in your basket?",
+    "Drop your ingredients here...",
+    "Got anything to cook with?",
+    "What's your meal idea?",
+  ];
+
+  function getRandomItem(array) {
+    return array[Math.floor(Math.random() * array.length)];
+  }
+
+  const randomTagline = getRandomItem(taglines);
+  const randomSubTagline = getRandomItem(subTaglines);
+  const randomPlaceholder = getRandomItem(placeholders);
+
   const faqs = [
     {
       id: 1,
@@ -75,18 +160,14 @@ const Home = () => {
         <CosmosCanvas />
         <div className="absolute inset-0 flex items-center justify-center flex-col font-nunito mt-10 md:mt-0 mx-10 md:mx-20 lg:mx-48 text-center gap-5">
           <h1 className="font-homenaje text-4xl md:text-6xl font-semibold">
-            Unleash Your Inner Chef.
+            {randomTagline}
           </h1>
-          <p className="font-bold md:text-xl">
-            Harness the power of generative AI and smart tools to turn your
-            ingredients into delicious recipes and share your culinary
-            creativity with the world.
-          </p>
+          <p className="font-bold md:text-xl">{randomSubTagline}</p>
           <section className="flex flex-row items-center gap-1">
-            <div className="flex flex-row px-4 py-3 rounded-full text-[#06071B] bg-[#0e0f26]">
+            <div className="flex flex-row px-4 py-3 rounded-full text-primaryBody bg-[#0e0f26]">
               <input
                 type="text"
-                placeholder="What's in your fridge?"
+                placeholder={randomPlaceholder}
                 className="outline-none w-[200px] md:focus:w-[350px] lg:focus:w-[550px] bg-[#0e0f26] text-white transform transition-all duration-300 ease-in-out"
               />
             </div>
@@ -106,12 +187,12 @@ const Home = () => {
                   gradientTransform="matrix(128.602 652.9562 653.274 -128.6646 -316906.281 517189.719)"
                   gradientUnits="userSpaceOnUse"
                 >
-                  <stop offset="0" stop-color="#1ba1e3"></stop>
-                  <stop offset="0" stop-color="#1ba1e3"></stop>
-                  <stop offset=".3" stop-color="#5489d6"></stop>
-                  <stop offset=".545" stop-color="#9b72cb"></stop>
-                  <stop offset=".825" stop-color="#d96570"></stop>
-                  <stop offset="1" stop-color="#f49c46"></stop>
+                  <stop offset="0" stopColor="#1ba1e3"></stop>
+                  <stop offset="0" stopColor="#1ba1e3"></stop>
+                  <stop offset=".3" stopColor="#5489d6"></stop>
+                  <stop offset=".545" stopColor="#9b72cb"></stop>
+                  <stop offset=".825" stopColor="#d96570"></stop>
+                  <stop offset="1" stopColor="#f49c46"></stop>
                 </radialGradient>
                 <path
                   fill="url(#oDvWy9qKGfkbPZViUk7TCa_eoxMN35Z6JKg_gr1)"
@@ -125,12 +206,12 @@ const Home = () => {
                   gradientTransform="matrix(128.602 652.9562 653.274 -128.6646 -316906.281 517189.719)"
                   gradientUnits="userSpaceOnUse"
                 >
-                  <stop offset="0" stop-color="#1ba1e3"></stop>
-                  <stop offset="0" stop-color="#1ba1e3"></stop>
-                  <stop offset=".3" stop-color="#5489d6"></stop>
-                  <stop offset=".545" stop-color="#9b72cb"></stop>
-                  <stop offset=".825" stop-color="#d96570"></stop>
-                  <stop offset="1" stop-color="#f49c46"></stop>
+                  <stop offset="0" stopColor="#1ba1e3"></stop>
+                  <stop offset="0" stopColor="#1ba1e3"></stop>
+                  <stop offset=".3" stopColor="#5489d6"></stop>
+                  <stop offset=".545" stopColor="#9b72cb"></stop>
+                  <stop offset=".825" stopColor="#d96570"></stop>
+                  <stop offset="1" stopColor="#f49c46"></stop>
                 </radialGradient>
                 <path
                   fill="url(#oDvWy9qKGfkbPZViUk7TCb_eoxMN35Z6JKg_gr2)"
@@ -143,8 +224,8 @@ const Home = () => {
       </div>
 
       {/* Why US */}
-      <section className="p-3 md:p-10 flex flex-col md:flex-row bg-[#06071b]">
-        <div className="main wrapper">
+      <section className="p-3 md:px-10 py-4 pt-10 flex flex-col md:flex-row bg-primaryBody">
+        <div className="main wrapper pl-3 pt-3 lg:pt-0">
           {/* Images */}
           <div className="relative px-4 md:px-0 p-2">
             <div className="images-section flex flex-row flex-nowrap gap-3">
@@ -181,22 +262,116 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Generate Recipe */}
-      <section>
-        <div></div>
-        <div></div>
-      </section>
-
       {/* Trending Flavors */}
-      <section>
+      <section className="p-3 md:px-10 py-4 flex flex-col gap-y-2 bg-primaryBody text-white">
         {/* Header */}
-        <div>
-          <h1></h1>
-          <div></div>
+        <div className=" flex flex-row justify-between">
+          <h1 className="font-roboto text-xl md:text-2xl font-semibold">
+            Trending Flavors
+          </h1>
+          <div className="flex flex-row flex-wrap gap-1">
+            <button className="rounded-full bg-primaryColor p-2">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={2}
+                stroke="currentColor"
+                className="size-5 text-white"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M15.75 19.5 8.25 12l7.5-7.5"
+                />
+              </svg>
+            </button>
+            <button className="rounded-full bg-primaryColor p-2">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={2}
+                stroke="currentColor"
+                className="size-5 text-white"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="m8.25 4.5 7.5 7.5-7.5 7.5"
+                />
+              </svg>
+            </button>
+          </div>
         </div>
 
         {/* Flavors */}
-        <div></div>
+        <div className="flex flex-row">
+          <div className="menu">
+            <img
+              src={avocadoImg}
+              alt="Avocado Image"
+              className="size-20 rounded-full"
+            />
+            <h3>Avocado</h3>
+          </div>
+          <div className="menu">
+            <img
+              src={riceImg}
+              alt="Rice Image"
+              className="size-20 rounded-full"
+            />
+            <h3>Rice</h3>
+          </div>
+          <div className="menu">
+            <img
+              src={berriesImg}
+              alt="Berries Image"
+              className="size-20 rounded-full"
+            />
+            <h3>Berries</h3>
+          </div>
+          <div className="menu">
+            <img
+              src={mushroomImg}
+              alt="Mushroom Image"
+              className="size-20 rounded-full"
+            />
+            <h3>Mushroom</h3>
+          </div>
+          <div className="menu">
+            <img
+              src={salmonImg}
+              alt="Salmon Image"
+              className="size-20 rounded-full"
+            />
+            <h3>Salmon</h3>
+          </div>
+          <div className="menu">
+            <img
+              src={lentilsImg}
+              alt="Lentils Image"
+              className="size-20 rounded-full"
+            />
+            <h3>Lentils</h3>
+          </div>
+          <div className="menu">
+            <img
+              src={potatoesImg}
+              alt="Potatoes Image"
+              className="size-20 rounded-full"
+            />
+            <h3>Potatoes</h3>
+          </div>
+          <div className="menu">
+            <img
+              src={cabbageImg}
+              alt="Cabbage Image"
+              className="size-20 rounded-full"
+            />
+            <h3>Cabbage</h3>
+          </div>
+        </div>
       </section>
 
       {/* New From TastyMundo */}
