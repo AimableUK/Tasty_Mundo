@@ -166,7 +166,7 @@ const Home = () => {
 
           {/* Images */}
           <div className="relative p-2">
-            <div className="flex flex-row flex-nowrap gap-3 size-60">
+            <div className="flex flex-row flex-nowrap gap-3">
               <img
                 src={client}
                 alt="Why we Exist"
