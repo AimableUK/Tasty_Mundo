@@ -29,7 +29,7 @@ const Footer = () => {
 
 
   return (
-    <footer className='flex flex-col md:flex-row justify-between p-6 gap-3 md:gap-10 pb-2 md:pl-20 md:pr-20 items-center border-t border-gray-700'>
+    <footer className='bg-[#06071b] text-white flex flex-col md:flex-row justify-between p-6 gap-3 md:gap-10 pb-2 md:pl-20 md:pr-20 items-center border-t border-gray-700'>
       <div className='flex flex-row items-center'>
         <Link to={'/'} onClick={scrollToTop} ><img className='w-10 h-10' src={tastyMundoLogo} alt='Tasty Mundo Logo' /></Link>
         <Link to={'/'} onClick={scrollToTop} ><h3>Tasty Mundo</h3></Link>
