@@ -9,7 +9,7 @@ const PageTitleUpdater = () => {
 
     if (location.pathname === '/') {
       title = 'Home - TastyMundo';
-    } else if (location.pathname === '/aboutus') {
+    } else if (location.pathname === '/aboutUs') {
       title = 'About Us - TastyMundo';
     } else if (location.pathname === '/services') {
       title = 'Our Services - TastyMundo';

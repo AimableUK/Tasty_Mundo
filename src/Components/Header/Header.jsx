@@ -1,9 +1,18 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import tastyMundoLogo from "/tastyMundo.png";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import useMenuStore from "../../store/useMenuStore";
 
 export default function Header() {
   const [menu, setMenu] = useState(false);
+
+  const location = useLocation();
+  const menuItem = useMenuStore((state) => state.menuItem);
+  const setMenuItem = useMenuStore((state) => state.setMenuItem);
+
+  useEffect(() => {
+    setMenuItem(location.pathname);
+  }, [location.pathname, setMenuItem]);
 
   return (
     <div>
@@ -23,24 +32,35 @@ export default function Header() {
         </div>
         <div>
           <ul className="flex">
-            <Link
-              className="font-nunito font-bold mr-5 hover:text-primaryColor transition ease-in-out duration-200"
-              to={"/"}
-            >
-              Home
-            </Link>
-            <Link
-              className="font-nunito font-bold mr-5 hover:text-primaryColor transition ease-in-out duration-200"
-              to={"/aboutus"}
-            >
-              AboutUs
-            </Link>
-            <Link
-              className="font-nunito font-bold hover:text-primaryColor transition ease-in-out duration-200"
-              to={"/services"}
-            >
-              Services
-            </Link>
+            <ul className="flex flex-col sm:flex-row">
+              <Link
+                className={`${
+                  menuItem === "home" ? "text-primaryColor" : "text-white"
+                } font-nunito font-bold mr-5 hover:text-primaryColor transition ease-in-out duration-200`}
+                to={"/"}
+                onClick={() => setMenuItem("home")}
+              >
+                Home
+              </Link>
+              <Link
+                className={`${
+                  menuItem === "aboutUs" ? "text-primaryColor" : "text-white"
+                } font-nunito font-bold mr-5 hover:text-primaryColor transition ease-in-out duration-200`}
+                to={"/aboutUs"}
+                onClick={() => setMenuItem("aboutUs")}
+              >
+                About Us
+              </Link>
+              <Link
+                className={`${
+                  menuItem === "services" ? "text-primaryColor" : "text-white"
+                } font-nunito font-bold hover:text-primaryColor transition ease-in-out duration-200`}
+                to={"/services"}
+                onClick={() => setMenuItem("services")}
+              >
+                Services
+              </Link>
+            </ul>
           </ul>
         </div>
       </header>
@@ -63,7 +83,7 @@ export default function Header() {
           </div>
           <div className="relative">
             <div
-              onClick={() => setMenu(!menu)}
+              onClick={() => setMenuItem(!menu)}
               className={`cursor-pointer transition-transform duration-300 ease-in-out ${
                 menu ? "rotate-90" : "rotate-0"
               }`}
@@ -112,20 +132,29 @@ export default function Header() {
         >
           <ul className="flex flex-col sm:flex-row">
             <Link
-              className="font-nunito font-bold mr-5 hover:text-primaryColor transition ease-in-out duration-200"
+              className={`${
+                menuItem === "home" ? "text-primaryColor" : "text-white"
+              } font-nunito font-bold mr-5 hover:text-primaryColor transition ease-in-out duration-200`}
               to={"/"}
+              onClick={() => setMenuItem("home")}
             >
               Home
             </Link>
             <Link
-              className="font-nunito font-bold mr-5 hover:text-primaryColor transition ease-in-out duration-200"
+              className={`${
+                menuItem === "aboutUs" ? "text-primaryColor" : "text-white"
+              } font-nunito font-bold mr-5 hover:text-primaryColor transition ease-in-out duration-200`}
               to={"/aboutus"}
+              onClick={() => setMenuItem("aboutUs")}
             >
               About Us
             </Link>
             <Link
-              className="font-nunito font-bold hover:text-primaryColor transition ease-in-out duration-200"
+              className={`${
+                menuItem === "services" ? "text-primaryColor" : "text-white"
+              } font-nunito font-bold hover:text-primaryColor transition ease-in-out duration-200`}
               to={"/services"}
+              onClick={() => setMenuItem("services")}
             >
               Services
             </Link>

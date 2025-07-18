@@ -95,6 +95,7 @@ const CosmosCanvas = () => {
   return (
     <div className="relative -z-10 top-0 left-0 w-full h-screen overflow-hidden bg-[radial-gradient(circle,#1b2735,#090a0f)]">
       <canvas ref={canvasRef} className="block w-full h-full" />
+      <div className="absolute inset-0 bg-black opacity-40 md:opacity-0 pointer-events-none transition-opacity duration-500" />
     </div>
   );
 };

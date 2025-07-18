@@ -1,5 +1,3 @@
-import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
 import client from "../../assets/client.webp";
 import clientResult from "../../assets/clientResult.webp";
 import avocadoImg from "../../assets/avocado.webp";
@@ -290,7 +288,7 @@ const Home = () => {
           </div>
           {/* <!-- Text Content --> */}
           <div className="p-4 md:p-8 rounded-xl shadow-lg hover:scale-105 transform transition duration-300 ease-in-out">
-            <h2 className="text-2xl md:text-4xl lg:text-5xl font-extrabold text-gray-300 mb-4">
+            <h2 className="text-2xl font-roboto md:text-4xl lg:text-5xl font-extrabold text-gray-300 mb-4">
               "Unlock a World of Culinary Creativity!
             </h2>
             <div className="main flex items-center space-x-4 p-4">
