@@ -88,6 +88,33 @@ const Home = () => {
     "What's your meal idea?",
   ];
 
+  const faqData = [
+    {
+      id: 1,
+      question: "How does Tasty Mundo work?",
+      answer:
+        "Our AI analyzes the ingredients you provide and instantly suggests recipe ideas based on culinary data, flavor profiles, and nutritional insights.",
+    },
+    {
+      id: 2,
+      question: "Can I customize the recipes to fit my diet?",
+      answer:
+        "Absolutely! You can filter by dietary needs such as vegetarian, gluten-free, keto, and more.",
+    },
+    {
+      id: 3,
+      question: "Is the site free to use?",
+      answer:
+        "Yes, our core features are completely free. Premium features may be added later to enhance your experience.",
+    },
+    {
+      id: 4,
+      question: "Can I save my favorite recipes?",
+      answer:
+        "Yes! when you submit ingredients, Our AI automatically saves them with the Generated Recipe for you to use Later.",
+    },
+  ];
+
   function getRandomItem(array) {
     return array[Math.floor(Math.random() * array.length)];
   }
@@ -168,69 +195,6 @@ const Home = () => {
       src: quinoaImg,
       alt: "Quinoa Image",
       label: "Quinoa",
-    },
-  ];
-
-  const faqs = [
-    {
-      id: 1,
-      question: "What is TastyStructure?",
-      answer:
-        "TastyStructure is a recipe generator that helps you create delicious meals based on the ingredients you have available.",
-    },
-    {
-      id: 2,
-      question: "How do I use TastyStructure?",
-      answer:
-        "Simply enter the ingredients you have, and TastyStructure will generate recipes that match your available ingredients.",
-    },
-    {
-      id: 3,
-      question: "Do I need an account to use TastyStructure?",
-      answer:
-        "No, you can generate recipes without an account. However, creating an account allows you to save recipes and get personalized recommendations.",
-    },
-    {
-      id: 4,
-      question: "Can I filter recipes based on dietary preferences?",
-      answer:
-        "Yes! You can filter recipes for vegetarian, vegan, gluten-free, or other dietary needs.",
-    },
-    {
-      id: 5,
-      question: "What if I have food allergies?",
-      answer:
-        "You can specify allergies when entering ingredients, and TastyStructure will exclude recipes that contain those allergens.",
-    },
-    {
-      id: 6,
-      question: "Where do the recipes come from?",
-      answer:
-        "Our recipes are sourced from curated databases, community contributions, and AI-generated suggestions to give you a variety of meal ideas.",
-    },
-    {
-      id: 7,
-      question: "Can I submit my own recipes?",
-      answer:
-        "Yes! You can share your favorite recipes with the TastyStructure community.",
-    },
-    {
-      id: 8,
-      question: "Does TastyStructure support multiple cuisines?",
-      answer:
-        "Absolutely! You can explore recipes from various cuisines, including Italian, Mexican, Asian, Mediterranean, and more.",
-    },
-    {
-      id: 9,
-      question: "Is TastyStructure free to use?",
-      answer:
-        "Yes! TastyStructure is free to use, with potential premium features in the future.",
-    },
-    {
-      id: 10,
-      question: "Can I use TastyStructure on my phone?",
-      answer:
-        "Yes! TastyStructure is mobile-friendly, so you can generate recipes easily on any device.",
     },
   ];
 
@@ -348,17 +312,17 @@ const Home = () => {
       {/* Trending Flavors */}
       <section className="p-3 md:px-10 py-4 flex flex-col gap-y-2 bg-primaryBody text-white">
         {/* Header */}
-        <div className=" flex flex-row justify-between">
-          <h1 className="font-roboto text-xl md:text-2xl font-semibold">
+        <div className=" flex flex-row justify-between items-center">
+          <h1 className="font-roboto text-lg md:text-2xl font-semibold">
             Trending Flavors
           </h1>
           <div className="flex flex-row flex-wrap gap-1">
-            <button className="rounded-full bg-primaryColor p-2">
+            <button className="rounded-full bg-primaryColor border p-2 active:scale-90 transition-all duration-150 ease-in">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
-                strokeWidth={2}
+                strokeWidth={2.5}
                 stroke="currentColor"
                 className="size-5 text-white"
               >
@@ -369,12 +333,12 @@ const Home = () => {
                 />
               </svg>
             </button>
-            <button className="rounded-full bg-primaryColor p-2">
+            <button className="rounded-full bg-primaryColor border p-2 active:scale-90 transition-all duration-150 ease-in">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
-                strokeWidth={2}
+                strokeWidth={2.5}
                 stroke="currentColor"
                 className="size-5 text-white"
               >
@@ -406,7 +370,7 @@ const Home = () => {
 
       {/* New From TastyMundo */}
       <section className="p-3 md:px-10 bg-primaryBody text-white">
-        <h1 className="font-roboto text-xl md:text-2xl font-semibold">
+        <h1 className="font-roboto text-lg md:text-2xl font-semibold">
           New from Tasty Mundo
         </h1>
         {/* flex flex-col md:flex-row */}
@@ -502,12 +466,12 @@ const Home = () => {
             src={testimonialImg}
             loading="lazy"
             alt="testimonial-Img-1"
-            className="size-64 rounded-md"
+            className="w-full md:size-64 rounded-md"
           />
         </div>
 
         {/* Details */}
-        <div className="col-span-2 self-end flex flex-col gap-y-6">
+        <div className="col-span-2 self-end flex flex-col gap-y-6 ml-5 md:ml-4 mt-5 md:mt-0">
           {/* stars */}
           <div className="flex flex-row">
             <svg
@@ -597,7 +561,7 @@ const Home = () => {
               <h3 className="font-bold">Oliva, S.</h3>
               <h4 className="text-gray-300">Chef at Mariot</h4>
             </div>
-            <div className="flex flex-row self-end gap-x-1">
+            <div className="flex flex-row self-start mt-4 md:mt-0 md:self-end gap-x-1">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -633,27 +597,266 @@ const Home = () => {
       </section>
 
       {/* Your Recent Discorvies */}
-      <section>
-        <h1></h1>
-        <div></div>
+      <section className="p-3 md:px-10 pt-8 bg-primaryBody text-white">
+        <div className="flex flex-row justify-between items-center">
+          <h1 className="font-roboto text-lg md:text-2xl font-semibold">
+            Your Recent Discoveries
+          </h1>
+          <div className="flex flex-row flex-wrap gap-1">
+            <button className="rounded-full bg-primaryColor border p-2 active:scale-90 transition-all duration-150 ease-in">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={2.5}
+                stroke="currentColor"
+                className="size-5 text-white"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M15.75 19.5 8.25 12l7.5-7.5"
+                />
+              </svg>
+            </button>
+            <button className="rounded-full bg-primaryColor border p-2 active:scale-90 transition-all duration-150 ease-in">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={2.5}
+                stroke="currentColor"
+                className="size-5 text-white"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="m8.25 4.5 7.5 7.5-7.5 7.5"
+                />
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        {/* flex flex-col md:flex-row */}
+        <div className="my-3 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-y-4">
+          <div className="rounded-md main text-start">
+            <img
+              src={speedymassamanbeefstirfryImg}
+              loading="lazy"
+              alt="speedy massaman beef stir-fry"
+              className="w-fit rounded-t-md"
+            />
+            <div className="p-3">
+              <h3 className="font-roboto font-semibold">
+                Speedy massaman beef stir-fry
+              </h3>
+              <p className="text-start text-sm text-gray-300">
+                Fast and tasty, this dish captures the same spiced, creamy
+                coconut flavours of a curry.
+              </p>
+              <button className="mt-2 border p-1 w-full rounded-md border-gray-400 hover:bg-primaryColor hover:border-primaryBody transform transition-all duration-200 ease-in-out font-semibold active:scale-95">
+                View Recipe
+              </button>
+            </div>
+          </div>
+          <div className="rounded-md main text-start">
+            <img
+              src={speedymassamanbeefstirfryImg}
+              loading="lazy"
+              alt="speedy massaman beef stir-fry"
+              className="w-fit rounded-t-md"
+            />
+            <div className="p-3">
+              <h3 className="font-roboto font-semibold">
+                Speedy massaman beef stir-fry
+              </h3>
+              <p className="text-start text-sm text-gray-300">
+                Fast and tasty, this dish captures the same spiced, creamy
+                coconut flavours of a curry.
+              </p>
+              <button className="mt-2 border p-1 w-full rounded-md border-gray-400 hover:bg-primaryColor hover:border-primaryBody transform transition-all duration-200 ease-in-out font-semibold active:scale-95">
+                View Recipe
+              </button>
+            </div>
+          </div>
+          <div className="rounded-md main text-start">
+            <img
+              src={speedymassamanbeefstirfryImg}
+              loading="lazy"
+              alt="speedy massaman beef stir-fry"
+              className="w-fit rounded-t-md"
+            />
+            <div className="p-3">
+              <h3 className="font-roboto font-semibold">
+                Speedy massaman beef stir-fry
+              </h3>
+              <p className="text-start text-sm text-gray-300">
+                Fast and tasty, this dish captures the same spiced, creamy
+                coconut flavours of a curry.
+              </p>
+              <button className="mt-2 border p-1 w-full rounded-md border-gray-400 hover:bg-primaryColor hover:border-primaryBody transform transition-all duration-200 ease-in-out font-semibold active:scale-95">
+                View Recipe
+              </button>
+            </div>
+          </div>
+          <div className="rounded-md main text-start">
+            <img
+              src={speedymassamanbeefstirfryImg}
+              loading="lazy"
+              alt="speedy massaman beef stir-fry"
+              className="w-fit rounded-t-md"
+            />
+            <div className="p-3">
+              <h3 className="font-roboto font-semibold">
+                Speedy massaman beef stir-fry
+              </h3>
+              <p className="text-start text-sm text-gray-300">
+                Fast and tasty, this dish captures the same spiced, creamy
+                coconut flavours of a curry.
+              </p>
+              <button className="mt-2 border p-1 w-full rounded-md border-gray-400 hover:bg-primaryColor hover:border-primaryBody transform transition-all duration-200 ease-in-out font-semibold active:scale-95">
+                View Recipe
+              </button>
+            </div>
+          </div>
+        </div>
       </section>
 
-      {/* Trending in Season */}
-      <section>
+      {/* Ingredients in Season */}
+      <section className="p-3 md:px-10 py-4 flex flex-col gap-y-2 bg-primaryBody text-white">
         {/* Header */}
-        <div>
-          <h1></h1>
-          <div></div>
+        <div className=" flex flex-row justify-between items-center">
+          <h1 className="font-roboto text-lg md:text-2xl font-semibold">
+            Ingredients in season
+          </h1>
+          <div className="flex flex-row flex-wrap gap-1">
+            <button className="rounded-full bg-primaryColor border p-2 active:scale-90 transition-all duration-150 ease-in">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={2.5}
+                stroke="currentColor"
+                className="size-5 text-white"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M15.75 19.5 8.25 12l7.5-7.5"
+                />
+              </svg>
+            </button>
+            <button className="rounded-full bg-primaryColor border p-2 active:scale-90 transition-all duration-150 ease-in">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={2.5}
+                stroke="currentColor"
+                className="size-5 text-white"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="m8.25 4.5 7.5 7.5-7.5 7.5"
+                />
+              </svg>
+            </button>
+          </div>
         </div>
 
         {/* Flavors */}
-        <div></div>
+        <div className="flex flex-row overflow-x-scroll scrollbar-hide whitespace-nowrap">
+          {ingredientImages.map(({ id, src, alt, label }) => (
+            <div key={id} className="menu flex flex-col items-center mx-2">
+              <img
+                src={src}
+                loading="lazy"
+                alt={alt}
+                className="size-20 rounded-full"
+              />
+              <h3 className="mt-2 text-sm font-medium">{label}</h3>
+            </div>
+          ))}
+        </div>
       </section>
 
       {/* FAQ */}
-      <section>
-        <div></div>
-        <div></div>
+      <section className="py-2 md:py-4 bg-primaryBody">
+        <div className="max-w-screen-md mx-auto px-4 sm:px-6 lg:px-8 flex flex-col justify-between">
+          <div className="text-center">
+            <p className="mt-4 text-sm leading-7 text-gray-500 font-regular">
+              F.A.Q
+            </p>
+            <h3 className="text-3xl sm:text-4xl leading-normal font-extrabold tracking-tight text-gray-300">
+              Frequently Asked&nbsp;
+              <span className="text-primaryColor">Questions</span>
+            </h3>
+          </div>
+
+          <div className="mt-5 md:mt-14">
+            <ul>
+              {faqData.map((faq) => (
+                <li key={faq.id} className="text-left mb-7">
+                  {/* Question */}
+                  <div className="flex flex-row items-start mb-3">
+                    <div className="hidden sm:flex items-center justify-center p-3 mr-3 rounded-full bg-indigo-500 text-white border-4 border-white text-xl font-semibold">
+                      <svg
+                        width="30px"
+                        fill="white"
+                        height="30px"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <g data-name="Layer 2">
+                          <g data-name="menu-arrow">
+                            <rect
+                              width="24"
+                              height="24"
+                              transform="rotate(180 12 12)"
+                              opacity="0"
+                            ></rect>
+                            <path d="M17 9A5 5 0 0 0 7 9a1 1 0 0 0 2 0 3 3 0 1 1 3 3 1 1 0 0 0-1 1v2a1 1 0 0 0 2 0v-1.1A5 5 0 0 0 17 9z" />
+                            <circle cx="12" cy="19" r="1" />
+                          </g>
+                        </g>
+                      </svg>
+                    </div>
+                    <div className="bg-gray-300 p-4 rounded px-6 w-full flex items-center">
+                      <h4 className="text-md leading-6 font-medium text-gray-900">
+                        {faq.question}
+                      </h4>
+                    </div>
+                  </div>
+
+                  {/* Answer */}
+                  <div className="flex flex-row items-start">
+                    <div className="bg-indigo-300 rounded-md p-4 px-6 w-full flex items-center">
+                      <p className="text-gray-700 text-sm">{faq.answer}</p>
+                    </div>
+                    <div className="hidden sm:flex items-center justify-center p-3 ml-3 rounded-full bg-indigo-500 text-white border-4 border-white text-xl font-semibold">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth={1.5}
+                        stroke="currentColor"
+                        className="size-6"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M21 11.25v8.25a1.5 1.5 0 0 1-1.5 1.5H5.25a1.5 1.5 0 0 1-1.5-1.5v-8.25M12 4.875A2.625 2.625 0 1 0 9.375 7.5H12m0-2.625V7.5m0-2.625A2.625 2.625 0 1 1 14.625 7.5H12m0 0V21m-8.625-9.75h18c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125h-18c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125Z"
+                        />
+                      </svg>
+                    </div>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
       </section>
     </div>
   );
