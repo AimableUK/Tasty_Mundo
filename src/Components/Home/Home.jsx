@@ -1,19 +1,19 @@
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
-import client from "../../assets/client.png";
-import clientResult from "../../assets/clientResult.png";
-import avocadoImg from "../../assets/avocado.jpg";
-import riceImg from "../../assets/rice.jpg";
-import berriesImg from "../../assets/berries.jpg";
-import mushroomImg from "../../assets/mushroom.jpg";
-import salmonImg from "../../assets/salmon.jpg";
-import lentilsImg from "../../assets/lentils.jpg";
-import potatoesImg from "../../assets/potatoes.jpg";
-import cabbageImg from "../../assets/cabbage.jpg";
-import chickenMeatImg from "../../assets/chickenMeat.jpg"
-import appleImg from "../../assets/apple.jpg"
-import cucumberImg from "../../assets/cucumber.jpg"
-import quinoaImg from "../../assets/quinoa.jpg"
+import client from "../../assets/client.webp";
+import clientResult from "../../assets/clientResult.webp";
+import avocadoImg from "../../assets/avocado.webp";
+import riceImg from "../../assets/rice.webp";
+import berriesImg from "../../assets/berries.webp";
+import mushroomImg from "../../assets/mushroom.webp";
+import salmonImg from "../../assets/salmon.webp";
+import lentilsImg from "../../assets/lentils.webp";
+import potatoesImg from "../../assets/potatoes.webp";
+import cabbageImg from "../../assets/cabbage.webp";
+import chickenMeatImg from "../../assets/chickenMeat.webp";
+import appleImg from "../../assets/apple.webp";
+import cucumberImg from "../../assets/cucumber.webp";
+import quinoaImg from "../../assets/quinoa.webp";
 import CosmosCanvas from "../canvas/CosmosCanvas";
 
 const Home = () => {
@@ -93,6 +93,81 @@ const Home = () => {
   const randomTagline = getRandomItem(taglines);
   const randomSubTagline = getRandomItem(subTaglines);
   const randomPlaceholder = getRandomItem(placeholders);
+
+  const ingredientImages = [
+    {
+      id: 1,
+      src: avocadoImg,
+      alt: "Avocado Image",
+      label: "Avocado",
+    },
+    {
+      id: 2,
+      src: riceImg,
+      alt: "Rice Image",
+      label: "Rice",
+    },
+    {
+      id: 3,
+      src: berriesImg,
+      alt: "Berries Image",
+      label: "Berries",
+    },
+    {
+      id: 4,
+      src: mushroomImg,
+      alt: "Mushroom Image",
+      label: "Mushroom",
+    },
+    {
+      id: 5,
+      src: salmonImg,
+      alt: "Salmon Image",
+      label: "Salmon",
+    },
+    {
+      id: 6,
+      src: lentilsImg,
+      alt: "Lentils Image",
+      label: "Lentils",
+    },
+    {
+      id: 7,
+      src: potatoesImg,
+      alt: "Potatoes Image",
+      label: "Potatoes",
+    },
+    {
+      id: 8,
+      src: cabbageImg,
+      alt: "Cabbage Image",
+      label: "Cabbage",
+    },
+    {
+      id: 9,
+      src: chickenMeatImg,
+      alt: "Chicken Meat Image",
+      label: "Chicken Meat",
+    },
+    {
+      id: 10,
+      src: appleImg,
+      alt: "Apple Image",
+      label: "Apple",
+    },
+    {
+      id: 11,
+      src: cucumberImg,
+      alt: "Cucumber Image",
+      label: "Cucumber",
+    },
+    {
+      id: 12,
+      src: quinoaImg,
+      alt: "Quinoa Image",
+      label: "Quinoa",
+    },
+  ];
 
   const faqs = [
     {
@@ -235,12 +310,14 @@ const Home = () => {
             <div className="images-section flex flex-row flex-nowrap gap-3">
               <img
                 src={client}
+                loading="lazy"
                 alt="Why we Exist"
                 className="card p-1 relative rounded-xl shadow-xl object-cover hover:opacity-90 transition-opacity duration-300"
               />
               <img
                 src={clientResult}
                 alt="Why we Exist"
+                loading="lazy"
                 className="card p-1 relative rounded-xl shadow-xl object-cover hover:opacity-90 transition-opacity duration-300"
               />
             </div>
@@ -311,102 +388,17 @@ const Home = () => {
 
         {/* Flavors */}
         <div className="flex flex-row overflow-x-scroll scrollbar-hide whitespace-nowrap">
-          <div className="menu">
-            <img
-              src={avocadoImg}
-              alt="Avocado Image"
-              className="size-20 rounded-full"
-            />
-            <h3>Avocado</h3>
-          </div>
-          <div className="menu">
-            <img
-              src={riceImg}
-              alt="Rice Image"
-              className="size-20 rounded-full"
-            />
-            <h3>Rice</h3>
-          </div>
-          <div className="menu">
-            <img
-              src={berriesImg}
-              alt="Berries Image"
-              className="size-20 rounded-full"
-            />
-            <h3>Berries</h3>
-          </div>
-          <div className="menu">
-            <img
-              src={mushroomImg}
-              alt="Mushroom Image"
-              className="size-20 rounded-full"
-            />
-            <h3>Mushroom</h3>
-          </div>
-          <div className="menu">
-            <img
-              src={salmonImg}
-              alt="Salmon Image"
-              className="size-20 rounded-full"
-            />
-            <h3>Salmon</h3>
-          </div>
-          <div className="menu">
-            <img
-              src={lentilsImg}
-              alt="Lentils Image"
-              className="size-20 rounded-full"
-            />
-            <h3>Lentils</h3>
-          </div>
-          <div className="menu">
-            <img
-              src={potatoesImg}
-              alt="Potatoes Image"
-              className="size-20 rounded-full"
-            />
-            <h3>Potatoes</h3>
-          </div>
-          <div className="menu">
-            <img
-              src={cabbageImg}
-              alt="Cabbage Image"
-              className="size-20 rounded-full"
-            />
-            <h3>Cabbage</h3>
-          </div>
-          <div className="menu">
-            <img
-              src={chickenMeatImg}
-              alt="chicken Meat Image"
-              className="size-20 rounded-full"
-            />
-            <h3>chicken Meat</h3>
-          </div>
-          <div className="menu">
-            <img
-              src={appleImg}
-              alt="apple Image"
-              className="size-20 rounded-full"
-            />
-            <h3>Apple</h3>
-          </div>
-          <div className="menu">
-            <img
-              src={cucumberImg}
-              alt="Cucumber Image"
-              className="size-20 rounded-full"
-            />
-            <h3>Cucumber</h3>
-          </div>
-          <div className="menu">
-            <img
-              src={quinoaImg}
-              alt="Quinoa Image"
-              className="size-20 rounded-full"
-            />
-            <h3>Quinoa</h3>
-          </div>
+          {ingredientImages.map(({ id, src, alt, label }) => (
+            <div key={id} className="menu flex flex-col items-center mx-2">
+              <img
+                src={src}
+                loading="lazy"
+                alt={alt}
+                className="size-20 rounded-full"
+              />
+              <h3 className="mt-2 text-sm font-medium">{label}</h3>
+            </div>
+          ))}
         </div>
       </section>
 
