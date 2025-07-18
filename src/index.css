@@ -162,3 +162,9 @@ body {
     inset 0 0 10px rgba(255, 255, 255, 0.3);
   transition: all 0.3s ease-in-out;
 }
+
+.header {
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2),
+    inset 0 0 6px rgba(255, 255, 255, 0.3);
+}
