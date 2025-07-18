@@ -10,6 +10,10 @@ import salmonImg from "../../assets/salmon.jpg";
 import lentilsImg from "../../assets/lentils.jpg";
 import potatoesImg from "../../assets/potatoes.jpg";
 import cabbageImg from "../../assets/cabbage.jpg";
+import chickenMeatImg from "../../assets/chickenMeat.jpg"
+import appleImg from "../../assets/apple.jpg"
+import cucumberImg from "../../assets/cucumber.jpg"
+import quinoaImg from "../../assets/quinoa.jpg"
 import CosmosCanvas from "../canvas/CosmosCanvas";
 
 const Home = () => {
@@ -306,7 +310,7 @@ const Home = () => {
         </div>
 
         {/* Flavors */}
-        <div className="flex flex-row">
+        <div className="flex flex-row overflow-x-scroll scrollbar-hide whitespace-nowrap">
           <div className="menu">
             <img
               src={avocadoImg}
@@ -370,6 +374,38 @@ const Home = () => {
               className="size-20 rounded-full"
             />
             <h3>Cabbage</h3>
+          </div>
+          <div className="menu">
+            <img
+              src={chickenMeatImg}
+              alt="chicken Meat Image"
+              className="size-20 rounded-full"
+            />
+            <h3>chicken Meat</h3>
+          </div>
+          <div className="menu">
+            <img
+              src={appleImg}
+              alt="apple Image"
+              className="size-20 rounded-full"
+            />
+            <h3>Apple</h3>
+          </div>
+          <div className="menu">
+            <img
+              src={cucumberImg}
+              alt="Cucumber Image"
+              className="size-20 rounded-full"
+            />
+            <h3>Cucumber</h3>
+          </div>
+          <div className="menu">
+            <img
+              src={quinoaImg}
+              alt="Quinoa Image"
+              className="size-20 rounded-full"
+            />
+            <h3>Quinoa</h3>
           </div>
         </div>
       </section>
