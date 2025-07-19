@@ -1,10 +1,10 @@
 import React, { useRef, useState } from "react";
 import testimonialsData from "../../Data/TestimonialsData/testimonialsData";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, easeInOut } from "framer-motion";
 
 const Testimonials = () => {
   const [index, setIndex] = useState(0);
-  const direction = useRef(0); // -1 = left, 1 = right
+  const direction = useRef(0);
 
   const handleNext = () => {
     direction.current = 1;
@@ -32,7 +32,7 @@ const Testimonials = () => {
   };
 
   return (
-    <div className="bg-primaryBody text-white flex flex-col font-nunito">
+    <div className="bg-primaryBody text-white flex flex-col font-nunito md:px-28">
       <AnimatePresence mode="wait" custom={direction.current}>
         <motion.div
           key={testimonialsData[index].id}
@@ -41,7 +41,7 @@ const Testimonials = () => {
           initial="enter"
           animate="center"
           exit="exit"
-          transition={{ duration: 0.4 }}
+          transition={{ duration: 0.4, ease: "easeInOut" }}
           className="your-styled-testimonial-container"
         >
           <div className="p-3 md:px-10 md:grid grid-cols-3">
@@ -50,7 +50,7 @@ const Testimonials = () => {
               <img
                 src={testimonialsData[index].img}
                 alt={testimonialsData[index].name + ", " + testimonialsData[index].title}
-                className="w-full md:size-64 rounded-md"
+                className="w-full md:size-72 rounded-md"
               />
             </div>
 
