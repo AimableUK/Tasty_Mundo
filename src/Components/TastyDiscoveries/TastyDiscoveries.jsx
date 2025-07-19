@@ -1,7 +1,10 @@
 import React from "react";
 import recentDiscoveries from "../../Data/TastyFoods/recentDiscoveries";
+import { getDailyItems } from "../../utils/getDailyItems";
 
 const TastyDiscoveries = () => {
+  const discoveriesToday = getDailyItems(recentDiscoveries, 4, "discoveries");
+
   return (
     <section className="p-3 md:px-10 pt-8 bg-primaryBody text-white">
       {/* Header */}
@@ -10,7 +13,7 @@ const TastyDiscoveries = () => {
       </h1>
 
       <div className="my-3 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-y-4">
-        {recentDiscoveries.slice(0, 4).map((food) => (
+        {discoveriesToday.map((food) => (
           <div key={food.id} className="rounded-md main text-start">
             <img
               src={food.image}

@@ -23,6 +23,7 @@ import faqData from "../../Data/FAQ/faqData.js";
 
 // Testimonials
 import Testimonials from "../Testimonials/Testimonials.jsx";
+import { getDailyItems } from "../../utils/getDailyItems.js";
 
 const Home = () => {
   const trendingRef = useRef(null);
@@ -42,6 +43,13 @@ const Home = () => {
 
   const scrollRight = (ref) =>
     ref.current?.scrollBy({ left: 200, behavior: "smooth" });
+
+  const trendingToday = getDailyItems(trendingFlavors, null, "trending");
+  const seasonalIngredientsToday = getDailyItems(
+    ingredientsInSeason,
+    null,
+    "ingredients"
+  );
 
   return (
     <div>
@@ -208,7 +216,7 @@ const Home = () => {
           ref={trendingRef}
           className="flex flex-row overflow-x-scroll scrollbar-hide whitespace-nowrap"
         >
-          {trendingFlavors.map(({ id, src, alt, label }) => (
+          {trendingToday.map(({ id, src, alt, label }) => (
             <div key={id} className="menu flex flex-col items-center mx-2">
               <img
                 src={src}
@@ -285,7 +293,7 @@ const Home = () => {
           ref={ingredientsRef}
           className="flex flex-row overflow-x-scroll scrollbar-hide whitespace-nowrap"
         >
-          {ingredientsInSeason.map(({ id, src, alt, label }) => (
+          {seasonalIngredientsToday.map(({ id, src, alt, label }) => (
             <div key={id} className="menu flex flex-col items-center mx-2">
               <img
                 src={src}
