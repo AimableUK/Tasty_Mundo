@@ -49,8 +49,7 @@ const Testimonials = () => {
             <div className="col-span-1">
               <img
                 src={testimonialsData[index].img}
-                loading="lazy"
-                alt="testimonial-Img-1"
+                alt={testimonialsData[index].name + ", " + testimonialsData[index].title}
                 className="w-full md:size-64 rounded-md"
               />
             </div>
