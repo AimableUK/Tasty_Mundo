@@ -83,7 +83,7 @@ export default function Header() {
           </div>
           <div className="relative">
             <div
-              onClick={() => setMenuItem(!menu)}
+              onClick={() => setMenu((prev) => !prev)}
               className={`cursor-pointer transition-transform duration-300 ease-in-out ${
                 menu ? "rotate-90" : "rotate-0"
               }`}
