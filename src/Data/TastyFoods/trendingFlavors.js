@@ -1,15 +1,15 @@
-import avocadoImg from "../assets/avocado.webp";
-import riceImg from "../assets/rice.webp";
-import berriesImg from "../assets/berries.webp";
-import mushroomImg from "../assets/mushroom.webp";
-import salmonImg from "../assets/salmon.webp";
-import lentilsImg from "../assets/lentils.webp";
-import potatoesImg from "../assets/potatoes.webp";
-import cabbageImg from "../assets/cabbage.webp";
-import chickenMeatImg from "../assets/chickenMeat.webp";
-import appleImg from "../assets/apple.webp";
-import cucumberImg from "../assets/cucumber.webp";
-import quinoaImg from "../assets/quinoa.webp";
+import avocadoImg from "../../assets/avocado.webp";
+import riceImg from "../../assets/rice.webp";
+import berriesImg from "../../assets/berries.webp";
+import mushroomImg from "../../assets/mushroom.webp";
+import salmonImg from "../../assets/salmon.webp";
+import lentilsImg from "../../assets/lentils.webp";
+import potatoesImg from "../../assets/potatoes.webp";
+import cabbageImg from "../../assets/cabbage.webp";
+import chickenMeatImg from "../../assets/chickenMeat.webp";
+import appleImg from "../../assets/apple.webp";
+import cucumberImg from "../../assets/cucumber.webp";
+import quinoaImg from "../../assets/quinoa.webp";
 
 const trendingFlavors = [
   {

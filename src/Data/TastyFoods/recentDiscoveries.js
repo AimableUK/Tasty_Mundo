@@ -1,15 +1,15 @@
-import vietnameseSpringRollsImg from "../assets/vietnameseSpringRolls.webp";
-import stuffedBellPeppersImg from "../assets/stuffedBellPeppers.webp";
-import tandooriCauliflowerImg from "../assets/tandooriCauliflower.webp";
-import kimchiFriedRiceImg from "../assets/kimchiFriedRice.webp";
-import pestoZucchiniNoodlesImg from "../assets/pestoZucchiniNoodles.webp";
-import shakshukaImg from "../assets/shakshuka.webp";
-import tamagoSushiImg from "../assets/tamagoSushi.webp";
-import falafelWrapImg from "../assets/falafelWrap.webp";
-import jollofRiceImg from "../assets/jollofRice.webp";
-import sweetPotatoTacosImg from "../assets/sweetPotatoTacos.webp";
-import beetrootHummusToastImg from "../assets/beetrootHummusToast.webp";
-import jerkChickenImg from "../assets/jerkChicken.webp";
+import vietnameseSpringRollsImg from "../../assets/vietnameseSpringRolls.webp";
+import stuffedBellPeppersImg from "../../assets/stuffedBellPeppers.webp";
+import tandooriCauliflowerImg from "../../assets/tandooriCauliflower.webp";
+import kimchiFriedRiceImg from "../../assets/kimchiFriedRice.webp";
+import pestoZucchiniNoodlesImg from "../../assets/pestoZucchiniNoodles.webp";
+import shakshukaImg from "../../assets/shakshuka.webp";
+import tamagoSushiImg from "../../assets/tamagoSushi.webp";
+import falafelWrapImg from "../../assets/falafelWrap.webp";
+import jollofRiceImg from "../../assets/jollofRice.webp";
+import sweetPotatoTacosImg from "../../assets/sweetPotatoTacos.webp";
+import beetrootHummusToastImg from "../../assets/beetrootHummusToast.webp";
+import jerkChickenImg from "../../assets/jerkChicken.webp";
 
 const recentDiscoveries = [
   {

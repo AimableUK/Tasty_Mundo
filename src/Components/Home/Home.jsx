@@ -1,108 +1,32 @@
+import { useRef } from "react";
+
+// client
 import client from "../../assets/client.webp";
 import clientResult from "../../assets/clientResult.webp";
+
+// testimonial
 import testimonialImg from "../../assets/testimonial.webp";
+
+// canvas
 import CosmosCanvas from "../canvas/CosmosCanvas";
-import trendingFlavors from "../../Data/trendingFlavors.js";
-import NewFoods from "../../Data/NewFoods.js";
-import recentDiscoveries from "../../Data/recentDiscoveries.js";
-import ingredientsInSeason from "../../Data/ingredientsInSeason.js";
+
+// foods
+import trendingFlavors from "../../Data/TastyFoods/trendingFlavors.js";
+import NewFoods from "../../Data/TastyFoods/NewFoods.js";
+import recentDiscoveries from "../../Data/TastyFoods/recentDiscoveries.js";
+import ingredientsInSeason from "../../Data/TastyFoods/ingredientsInSeason.js";
+
+// welcome text
+import taglines from "../../Data/WelcomeText/taglines.js";
+import subTaglines from "../../Data/WelcomeText/subTaglines.js";
+import placeholders from "../../Data/WelcomeText/placeholders.js";
+
+// faq
+import faqData from "../../Data/FAQ/faqData.js";
 
 const Home = () => {
-  const taglines = [
-    "Unleash Your Inner Chef.",
-    "Flavorful Creativity, Unlocked.",
-    "Turn Ingredients into Inspiration.",
-    "AI That Cooks with You.",
-    "Cook Smarter with AI.",
-    "Your Imagination, Our Intelligence.",
-    "Recipes Born from Your Pantry.",
-    "Discover Dishes, Not Limits.",
-    "Creativity Meets Cuisine.",
-    "From Ingredients to Ideas.",
-    "Food Ideas, Reimagined.",
-    "Smart Cooking Starts Here.",
-    "Inspiration, Served Fresh.",
-    "A New Recipe Every Time.",
-    "Generative AI, Tasty Results.",
-    "Let AI Stir Your Imagination.",
-    "Your Ingredients, Infinite Recipes.",
-    "Think It. Taste It.",
-    "Cooking Reimagined by AI.",
-    "Invent Your Next Favorite Dish.",
-  ];
-
-  const subTaglines = [
-    "Let our intelligent recipe engine turn your everyday ingredients into exciting, chef-inspired meals in seconds.",
-    "Tired of wondering what to cook? Simply enter what you have, and let our AI serve up delicious recipe ideas tailored just for you.",
-    "Discover how cutting-edge generative AI can revolutionize your kitchen—turning simple groceries into gourmet inspiration.",
-    "From what's left in your fridge to a full dinner plan, our AI helps you make the most of every ingredient you have.",
-    "Generate unique, step-by-step recipes using AI trained to understand flavors, combinations, and your personal preferences.",
-    "Experience a smarter way to cook: just type in your ingredients and watch our AI create something extraordinary for you.",
-    "Let go of the guesswork—our platform analyzes your inputs to deliver curated, creative, and delicious recipes in real time.",
-    "Empower your cooking journey with AI that understands your pantry, your taste, and your time constraints.",
-    "With every reload, discover a new idea—our generative AI brings unlimited culinary creativity right to your fingertips.",
-    "AI-driven cooking isn't the future—it's now. Explore intelligent recipes built from the items you already own.",
-    "Say goodbye to boring meals. Our platform transforms basic supplies into mouthwatering experiences using smart technology.",
-    "Your kitchen companion for effortless cooking—AI helps you plan, create, and enjoy meals like never before.",
-    "We combine artificial intelligence and culinary knowledge to help you make the most of every bite.",
-    "Enter your ingredients and explore creative meal ideas you never knew you could cook at home.",
-    "No matter your skill level, our AI guides you through personalized recipe creation, one smart suggestion at a time.",
-    "Build better meals without the stress—our AI helps you discover, adapt, and create recipes based on your lifestyle.",
-    "An effortless cooking assistant that listens to what you have and tells you what to make.",
-    "Experience the joy of cooking without the planning—our recipe AI handles that for you with a fresh twist every time.",
-    "Whether you're meal prepping or improvising dinner, our AI is here to inspire your inner chef.",
-    "Cooking should be fun, not frustrating. Let our AI simplify your decisions and spice up your meals.",
-  ];
-
-  const placeholders = [
-    "What's in your fridge?",
-    "Enter what you have...",
-    "Type your ingredients...",
-    "Got veggies? Type here...",
-    "What are you cooking with?",
-    "List your ingredients...",
-    "Tell me what's at home...",
-    "Share your ingredients...",
-    "Got food? Let's cook!",
-    "Start with what you have...",
-    "Any leftovers to use?",
-    "What do you have today?",
-    "Input what's on hand...",
-    "Cooking with what today?",
-    "Have tomatoes? Or rice?",
-    "Type what's in the kitchen...",
-    "What's in your basket?",
-    "Drop your ingredients here...",
-    "Got anything to cook with?",
-    "What's your meal idea?",
-  ];
-
-  const faqData = [
-    {
-      id: 1,
-      question: "How does Tasty Mundo work?",
-      answer:
-        "Our AI analyzes the ingredients you provide and instantly suggests recipe ideas based on culinary data, flavor profiles, and nutritional insights.",
-    },
-    {
-      id: 2,
-      question: "Can I customize the recipes to fit my diet?",
-      answer:
-        "Absolutely! You can filter by dietary needs such as vegetarian, gluten-free, keto, and more.",
-    },
-    {
-      id: 3,
-      question: "Is the site free to use?",
-      answer:
-        "Yes, our core features are completely free. Premium features may be added later to enhance your experience.",
-    },
-    {
-      id: 4,
-      question: "Can I save my favorite recipes?",
-      answer:
-        "Yes! when you submit ingredients, Our AI automatically saves them with the Generated Recipe for you to use Later.",
-    },
-  ];
+  const trendingRef = useRef(null);
+  const ingredientsRef = useRef(null);
 
   function getRandomItem(array) {
     return array[Math.floor(Math.random() * array.length)];
@@ -111,6 +35,13 @@ const Home = () => {
   const randomTagline = getRandomItem(taglines);
   const randomSubTagline = getRandomItem(subTaglines);
   const randomPlaceholder = getRandomItem(placeholders);
+
+  // Trending Flavors
+  const scrollLeft = (ref) =>
+    ref.current?.scrollBy({ left: -200, behavior: "smooth" });
+
+  const scrollRight = (ref) =>
+    ref.current?.scrollBy({ left: 200, behavior: "smooth" });
 
   return (
     <div>
@@ -231,7 +162,10 @@ const Home = () => {
             Trending Flavors
           </h1>
           <div className="flex flex-row flex-wrap gap-1">
-            <button className="rounded-full bg-primaryColor border p-2 active:scale-90 transition-all duration-150 ease-in">
+            <button
+              onClick={() => scrollLeft(trendingRef)}
+              className="rounded-full bg-primaryColor border p-2 active:scale-90 transition-all duration-150 ease-in"
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -247,7 +181,10 @@ const Home = () => {
                 />
               </svg>
             </button>
-            <button className="rounded-full bg-primaryColor border p-2 active:scale-90 transition-all duration-150 ease-in">
+            <button
+              onClick={() => scrollRight(trendingRef)}
+              className="rounded-full bg-primaryColor border p-2 active:scale-90 transition-all duration-150 ease-in"
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -267,7 +204,10 @@ const Home = () => {
         </div>
 
         {/* Flavors */}
-        <div className="flex flex-row overflow-x-scroll scrollbar-hide whitespace-nowrap">
+        <div
+          ref={trendingRef}
+          className="flex flex-row overflow-x-scroll scrollbar-hide whitespace-nowrap"
+        >
           {trendingFlavors.map(({ id, src, alt, label }) => (
             <div key={id} className="menu flex flex-col items-center mx-2">
               <img
@@ -451,45 +391,9 @@ const Home = () => {
       {/* Your Recent Discorvies */}
       <section className="p-3 md:px-10 pt-8 bg-primaryBody text-white">
         {/* Header */}
-        <div className="flex flex-row justify-between items-center">
-          <h1 className="font-roboto text-lg md:text-2xl font-semibold">
-            Your Recent Discoveries
-          </h1>
-          <div className="flex flex-row flex-wrap gap-1">
-            <button className="rounded-full bg-primaryColor border p-2 active:scale-90 transition-all duration-150 ease-in">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={2.5}
-                stroke="currentColor"
-                className="size-5 text-white"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M15.75 19.5 8.25 12l7.5-7.5"
-                />
-              </svg>
-            </button>
-            <button className="rounded-full bg-primaryColor border p-2 active:scale-90 transition-all duration-150 ease-in">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={2.5}
-                stroke="currentColor"
-                className="size-5 text-white"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="m8.25 4.5 7.5 7.5-7.5 7.5"
-                />
-              </svg>
-            </button>
-          </div>
-        </div>
+        <h1 className="font-roboto text-lg md:text-2xl font-semibold">
+          Your Recent Discoveries
+        </h1>
 
         <div className="my-3 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-y-4">
           {recentDiscoveries.slice(0, 4).map((food) => (
@@ -522,7 +426,10 @@ const Home = () => {
             Ingredients in season
           </h1>
           <div className="flex flex-row flex-wrap gap-1">
-            <button className="rounded-full bg-primaryColor border p-2 active:scale-90 transition-all duration-150 ease-in">
+            <button
+              onClick={() => scrollLeft(ingredientsRef)}
+              className="rounded-full bg-primaryColor border p-2 active:scale-90 transition-all duration-150 ease-in"
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -538,7 +445,10 @@ const Home = () => {
                 />
               </svg>
             </button>
-            <button className="rounded-full bg-primaryColor border p-2 active:scale-90 transition-all duration-150 ease-in">
+            <button
+              onClick={() => scrollRight(ingredientsRef)}
+              className="rounded-full bg-primaryColor border p-2 active:scale-90 transition-all duration-150 ease-in"
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -558,7 +468,10 @@ const Home = () => {
         </div>
 
         {/* Flavors */}
-        <div className="flex flex-row overflow-x-scroll scrollbar-hide whitespace-nowrap">
+        <div
+          ref={ingredientsRef}
+          className="flex flex-row overflow-x-scroll scrollbar-hide whitespace-nowrap"
+        >
           {ingredientsInSeason.map(({ id, src, alt, label }) => (
             <div key={id} className="menu flex flex-col items-center mx-2">
               <img

@@ -1,15 +1,15 @@
-import cornImg from "../assets/corn.webp";
-import zucchiniImg from "../assets/zucchini.webp";
-import peachImg from "../assets/peach.webp";
-import tomatoImg from "../assets/tomato.webp";
-import eggplantImg from "../assets/eggplant.webp";
-import bellPepperImg from "../assets/bellPepper.webp";
-import greenBeansImg from "../assets/greenBeans.webp";
-import watermelonImg from "../assets/watermelon.webp";
-import mangoImg from "../assets/mango.webp";
-import basilImg from "../assets/basil.webp";
-import pineappleImg from "../assets/pineapple.webp";
-import okraImg from "../assets/okra.webp";
+import cornImg from "../../assets/corn.webp";
+import zucchiniImg from "../../assets/zucchini.webp";
+import peachImg from "../../assets/peach.webp";
+import tomatoImg from "../../assets/tomato.webp";
+import eggplantImg from "../../assets/eggplant.webp";
+import bellPepperImg from "../../assets/bellPepper.webp";
+import greenBeansImg from "../../assets/greenBeans.webp";
+import watermelonImg from "../../assets/watermelon.webp";
+import mangoImg from "../../assets/mango.webp";
+import basilImg from "../../assets/basil.webp";
+import pineappleImg from "../../assets/pineapple.webp";
+import okraImg from "../../assets/okra.webp";
 
 const ingredientsInSeason = [
   {
