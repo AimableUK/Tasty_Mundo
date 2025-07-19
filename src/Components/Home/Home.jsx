@@ -8,7 +8,7 @@ import clientResult from "../../assets/clientResult.webp";
 import CosmosCanvas from "../canvas/CosmosCanvas";
 
 // foods
-import TastyNew from "../TastyNew/tastyNew.jsx";
+import TastyNew from "../TastyNew/TastyNew.jsx";
 import TastyDiscoveries from "../TastyDiscoveries/TastyDiscoveries.jsx";
 import trendingFlavors from "../../Data/TastyFoods/trendingFlavors.js";
 import ingredientsInSeason from "../../Data/TastyFoods/ingredientsInSeason.js";
