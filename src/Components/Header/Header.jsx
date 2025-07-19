@@ -144,7 +144,7 @@ export default function Header() {
               className={`${
                 menuItem === "aboutUs" ? "text-primaryColor" : "text-white"
               } font-nunito font-bold mr-5 hover:text-primaryColor transition ease-in-out duration-200`}
-              to={"/aboutus"}
+              to={"/aboutUs"}
               onClick={() => setMenuItem("aboutUs")}
             >
               About Us
