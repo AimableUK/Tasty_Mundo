@@ -1,20 +1,11 @@
 import client from "../../assets/client.webp";
 import clientResult from "../../assets/clientResult.webp";
-import avocadoImg from "../../assets/avocado.webp";
-import riceImg from "../../assets/rice.webp";
-import berriesImg from "../../assets/berries.webp";
-import mushroomImg from "../../assets/mushroom.webp";
-import salmonImg from "../../assets/salmon.webp";
-import lentilsImg from "../../assets/lentils.webp";
-import potatoesImg from "../../assets/potatoes.webp";
-import cabbageImg from "../../assets/cabbage.webp";
-import chickenMeatImg from "../../assets/chickenMeat.webp";
-import appleImg from "../../assets/apple.webp";
-import cucumberImg from "../../assets/cucumber.webp";
-import quinoaImg from "../../assets/quinoa.webp";
-import speedymassamanbeefstirfryImg from "../../assets/speedymassamanbeefstirfry.jpg";
-import testimonialImg from "../../assets/testimonial.jpg";
+import testimonialImg from "../../assets/testimonial.webp";
 import CosmosCanvas from "../canvas/CosmosCanvas";
+import trendingFlavors from "../../Data/trendingFlavors.js";
+import NewFoods from "../../Data/NewFoods.js";
+import recentDiscoveries from "../../Data/recentDiscoveries.js";
+import ingredientsInSeason from "../../Data/ingredientsInSeason.js";
 
 const Home = () => {
   const taglines = [
@@ -120,81 +111,6 @@ const Home = () => {
   const randomTagline = getRandomItem(taglines);
   const randomSubTagline = getRandomItem(subTaglines);
   const randomPlaceholder = getRandomItem(placeholders);
-
-  const ingredientImages = [
-    {
-      id: 1,
-      src: avocadoImg,
-      alt: "Avocado Image",
-      label: "Avocado",
-    },
-    {
-      id: 2,
-      src: riceImg,
-      alt: "Rice Image",
-      label: "Rice",
-    },
-    {
-      id: 3,
-      src: berriesImg,
-      alt: "Berries Image",
-      label: "Berries",
-    },
-    {
-      id: 4,
-      src: mushroomImg,
-      alt: "Mushroom Image",
-      label: "Mushroom",
-    },
-    {
-      id: 5,
-      src: salmonImg,
-      alt: "Salmon Image",
-      label: "Salmon",
-    },
-    {
-      id: 6,
-      src: lentilsImg,
-      alt: "Lentils Image",
-      label: "Lentils",
-    },
-    {
-      id: 7,
-      src: potatoesImg,
-      alt: "Potatoes Image",
-      label: "Potatoes",
-    },
-    {
-      id: 8,
-      src: cabbageImg,
-      alt: "Cabbage Image",
-      label: "Cabbage",
-    },
-    {
-      id: 9,
-      src: chickenMeatImg,
-      alt: "Chicken Meat Image",
-      label: "Chicken Meat",
-    },
-    {
-      id: 10,
-      src: appleImg,
-      alt: "Apple Image",
-      label: "Apple",
-    },
-    {
-      id: 11,
-      src: cucumberImg,
-      alt: "Cucumber Image",
-      label: "Cucumber",
-    },
-    {
-      id: 12,
-      src: quinoaImg,
-      alt: "Quinoa Image",
-      label: "Quinoa",
-    },
-  ];
 
   return (
     <div>
@@ -352,7 +268,7 @@ const Home = () => {
 
         {/* Flavors */}
         <div className="flex flex-row overflow-x-scroll scrollbar-hide whitespace-nowrap">
-          {ingredientImages.map(({ id, src, alt, label }) => (
+          {trendingFlavors.map(({ id, src, alt, label }) => (
             <div key={id} className="menu flex flex-col items-center mx-2">
               <img
                 src={src}
@@ -371,88 +287,26 @@ const Home = () => {
         <h1 className="font-roboto text-lg md:text-2xl font-semibold">
           New from Tasty Mundo
         </h1>
-        {/* flex flex-col md:flex-row */}
         <div className="my-3 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-y-4">
-          <div className="rounded-md main text-start">
-            <img
-              src={speedymassamanbeefstirfryImg}
-              loading="lazy"
-              alt="speedy massaman beef stir-fry"
-              className="w-fit rounded-t-md"
-            />
-            <div className="p-3">
-              <h3 className="font-roboto font-semibold">
-                Speedy massaman beef stir-fry
-              </h3>
-              <p className="text-start text-sm text-gray-300">
-                Fast and tasty, this dish captures the same spiced, creamy
-                coconut flavours of a curry.
-              </p>
-              <button className="mt-2 border p-1 w-full rounded-md border-gray-400 hover:bg-primaryColor hover:border-primaryBody transform transition-all duration-200 ease-in-out font-semibold active:scale-95">
-                View Recipe
-              </button>
+          {NewFoods.slice(0, 4).map((food) => (
+            <div key={food.id} className="rounded-md main text-start">
+              <img
+                src={food.image}
+                loading="lazy"
+                alt="speedy massaman beef stir-fry"
+                className="w-fit rounded-t-md"
+              />
+              <div className="p-3">
+                <h3 className="font-roboto font-semibold">{food.food_name}</h3>
+                <p className="text-start text-sm text-gray-300">
+                  {food.description}
+                </p>
+                <button className="mt-2 border p-1 w-full rounded-md border-gray-400 hover:bg-primaryColor hover:border-primaryBody transform transition-all duration-200 ease-in-out font-semibold active:scale-95">
+                  View Recipe
+                </button>
+              </div>
             </div>
-          </div>
-          <div className="rounded-md main text-start">
-            <img
-              src={speedymassamanbeefstirfryImg}
-              loading="lazy"
-              alt="speedy massaman beef stir-fry"
-              className="w-fit rounded-t-md"
-            />
-            <div className="p-3">
-              <h3 className="font-roboto font-semibold">
-                Speedy massaman beef stir-fry
-              </h3>
-              <p className="text-start text-sm text-gray-300">
-                Fast and tasty, this dish captures the same spiced, creamy
-                coconut flavours of a curry.
-              </p>
-              <button className="mt-2 border p-1 w-full rounded-md border-gray-400 hover:bg-primaryColor hover:border-primaryBody transform transition-all duration-200 ease-in-out font-semibold active:scale-95">
-                View Recipe
-              </button>
-            </div>
-          </div>
-          <div className="rounded-md main text-start">
-            <img
-              src={speedymassamanbeefstirfryImg}
-              loading="lazy"
-              alt="speedy massaman beef stir-fry"
-              className="w-fit rounded-t-md"
-            />
-            <div className="p-3">
-              <h3 className="font-roboto font-semibold">
-                Speedy massaman beef stir-fry
-              </h3>
-              <p className="text-start text-sm text-gray-300">
-                Fast and tasty, this dish captures the same spiced, creamy
-                coconut flavours of a curry.
-              </p>
-              <button className="mt-2 border p-1 w-full rounded-md border-gray-400 hover:bg-primaryColor hover:border-primaryBody transform transition-all duration-200 ease-in-out font-semibold active:scale-95">
-                View Recipe
-              </button>
-            </div>
-          </div>
-          <div className="rounded-md main text-start">
-            <img
-              src={speedymassamanbeefstirfryImg}
-              loading="lazy"
-              alt="speedy massaman beef stir-fry"
-              className="w-fit rounded-t-md"
-            />
-            <div className="p-3">
-              <h3 className="font-roboto font-semibold">
-                Speedy massaman beef stir-fry
-              </h3>
-              <p className="text-start text-sm text-gray-300">
-                Fast and tasty, this dish captures the same spiced, creamy
-                coconut flavours of a curry.
-              </p>
-              <button className="mt-2 border p-1 w-full rounded-md border-gray-400 hover:bg-primaryColor hover:border-primaryBody transform transition-all duration-200 ease-in-out font-semibold active:scale-95">
-                View Recipe
-              </button>
-            </div>
-          </div>
+          ))}
         </div>
       </section>
 
@@ -596,6 +450,7 @@ const Home = () => {
 
       {/* Your Recent Discorvies */}
       <section className="p-3 md:px-10 pt-8 bg-primaryBody text-white">
+        {/* Header */}
         <div className="flex flex-row justify-between items-center">
           <h1 className="font-roboto text-lg md:text-2xl font-semibold">
             Your Recent Discoveries
@@ -636,88 +491,26 @@ const Home = () => {
           </div>
         </div>
 
-        {/* flex flex-col md:flex-row */}
         <div className="my-3 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-y-4">
-          <div className="rounded-md main text-start">
-            <img
-              src={speedymassamanbeefstirfryImg}
-              loading="lazy"
-              alt="speedy massaman beef stir-fry"
-              className="w-fit rounded-t-md"
-            />
-            <div className="p-3">
-              <h3 className="font-roboto font-semibold">
-                Speedy massaman beef stir-fry
-              </h3>
-              <p className="text-start text-sm text-gray-300">
-                Fast and tasty, this dish captures the same spiced, creamy
-                coconut flavours of a curry.
-              </p>
-              <button className="mt-2 border p-1 w-full rounded-md border-gray-400 hover:bg-primaryColor hover:border-primaryBody transform transition-all duration-200 ease-in-out font-semibold active:scale-95">
-                View Recipe
-              </button>
+          {recentDiscoveries.slice(0, 4).map((food) => (
+            <div key={food.id} className="rounded-md main text-start">
+              <img
+                src={food.image}
+                loading="lazy"
+                alt="speedy massaman beef stir-fry"
+                className="w-fit rounded-t-md"
+              />
+              <div className="p-3">
+                <h3 className="font-roboto font-semibold">{food.food_name}</h3>
+                <p className="text-start text-sm text-gray-300">
+                  {food.description}
+                </p>
+                <button className="mt-2 border p-1 w-full rounded-md border-gray-400 hover:bg-primaryColor hover:border-primaryBody transform transition-all duration-200 ease-in-out font-semibold active:scale-95">
+                  View Recipe
+                </button>
+              </div>
             </div>
-          </div>
-          <div className="rounded-md main text-start">
-            <img
-              src={speedymassamanbeefstirfryImg}
-              loading="lazy"
-              alt="speedy massaman beef stir-fry"
-              className="w-fit rounded-t-md"
-            />
-            <div className="p-3">
-              <h3 className="font-roboto font-semibold">
-                Speedy massaman beef stir-fry
-              </h3>
-              <p className="text-start text-sm text-gray-300">
-                Fast and tasty, this dish captures the same spiced, creamy
-                coconut flavours of a curry.
-              </p>
-              <button className="mt-2 border p-1 w-full rounded-md border-gray-400 hover:bg-primaryColor hover:border-primaryBody transform transition-all duration-200 ease-in-out font-semibold active:scale-95">
-                View Recipe
-              </button>
-            </div>
-          </div>
-          <div className="rounded-md main text-start">
-            <img
-              src={speedymassamanbeefstirfryImg}
-              loading="lazy"
-              alt="speedy massaman beef stir-fry"
-              className="w-fit rounded-t-md"
-            />
-            <div className="p-3">
-              <h3 className="font-roboto font-semibold">
-                Speedy massaman beef stir-fry
-              </h3>
-              <p className="text-start text-sm text-gray-300">
-                Fast and tasty, this dish captures the same spiced, creamy
-                coconut flavours of a curry.
-              </p>
-              <button className="mt-2 border p-1 w-full rounded-md border-gray-400 hover:bg-primaryColor hover:border-primaryBody transform transition-all duration-200 ease-in-out font-semibold active:scale-95">
-                View Recipe
-              </button>
-            </div>
-          </div>
-          <div className="rounded-md main text-start">
-            <img
-              src={speedymassamanbeefstirfryImg}
-              loading="lazy"
-              alt="speedy massaman beef stir-fry"
-              className="w-fit rounded-t-md"
-            />
-            <div className="p-3">
-              <h3 className="font-roboto font-semibold">
-                Speedy massaman beef stir-fry
-              </h3>
-              <p className="text-start text-sm text-gray-300">
-                Fast and tasty, this dish captures the same spiced, creamy
-                coconut flavours of a curry.
-              </p>
-              <button className="mt-2 border p-1 w-full rounded-md border-gray-400 hover:bg-primaryColor hover:border-primaryBody transform transition-all duration-200 ease-in-out font-semibold active:scale-95">
-                View Recipe
-              </button>
-            </div>
-          </div>
+          ))}
         </div>
       </section>
 
@@ -766,7 +559,7 @@ const Home = () => {
 
         {/* Flavors */}
         <div className="flex flex-row overflow-x-scroll scrollbar-hide whitespace-nowrap">
-          {ingredientImages.map(({ id, src, alt, label }) => (
+          {ingredientsInSeason.map(({ id, src, alt, label }) => (
             <div key={id} className="menu flex flex-col items-center mx-2">
               <img
                 src={src}
