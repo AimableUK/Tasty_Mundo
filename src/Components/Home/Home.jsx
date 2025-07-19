@@ -8,9 +8,9 @@ import clientResult from "../../assets/clientResult.webp";
 import CosmosCanvas from "../canvas/CosmosCanvas";
 
 // foods
+import TastyNew from "../TastyNew/tastyNew.jsx";
+import TastyDiscoveries from "../TastyDiscoveries/TastyDiscoveries.jsx";
 import trendingFlavors from "../../Data/TastyFoods/trendingFlavors.js";
-import NewFoods from "../../Data/TastyFoods/NewFoods.js";
-import recentDiscoveries from "../../Data/TastyFoods/recentDiscoveries.js";
 import ingredientsInSeason from "../../Data/TastyFoods/ingredientsInSeason.js";
 
 // welcome text
@@ -20,6 +20,8 @@ import placeholders from "../../Data/WelcomeText/placeholders.js";
 
 // faq
 import faqData from "../../Data/FAQ/faqData.js";
+
+// Testimonials
 import Testimonials from "../Testimonials/Testimonials.jsx";
 
 const Home = () => {
@@ -221,65 +223,13 @@ const Home = () => {
       </section>
 
       {/* New From TastyMundo */}
-      <section className="p-3 md:px-10 bg-primaryBody text-white">
-        <h1 className="font-roboto text-lg md:text-2xl font-semibold">
-          New from Tasty Mundo
-        </h1>
-        <div className="my-3 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-y-4">
-          {NewFoods.slice(0, 4).map((food) => (
-            <div key={food.id} className="rounded-md main text-start">
-              <img
-                src={food.image}
-                loading="lazy"
-                alt="speedy massaman beef stir-fry"
-                className="w-fit rounded-t-md"
-              />
-              <div className="p-3">
-                <h3 className="font-roboto font-semibold">{food.food_name}</h3>
-                <p className="text-start text-sm text-gray-300">
-                  {food.description}
-                </p>
-                <button className="mt-2 border p-1 w-full rounded-md border-gray-400 hover:bg-primaryColor hover:border-primaryBody transform transition-all duration-200 ease-in-out font-semibold active:scale-95">
-                  View Recipe
-                </button>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
+      <TastyNew />
 
       {/* Testimonial */}
       <Testimonials />
 
       {/* Your Recent Discorvies */}
-      <section className="p-3 md:px-10 pt-8 bg-primaryBody text-white">
-        {/* Header */}
-        <h1 className="font-roboto text-lg md:text-2xl font-semibold">
-          Your Recent Discoveries
-        </h1>
-
-        <div className="my-3 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-y-4">
-          {recentDiscoveries.slice(0, 4).map((food) => (
-            <div key={food.id} className="rounded-md main text-start">
-              <img
-                src={food.image}
-                loading="lazy"
-                alt="speedy massaman beef stir-fry"
-                className="w-fit rounded-t-md"
-              />
-              <div className="p-3">
-                <h3 className="font-roboto font-semibold">{food.food_name}</h3>
-                <p className="text-start text-sm text-gray-300">
-                  {food.description}
-                </p>
-                <button className="mt-2 border p-1 w-full rounded-md border-gray-400 hover:bg-primaryColor hover:border-primaryBody transform transition-all duration-200 ease-in-out font-semibold active:scale-95">
-                  View Recipe
-                </button>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
+      <TastyDiscoveries />
 
       {/* Ingredients in Season */}
       <section className="p-3 md:px-10 py-4 flex flex-col gap-y-2 bg-primaryBody text-white">
