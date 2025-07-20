@@ -32,7 +32,7 @@ const Testimonials = () => {
   };
 
   return (
-    <div className="bg-primaryBody text-white flex flex-col font-nunito md:px-28">
+    <div className="bg-primaryBody text-white flex flex-col font-nunito md:px-10 lg:px-28">
       <AnimatePresence mode="wait" custom={direction.current}>
         <motion.div
           key={testimonialsData[index].id}
@@ -44,7 +44,7 @@ const Testimonials = () => {
           transition={{ duration: 0.4, ease: "easeInOut" }}
           className="your-styled-testimonial-container"
         >
-          <div className="p-3 md:px-10 md:grid grid-cols-3">
+          <div className="p-3 lg:px-10 md:grid grid-cols-3">
             {/* Picture */}
             <div className="col-span-1">
               <img

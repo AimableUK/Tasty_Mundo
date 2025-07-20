@@ -123,7 +123,7 @@ const Home = () => {
 
       {/* Why US */}
       <section className="p-3 md:px-10 py-4 pt-10 flex flex-col md:flex-row bg-primaryBody">
-        <div className="main wrapper pl-3 pt-3 lg:pt-0">
+        <div className="rounded-md main wrapper pl-3 pt-3 lg:pt-0">
           {/* Images */}
           <div className="relative px-4 md:px-0 p-2">
             <div className="images-section flex flex-row flex-nowrap gap-3">
@@ -142,11 +142,11 @@ const Home = () => {
             </div>
           </div>
           {/* <!-- Text Content --> */}
-          <div className="p-4 md:p-8 rounded-xl shadow-lg hover:scale-105 transform transition duration-300 ease-in-out">
-            <h2 className="text-2xl font-roboto md:text-4xl lg:text-5xl font-extrabold text-gray-300 mb-4">
+          <div className="p-4 md:py-8 md:pl-16 md:pr-4 rounded-xl shadow-lg transform transition duration-300 ease-in-out">
+            <h2 className="text-2xl font-roboto md:text-3xl lg:text-4xl font-extrabold text-gray-300 mb-4">
               "Unlock a World of Culinary Creativity!
             </h2>
-            <div className="main flex items-center space-x-4 p-4">
+            <div className="rounded-md main flex items-center space-x-4 p-4">
               <div>
                 <h3 className="md:text-xl font-semibold text-gray-400">
                   Got food? Let's cook!

@@ -91,7 +91,7 @@ const Footer = () => {
         {MySocials.map((option, index) => (
           <div key={index} className="relative">
             <button
-              className="text-primary text-2xl m-2"
+              className="text-primary text-2xl m-2 hover:text-primaryColor"
               onClick={() => window.open(option.url, "_blank")}
             >
               {option.icon}
