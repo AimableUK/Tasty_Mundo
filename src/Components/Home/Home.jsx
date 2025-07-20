@@ -24,6 +24,7 @@ import faqData from "../../Data/FAQ/faqData.js";
 // Testimonials
 import Testimonials from "../Testimonials/Testimonials.jsx";
 import { getDailyItems } from "../../utils/getDailyItems.js";
+import Chat from "../Chat/Chat.jsx";
 
 const Home = () => {
   const trendingRef = useRef(null);
@@ -52,9 +53,9 @@ const Home = () => {
   );
 
   return (
-    <div>
+    <div className="relative">
       {/* Welcome Text */}
-      <div className="text-white">
+      <div className="text-white relative">
         <CosmosCanvas />
         <div className="absolute inset-0 flex items-center justify-center flex-col font-nunito mt-10 md:mt-0 mx-10 md:mx-20 lg:mx-48 text-center gap-5">
           <h1 className="font-homenaje text-4xl md:text-6xl font-semibold">
@@ -229,6 +230,12 @@ const Home = () => {
           ))}
         </div>
       </section>
+
+      <Chat
+        randomPlaceholder={randomPlaceholder}
+        trendingRef={trendingRef}
+        ingredientsRef={ingredientsRef}
+      />
 
       {/* New From TastyMundo */}
       <TastyNew />
