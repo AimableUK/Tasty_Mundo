@@ -46,7 +46,7 @@ const Chat = ({
           value={value}
           className={`
             no-underline outline-none w-[200px] md:focus:w-[350px] lg:focus:w-[550px] bg-[#0e0f26] text-white transform transition-all duration-300 ease-in-out
-            ${value && "md:w-[350px] lg:w-[550px]"}
+            ${value.length > 0 && "md:w-[350px] lg:w-[550px]"}
             `}
         />
       </div>

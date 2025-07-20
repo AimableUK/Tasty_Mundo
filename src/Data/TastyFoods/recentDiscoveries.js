@@ -13,7 +13,7 @@ import jerkChickenImg from "../../assets/jerkChicken.webp";
 
 const recentDiscoveries = [
   {
-    id: 1,
+    id: 16,
     food_name: "Vietnamese Spring Rolls",
     description:
       "Fresh and light rice paper rolls filled with shrimp, veggies, and herbs.",
@@ -37,7 +37,7 @@ const recentDiscoveries = [
     ],
   },
   {
-    id: 2,
+    id: 17,
     food_name: "Stuffed Bell Peppers",
     description:
       "Colorful peppers filled with seasoned rice, veggies, and beef.",
@@ -60,7 +60,7 @@ const recentDiscoveries = [
     ],
   },
   {
-    id: 3,
+    id: 18,
     food_name: "Tandoori Cauliflower Bites",
     description:
       "Roasted cauliflower marinated in spiced yogurt and grilled to perfection.",
@@ -82,7 +82,7 @@ const recentDiscoveries = [
     ],
   },
   {
-    id: 4,
+    id: 19,
     food_name: "Kimchi Fried Rice",
     description:
       "Spicy Korean fried rice stir-fried with kimchi and vegetables.",
@@ -105,7 +105,7 @@ const recentDiscoveries = [
     ],
   },
   {
-    id: 5,
+    id: 20,
     food_name: "Pesto Zucchini Noodles",
     description: "Low-carb zucchini noodles tossed with homemade basil pesto.",
     image: pestoZucchiniNoodlesImg,
@@ -127,7 +127,7 @@ const recentDiscoveries = [
     ],
   },
   {
-    id: 6,
+    id: 21,
     food_name: "Shakshuka",
     description:
       "North African dish with poached eggs in a spiced tomato sauce.",
@@ -151,7 +151,7 @@ const recentDiscoveries = [
     ],
   },
   {
-    id: 7,
+    id: 22,
     food_name: "Japanese Tamago Sushi",
     description:
       "Sweet egg omelet served over sushi rice — a traditional Japanese treat.",
@@ -174,7 +174,7 @@ const recentDiscoveries = [
     ],
   },
   {
-    id: 8,
+    id: 23,
     food_name: "Falafel Wrap",
     description:
       "Crispy falafel balls wrapped in pita with hummus and veggies.",
@@ -199,7 +199,7 @@ const recentDiscoveries = [
     ],
   },
   {
-    id: 9,
+    id: 24,
     food_name: "Jollof Rice",
     description: "West African spiced rice cooked with tomatoes and peppers.",
     image: jollofRiceImg,
@@ -222,7 +222,7 @@ const recentDiscoveries = [
     ],
   },
   {
-    id: 10,
+    id: 25,
     food_name: "Sweet Potato Tacos",
     description:
       "Soft tacos filled with roasted sweet potatoes and black beans.",
@@ -244,7 +244,7 @@ const recentDiscoveries = [
     ],
   },
   {
-    id: 11,
+    id: 26,
     food_name: "Beetroot Hummus Toast",
     description:
       "Bright pink hummus made with beetroot spread over crusty bread.",
@@ -266,7 +266,7 @@ const recentDiscoveries = [
     ],
   },
   {
-    id: 12,
+    id: 27,
     food_name: "Caribbean Jerk Chicken",
     description: "Spicy grilled chicken with Caribbean jerk marinade.",
     image: jerkChickenImg,

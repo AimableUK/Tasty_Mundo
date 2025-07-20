@@ -7,6 +7,7 @@ const useMenuStore = create((set) => ({
       '/': 'home',
       '/aboutUs': 'aboutUs',
       '/services': 'services',
+      '/recipes': 'recipes'
     };
     set({ menuItem: menuMap[path] || '' });
   },

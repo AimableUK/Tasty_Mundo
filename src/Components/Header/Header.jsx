@@ -44,6 +44,15 @@ export default function Header() {
               </Link>
               <Link
                 className={`${
+                  menuItem === "recipes" ? "text-primaryColor" : "text-white"
+                } font-nunito font-bold mr-5 hover:text-primaryColor transition ease-in-out duration-200`}
+                to={"/recipes"}
+                onClick={() => setMenuItem("recipes")}
+              >
+                Recipes
+              </Link>
+              <Link
+                className={`${
                   menuItem === "aboutUs" ? "text-primaryColor" : "text-white"
                 } font-nunito font-bold mr-5 hover:text-primaryColor transition ease-in-out duration-200`}
                 to={"/aboutUs"}
@@ -139,6 +148,15 @@ export default function Header() {
               onClick={() => setMenuItem("home")}
             >
               Home
+            </Link>
+            <Link
+              className={`${
+                menuItem === "recipes" ? "text-primaryColor" : "text-white"
+              } font-nunito font-bold mr-5 hover:text-primaryColor transition ease-in-out duration-200`}
+              to={"/recipes"}
+              onClick={() => setMenuItem("recipes")}
+            >
+              Recipes
             </Link>
             <Link
               className={`${
