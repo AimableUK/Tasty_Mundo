@@ -90,8 +90,13 @@ body {
   gap: 1rem;
 }
 
+@media (min-width: 513px) {
+  .images-section {
+    flex-direction: column;
+  }
+}
 
-@media (min-width: 500px) {
+@media (min-width: 580px) {
   .images-section {
     flex: 1;
     flex-direction: row;
