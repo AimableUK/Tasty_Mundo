@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 // client
 import client from "../../assets/client.webp";
@@ -29,6 +29,8 @@ import Chat from "../Chat/Chat.jsx";
 const Home = () => {
   const trendingRef = useRef(null);
   const ingredientsRef = useRef(null);
+  const [ingredientsList, setIngredientsList] = useState([]);
+  const [ingredientsTop, setIngredientsTop] = useState("");
 
   function getRandomItem(array) {
     return array[Math.floor(Math.random() * array.length)];
@@ -52,6 +54,22 @@ const Home = () => {
     "ingredients"
   );
 
+  const addIngredient = (label) => {
+    if (!label) return;
+    setIngredientsList((prev) => {
+      if (prev.includes(label)) return prev;
+      return [...prev, label];
+    });
+  };
+
+  const handleSubmit = () => {
+    console.log(ingredientsList);
+  };
+
+  const handleSubmitTop = () => {
+    console.log(ingredientsTop);
+  };
+
   return (
     <div className="relative">
       {/* Welcome Text */}
@@ -67,10 +85,15 @@ const Home = () => {
               <input
                 type="text"
                 placeholder={randomPlaceholder}
+                value={ingredientsTop}
+                onChange={(e) => setIngredientsTop(e.target.value)}
                 className="outline-none w-[200px] md:focus:w-[350px] lg:focus:w-[550px] bg-[#0e0f26] text-white transform transition-all duration-300 ease-in-out"
               />
             </div>
-            <button className="p-3 rounded-full font-bold bg-[#0e0f26] flex flex-row flex-nowrap">
+            <button
+              onClick={handleSubmitTop}
+              className="hover:scale-95 active:scale-90 transition-all duration-200 ease-in-out p-3 rounded-full font-bold bg-[#0e0f26] flex flex-row flex-nowrap"
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 x="0px"
@@ -218,7 +241,11 @@ const Home = () => {
           className="flex flex-row overflow-x-scroll scrollbar-hide whitespace-nowrap"
         >
           {trendingToday.map(({ id, src, alt, label }) => (
-            <div key={id} className="menu flex flex-col items-center mx-2">
+            <div
+              onClick={() => addIngredient(label)}
+              key={id}
+              className="menu flex flex-col items-center mx-2 active:scale-90"
+            >
               <img
                 src={src}
                 loading="lazy"
@@ -232,7 +259,10 @@ const Home = () => {
       </section>
 
       <Chat
+        handleSubmit={handleSubmit}
         randomPlaceholder={randomPlaceholder}
+        value={ingredientsList}
+        onAddIngredient={addIngredient}
         trendingRef={trendingRef}
         ingredientsRef={ingredientsRef}
       />
@@ -301,7 +331,11 @@ const Home = () => {
           className="flex flex-row overflow-x-scroll scrollbar-hide whitespace-nowrap"
         >
           {seasonalIngredientsToday.map(({ id, src, alt, label }) => (
-            <div key={id} className="menu flex flex-col items-center mx-2">
+            <div
+              onClick={() => addIngredient(label)}
+              key={id}
+              className="menu flex flex-col items-center mx-2 active:scale-90"
+            >
               <img
                 src={src}
                 loading="lazy"

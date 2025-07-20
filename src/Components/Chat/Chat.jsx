@@ -1,6 +1,12 @@
 import React, { useEffect, useState } from "react";
 
-const Chat = ({ randomPlaceholder, trendingRef, ingredientsRef }) => {
+const Chat = ({
+  value,
+  randomPlaceholder,
+  handleSubmit,
+  trendingRef,
+  ingredientsRef,
+}) => {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
@@ -37,10 +43,17 @@ const Chat = ({ randomPlaceholder, trendingRef, ingredientsRef }) => {
         <input
           type="text"
           placeholder={randomPlaceholder}
-          className="outline-none w-[200px] md:focus:w-[350px] lg:focus:w-[550px] bg-[#0e0f26] text-white transform transition-all duration-300 ease-in-out"
+          value={value}
+          className={`
+            no-underline outline-none w-[200px] md:focus:w-[350px] lg:focus:w-[550px] bg-[#0e0f26] text-white transform transition-all duration-300 ease-in-out
+            ${value && "md:w-[350px] lg:w-[550px]"}
+            `}
         />
       </div>
-      <button className="p-3 rounded-full font-bold bg-[#0e0f26] flex flex-row flex-nowrap">
+      <button
+        onClick={handleSubmit}
+        className="hover:scale-95 active:scale-90 transition-all duration-200 ease-in-out p-3 rounded-full font-bold bg-[#0e0f26] flex flex-row flex-nowrap"
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           x="0px"
