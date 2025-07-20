@@ -81,7 +81,7 @@ const TastyNew = () => {
                     />
                   </svg>
                 </button>
-                <p className="group-hover:block whitespace-nowrap hidden absolute border rounded z-50 px-2 bg-primaryBody border-gray-400">
+                <p className="group-hover:block whitespace-nowrap hidden absolute border rounded z-50 px-2 bg-primaryBody border-gray-400 -right-3 -bottom-8">
                   {previewId === food.id ? "Hide" : "View"} Ingredients
                 </p>
               </div>
