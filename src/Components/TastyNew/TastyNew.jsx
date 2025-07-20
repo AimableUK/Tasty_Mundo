@@ -12,14 +12,17 @@ const TastyNew = () => {
       </h1>
       <div className="my-3 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-y-4">
         {newToday.map((food) => (
-          <div key={food.id} className="rounded-md main text-start">
+          <div
+            key={food.id}
+            className="rounded-md main flex flex-col text-start h-full"
+          >
             <img
               src={food.image}
               loading="lazy"
               alt="speedy massaman beef stir-fry"
               className="w-fit rounded-t-md"
             />
-            <div className="p-3">
+            <div className="flex flex-col flex-grow justify-between p-3">
               <h3 className="font-roboto font-semibold">{food.food_name}</h3>
               <p className="text-start text-sm text-gray-300">
                 {food.description}
