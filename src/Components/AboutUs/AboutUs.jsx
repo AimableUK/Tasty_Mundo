@@ -1,7 +1,7 @@
 const AboutUs = () => {
   return (
     <section className="py-28 md:py-20 px-6 md:px-12 bg-primaryBody text-white">
-      <div className="max-w-4xl mx-auto">
+      <div className="max-w-4xl mx-auto whitespace-nowrap">
         <h1 className="text-3xl md:text-4xl font-bold mb-6 font-roboto">
           About Us
         </h1>
@@ -24,17 +24,17 @@ const AboutUs = () => {
         </p>
       </div>
 
-      <div className="bg-slate-900 max-w-4xl mx-auto mt-8 border p-3 pt-10 rounded-2xl shadow-md shadow-amber-800 transition ease-in-out duration-300 hover:scale-95">
+      <div className="bg-slate-900 max-w-4xl mx-auto mt-8 border p-3 pt-10 rounded-2xl shadow-md shadow-amber-800">
         <h2 className="text-2xl font-semibold mb-4 font-roboto text-center">
           Why Choose Tasty Mundo?
         </h2>
         <ul className="text-lg space-y-3">
-          <li className="flex flex-row items-center flex-nowrap gap-1">
+          <li className="flex flex-row items-center gap-1 flex-wrap max-w-xl">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
               fill="currentColor"
-              className="size-6"
+              className="size-6 shrink-0"
             >
               <path
                 fillRule="evenodd"
@@ -43,9 +43,9 @@ const AboutUs = () => {
               />
             </svg>
             <span className="font-semibold">Smart Recipe Suggestions</span> –
-            Personalized recipes based on what’s in your fridge.
+            Personalized recipes based on what's in your fridge.
           </li>
-          <li className="flex flex-row items-center flex-nowrap gap-1">
+          <li className="flex flex-row items-center gap-1 flex-wrap max-w-xl">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -61,7 +61,7 @@ const AboutUs = () => {
             <span className="font-semibold">Dietary Flexibility</span> – Find
             meals that suit vegetarian, vegan, gluten-free, or keto preferences.
           </li>
-          <li className="flex flex-row items-center flex-nowrap gap-1">
+          <li className="flex flex-row items-center gap-1 flex-wrap max-w-xl">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -77,7 +77,7 @@ const AboutUs = () => {
             <span className="font-semibold">Save Time & Reduce Waste</span> –
             Cook with what you have and minimize food waste.
           </li>
-          <li className="flex flex-row items-center flex-nowrap gap-1">
+          <li className="flex flex-row items-center gap-1 flex-wrap max-w-xl">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"

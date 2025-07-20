@@ -11,7 +11,7 @@ const Recipes = () => {
 
   return (
     <div>
-      <section className="p-3 md:px-10 pt-20  bg-primaryBody text-white">
+      <section className="p-3 md:px-10 pt-20 bg-primaryBody text-white">
         {/* Header */}
         <h1 className="font-roboto text-lg md:text-2xl font-semibold">
           Recent Discoveries
