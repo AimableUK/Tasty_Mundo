@@ -1,14 +1,29 @@
 import React, { useState } from "react";
 import recentDiscoveries from "../../Data/TastyFoods/recentDiscoveries";
 import { getDailyItems } from "../../utils/getDailyItems";
+import { useNavigate } from "react-router-dom";
 
 const TastyDiscoveries = () => {
   const [previewId, setPreviewId] = useState(false);
+
+  const navigate = useNavigate();
 
   const discoveriesToday = getDailyItems(recentDiscoveries, 4, "discoveries");
 
   const viewIngredients = (id) => {
     setPreviewId((prevId) => (prevId === id ? null : id));
+  };
+
+  const handleRecipe = (recipe) => {
+    const foundInRecent = recentDiscoveries.find(
+      (food) => food.id === recipe.id
+    );
+
+    const found = foundInRecent;
+
+    if (!found) return;
+
+    navigate(`/recipedetails/${found.id}`, { state: found });
   };
 
   return (
@@ -55,7 +70,10 @@ const TastyDiscoveries = () => {
             )}
 
             <div className="flex flex-row w-full items-center gap-x-1 p-2">
-              <button className="mt-2 border p-1 w-full rounded-md border-gray-400 hover:bg-primaryColor hover:border-primaryBody transform transition-all duration-200 ease-in-out font-semibold active:scale-95">
+              <button
+                onClick={() => handleRecipe(food)}
+                className="mt-2 border p-1 w-full rounded-md border-gray-400 hover:bg-primaryColor hover:border-primaryBody transform transition-all duration-200 ease-in-out font-semibold active:scale-95"
+              >
                 View Recipe
               </button>
               <div className="relative group">

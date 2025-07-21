@@ -165,6 +165,7 @@ body {
     display: grid;
     grid-template-columns: repeat(2, 300px);
   }
+
   .main img {
     width: 10%;
     aspect-ratio: 3/4;
@@ -193,4 +194,40 @@ body {
 
 .chat {
   z-index: 100;
+}
+
+.recipe-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.recipeDetails {
+  display: flex;
+  flex-direction: column;
+}
+
+@media(max-width: 900px) {
+  .recipeDetails {
+    flex-direction: row;
+  }
+
+  .recipe-container {
+    flex-direction: column;
+  }
+}
+
+@media(min-width:590px) and (max-width: 768px) {
+  .recipe-container {
+    flex-direction: row;
+  }
+}
+
+.cardi {
+  width: 100%;
+}
+
+@media(min-width: 768px) and (max-width: 900px) {
+  .cardi {
+    height: 400px;
+  }
 }
