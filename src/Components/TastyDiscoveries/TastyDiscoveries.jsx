@@ -40,7 +40,7 @@ const TastyDiscoveries = () => {
             className="rounded-md main flex flex-col justify-between text-start h-full hover:z-10"
           >
             {previewId === food.id ? (
-              <div className="-z-10 p-4 bg-[#1e2235] rounded-b-md h-full border-t-2 border-primaryColor transition-all duration-500 overflow-y-scroll scrollbar-hide">
+              <div className="-z-10 p-4 bg-[#1e2235] rounded-b-md h-full border-t-2 border-primaryColor transition-all duration-300 overflow-y-scroll scrollbar-hide">
                 <h4 className="text-lg font-semibold text-white mb-3 border-b border-gray-600 pb-1">
                   Ingredients
                 </h4>
@@ -51,7 +51,7 @@ const TastyDiscoveries = () => {
                 </ul>
               </div>
             ) : (
-              <div className="transition-all duration-500 ease-in-out">
+              <div className="transition-all duration-300 ease-in-out">
                 <img
                   src={food.image}
                   loading="lazy"
