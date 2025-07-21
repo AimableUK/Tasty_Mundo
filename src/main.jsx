@@ -13,7 +13,7 @@ import Services from "./Components/Services/Services";
 import Layout from "./Layout";
 import Page404 from "./Components/Page404/Page404";
 import Recipes from "./Components/Recipes/Recipes";
-import RecipeDetails from "./Components/Recipes/recipeDetails";
+import RecipeDetails from "./Components/Recipes/RecipeDetails"
 
 const router = createBrowserRouter(
   createRoutesFromElements(
