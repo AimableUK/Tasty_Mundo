@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 const RecipeDetails = () => {
   const location = useLocation();
   const recipe = location.state;
   const navigate = useNavigate();
+
+  useEffect(() => {
+    document.title = recipe?.food_name;
+  }, [recipe?.food_name]);
 
   return (
     <div className="p-3 md:px-10 pt-20 text-white bg-primaryBody">

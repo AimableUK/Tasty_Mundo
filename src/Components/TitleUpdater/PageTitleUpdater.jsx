@@ -15,8 +15,8 @@ const PageTitleUpdater = () => {
       title = "Recipes - TastyMundo";
     } else if (location.pathname === "/services") {
       title = "Our Services - TastyMundo";
-    }else if (location.pathname === "/recipedetails/:recipeid") {
-      title = "Details - TastyMundo";
+    }else if (location.pathname.startsWith("/recipedetails")) {
+      title = "Recipe Details - TastyMundo";
     } else if (location.pathname === "/aichat") {
       title = "Chatting - TastyMundo";
     } else {
