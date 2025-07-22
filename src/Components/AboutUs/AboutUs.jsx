@@ -5,7 +5,7 @@ const AboutUs = () => {
         <h1 className="text-3xl md:text-4xl font-bold mb-6 font-roboto">
           About Us
         </h1>
-        <p className="text-lg mb-6">
+        <p className="text-lg mb-6 text-wrap">
           At <span className="font-semibold">Tasty Mundo</span>, we believe that
           cooking should be easy, fun, and accessible to everyone. Our platform
           helps you create delicious meals using the ingredients you already
@@ -28,7 +28,7 @@ const AboutUs = () => {
         <h2 className="text-2xl font-semibold mb-4 font-roboto text-center">
           Why Choose Tasty Mundo?
         </h2>
-        <ul className="text-lg space-y-3">
+        <ul className="text-lg space-y-3 list-disc list-inside">
           <li className="flex flex-row items-center gap-1 flex-wrap max-w-xl">
             <svg
               xmlns="http://www.w3.org/2000/svg"

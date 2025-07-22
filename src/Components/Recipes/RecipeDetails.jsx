@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import RelatedRecipes from "./RelatedRecipes";
 
 const RecipeDetails = () => {
   const location = useLocation();
@@ -7,8 +8,10 @@ const RecipeDetails = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    document.title = recipe?.food_name;
+    document.title = `${recipe?.food_name} Recipe`;
   }, [recipe?.food_name]);
+
+  const recipeIngredients = recipe?.ingredients || [];
 
   return (
     <div className="p-3 md:px-10 pt-20 text-white bg-primaryBody">
@@ -71,10 +74,7 @@ const RecipeDetails = () => {
         </div>
       </div>
       {/* Related Recipes */}
-      <div>
-        <h2>Related Recipes</h2>
-        <div></div>
-      </div>
+      <RelatedRecipes recipe={recipe} recipeIngredients={recipeIngredients} />
     </div>
   );
 };
