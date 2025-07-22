@@ -13,11 +13,9 @@ const RelatedRecipes = ({ recipe, recipeIngredients }) => {
   };
 
   const handleRecipe = (recipe) => {
-    const foundInRecent = recentDiscoveries.find(
-      (food) => food.id === recipe.id
-    );
-
-    const found = foundInRecent;
+    const found =
+      recentDiscoveries.find((food) => food.id === recipe.id) ||
+      NewFoods.find((food) => food.id === recipe.id);
 
     if (!found) return;
 
