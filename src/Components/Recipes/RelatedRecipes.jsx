@@ -13,11 +13,9 @@ const RelatedRecipes = ({ recipe, recipeIngredients }) => {
   };
 
   const handleRecipe = (recipe) => {
-    const foundInRecent = recentDiscoveries.find(
-      (food) => food.id === recipe.id
-    );
-
-    const found = foundInRecent;
+    const found =
+      recentDiscoveries.find((food) => food.id === recipe.id) ||
+      NewFoods.find((food) => food.id === recipe.id);
 
     if (!found) return;
 
@@ -34,7 +32,9 @@ const RelatedRecipes = ({ recipe, recipeIngredients }) => {
 
   return (
     <div className="pt-5">
-      <h2 className="font-roboto text-lg md:text-xl font-semibold">Related Recipes</h2>
+      <h2 className="font-roboto text-lg md:text-xl font-semibold">
+        Related Recipes
+      </h2>
       <div className="main-container my-3 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         {relatedRecipes.map((food) => (
           <div

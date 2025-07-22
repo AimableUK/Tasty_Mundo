@@ -15,9 +15,7 @@ const TastyNew = () => {
   };
 
   const handleRecipe = (recipe) => {
-    const foundInTrending = NewFoods.find((food) => food.id === recipe.id);
-
-    const found = foundInTrending;
+    const found = NewFoods.find((food) => food.id === recipe.id);
 
     if (!found) return;
 
