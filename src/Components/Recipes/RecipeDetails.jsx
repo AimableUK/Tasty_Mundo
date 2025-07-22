@@ -60,7 +60,7 @@ const RecipeDetails = () => {
             <img
               src={recipe.image}
               alt="beetrootHummusToastImg"
-              className="card cardi p-1 relative rounded-xl shadow-xl object-cover w-full"
+              className="card cardi lg:w-full p-1 relative rounded-xl shadow-xl object-cover w-full"
             />
             <div className="w-full p-4 bg-[#1e2235] rounded-b-md border-t-2 border-primaryColor whitespace-nowrap">
               <h4 className="text-lg font-semibold text-white mb-3 border-b border-gray-600 pb-1">
