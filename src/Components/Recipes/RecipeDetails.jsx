@@ -8,13 +8,13 @@ const RecipeDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    document.title = `${recipe?.food_name} Recipe`;
-  }, [recipe?.food_name]);
-
   const allRecipes = [...NewFoods, ...recentDiscoveries];
 
   const recipe = allRecipes.find((food) => String(food.id) === String(id));
+
+  useEffect(() => {
+    document.title = `${recipe?.food_name} Recipe`;
+  }, [recipe?.food_name]);
 
   if (!recipe) {
     return (
