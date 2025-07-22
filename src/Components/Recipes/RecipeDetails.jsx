@@ -1,15 +1,28 @@
 import React, { useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import RelatedRecipes from "./RelatedRecipes";
+import NewFoods from "../../Data/TastyFoods/NewFoods";
+import recentDiscoveries from "../../Data/TastyFoods/recentDiscoveries";
 
 const RecipeDetails = () => {
-  const location = useLocation();
-  const recipe = location.state;
+  const { id } = useParams();
   const navigate = useNavigate();
 
   useEffect(() => {
     document.title = `${recipe?.food_name} Recipe`;
   }, [recipe?.food_name]);
+
+  const allRecipes = [...NewFoods, ...recentDiscoveries];
+
+  const recipe = allRecipes.find((food) => String(food.id) === String(id));
+
+  if (!recipe) {
+    return (
+      <div className="text-white p-10">
+        <h2 className="text-xl font-bold">Recipe not found.</h2>
+      </div>
+    );
+  }
 
   const recipeIngredients = recipe?.ingredients || [];
 

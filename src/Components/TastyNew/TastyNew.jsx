@@ -19,7 +19,7 @@ const TastyNew = () => {
 
     if (!found) return;
 
-    navigate(`/recipedetails/${found.id}`, { state: found });
+    navigate(`/recipedetails/${found.id}`);
   };
 
   return (
@@ -64,7 +64,10 @@ const TastyNew = () => {
             )}
 
             <div className="flex flex-row w-full items-center gap-x-1 p-2">
-              <button onClick={() => handleRecipe(food)} className="mt-2 border p-1 w-full rounded-md border-gray-400 hover:bg-primaryColor hover:border-primaryBody transform transition-all duration-200 ease-in-out font-semibold active:scale-95">
+              <button
+                onClick={() => handleRecipe(food)}
+                className="mt-2 border p-1 w-full rounded-md border-gray-400 hover:bg-primaryColor hover:border-primaryBody transform transition-all duration-200 ease-in-out font-semibold active:scale-95"
+              >
                 View Recipe
               </button>
               <div className="relative group">

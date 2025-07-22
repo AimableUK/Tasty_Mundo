@@ -19,7 +19,7 @@ const TastyDiscoveries = () => {
 
     if (!found) return;
 
-    navigate(`/recipedetails/${found.id}`, { state: found });
+    navigate(`/recipedetails/${found.id}`);
   };
 
   return (
