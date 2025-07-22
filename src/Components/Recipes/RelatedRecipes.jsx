@@ -21,7 +21,7 @@ const RelatedRecipes = ({ recipe, recipeIngredients }) => {
 
     if (!found) return;
 
-    navigate(`/recipedetails/${found.id}`, { state: found });
+    navigate(`/${found.id}`, { state: found });
   };
 
   const allRecipes = [...NewFoods, ...recentDiscoveries];
