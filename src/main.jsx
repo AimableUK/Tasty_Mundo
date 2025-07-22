@@ -13,7 +13,8 @@ import Services from "./Components/Services/Services";
 import Layout from "./Layout";
 import Page404 from "./Components/Page404/Page404";
 import Recipes from "./Components/Recipes/Recipes";
-import RecipeDetails from "./Components/Recipes/RecipeDetails"
+import RecipeDetails from "./Components/Recipes/RecipeDetails";
+import ChatPage from "./Components/MainChat/ChatPage/ChatPage";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -25,6 +26,7 @@ const router = createBrowserRouter(
       <Route path="/recipedetails" element={<RecipeDetails />}>
         <Route path=":recipeid" element={<RecipeDetails />} />
       </Route>
+      <Route path="c" element={<ChatPage />} />
       <Route path="*" element={<Page404 />} />
     </Route>
   )

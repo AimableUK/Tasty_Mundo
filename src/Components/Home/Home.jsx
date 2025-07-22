@@ -25,6 +25,7 @@ import faqData from "../../Data/FAQ/faqData.js";
 import Testimonials from "../Testimonials/Testimonials.jsx";
 import { getDailyItems } from "../../utils/getDailyItems.js";
 import Chat from "../Chat/Chat.jsx";
+import { Link } from "react-router-dom";
 
 const Home = () => {
   const trendingRef = useRef(null);
@@ -142,23 +143,25 @@ const Home = () => {
               </svg>
             </button>
           </section>
-          <button className="group outline-none text-lg font-roboto font-semibold flex flex-nowrap items-center hover:scale-x-110 border border-primaryBody hover:border-primaryColor hover:text-primaryColor active:scale-95 gap-3 p-2 rounded-full px-5 bg-[#0e0f26] text-white transform transition-all duration-300 ease-in-out">
-            Get Started
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
-              className="size-6 group-hover:rotate-180 transition-all duration-300 ease-out group-hover:text-primaryColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="m12.75 15 3-3m0 0-3-3m3 3h-7.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
-              />
-            </svg>
-          </button>
+          <Link to="/c">
+            <button className="group outline-none text-lg font-roboto font-semibold flex flex-nowrap items-center hover:scale-x-110 border border-primaryBody hover:border-primaryColor hover:text-primaryColor active:scale-95 gap-3 p-2 rounded-full px-5 bg-[#0e0f26] text-white transform transition-all duration-300 ease-in-out">
+              Get Started
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="size-6 group-hover:rotate-180 transition-all duration-300 ease-out group-hover:text-primaryColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="m12.75 15 3-3m0 0-3-3m3 3h-7.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                />
+              </svg>
+            </button>
+          </Link>
         </div>
       </div>
 
