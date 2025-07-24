@@ -144,7 +144,7 @@ const Home = () => {
             </button>
           </section>
           <Link to="/c">
-            <button className="group outline-none text-lg font-roboto font-semibold flex flex-nowrap items-center hover:scale-x-110 border border-primaryBody hover:border-primaryColor hover:text-primaryColor active:scale-95 gap-3 p-2 rounded-full px-5 bg-[#0e0f26] text-white transform transition-all duration-300 ease-in-out">
+            <button className="mr-8 group outline-none text-lg font-roboto font-semibold flex flex-nowrap items-center hover:scale-x-110 border border-primaryBody hover:border-primaryColor hover:text-primaryColor active:scale-95 gap-3 p-2 rounded-full px-5 bg-[#0e0f26] text-white transform transition-all duration-300 ease-in-out">
               Get Started
               <svg
                 xmlns="http://www.w3.org/2000/svg"

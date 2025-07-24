@@ -2,7 +2,7 @@ import React from "react";
 
 const ChatSideBar = ({ tastyMundoBW }) => {
   return (
-    <div className="flex flex-col p-1 py-3 px-2 justify-between border-r border-r-gray-700 items-center">
+    <div className="hidden md:flex flex-col p-1 py-3 px-2 justify-between border-r border-r-gray-700 items-center">
       {/* SideBar Header */}
       <div className="flex flex-col gap-y-5 items-center">
         <div className="cursor-pointer">
