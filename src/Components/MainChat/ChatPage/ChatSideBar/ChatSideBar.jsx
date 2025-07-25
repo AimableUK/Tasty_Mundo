@@ -1,6 +1,6 @@
 import React from "react";
 
-const ChatSideBar = ({ tastyMundoBW }) => {
+const ChatSideBar = ({ tastyMundoBW, setSavedChats }) => {
   return (
     <div className="hidden md:flex flex-col p-1 py-3 px-2 justify-between border-r border-r-gray-700 items-center">
       {/* SideBar Header */}
@@ -66,6 +66,7 @@ const ChatSideBar = ({ tastyMundoBW }) => {
               fillRule="evenodd"
               clipRule="evenodd"
               viewBox="0 0 512 513.11"
+              onClick={() => setSavedChats(true)}
               className="size-7 self-center text-gray-300 cursor-pointer hover:bg-gray-700 active:bg-inherit transform duration-100 ease-in-out rounded-md p-1"
             >
               <path
