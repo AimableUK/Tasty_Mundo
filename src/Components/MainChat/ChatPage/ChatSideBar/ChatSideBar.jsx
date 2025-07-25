@@ -1,6 +1,6 @@
 import React from "react";
 
-const ChatSideBar = ({ tastyMundoBW, setSavedChats }) => {
+const ChatSideBar = ({ tastyMundoBW, setSavedChats, setRecipeIdea }) => {
   return (
     <div className="hidden md:flex flex-col p-1 py-3 px-2 justify-between border-r border-r-gray-700 items-center">
       {/* SideBar Header */}
@@ -17,8 +17,10 @@ const ChatSideBar = ({ tastyMundoBW, setSavedChats }) => {
         <div className="flex flex-col gap-y-2 items-center">
           {/* New Chat */}
           <div className="relative flex flex-row items-center group">
-            <i className="bx  bx-edit-alt bx-sm cursor-pointer text-gray-300 hover:bg-gray-700
-                active:bg-inherit transform duration-100 ease-in-out p-1 rounded-md" ></i> 
+            <i
+              className="bx  bx-edit-alt bx-sm cursor-pointer text-gray-300 hover:bg-gray-700
+                active:bg-inherit transform duration-100 ease-in-out p-1 rounded-md"
+            ></i>
             <p className="hidden group-hover:block text-sm absolute whitespace-nowrap font-semibold -right-28 border border-gray-800 px-3 rounded-md bg-gray-900">
               New Chat
             </p>
@@ -26,6 +28,7 @@ const ChatSideBar = ({ tastyMundoBW, setSavedChats }) => {
           {/* Ingredient Ideas */}
           <div className="relative flex flex-row items-center group">
             <i
+              onClick={() => setRecipeIdea(true)}
               className="bx bx-sm bx-burger-alt cursor-pointer text-gray-300 hover:bg-gray-700
                 active:bg-inherit transform duration-100 ease-in-out rounded-md p-1"
             ></i>
