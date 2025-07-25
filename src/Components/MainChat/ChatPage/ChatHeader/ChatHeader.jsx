@@ -32,7 +32,10 @@ const ChatHeader = ({ tastyMundoBW }) => {
         <p className="font-roboto font-semibold text-gray-200">Tasty Mundo</p>
       </div>
       <div className="relative flex flex-row flex-nowrap items-center gap-x-2">
-        <i class="bx  bx-edit-alt bx-sm text-slate-200"></i>
+        <i
+          className="bx bx-edit-alt bx-sm flex md:hidden cursor-pointer text-gray-300 hover:bg-gray-700
+            active:bg-inherit transform duration-100 ease-in-out rounded-md p-1"
+        ></i>
         <div
           onClick={() => setShowMore((prev) => !prev)}
           className="cursor-pointer flex flex-col md:flex-row gap-[3px] active:scale-110"

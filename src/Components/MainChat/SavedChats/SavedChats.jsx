@@ -1,10 +1,13 @@
 import React from "react";
 
-const SavedChats = ({ savedChats, setSavedChats }) => {
+const SavedChats = ({ dialogRef, savedChats, setSavedChats }) => {
   return (
     savedChats && (
-      <div className="fixed inset-0 bg-black bg-opacity-40 z-40 flex items-center justify-center py-5">
-        <div className="relative bg-slate-950 border-2 border-slate-800 rounded-xl max-w-5xl w-full shadow-xl z-50 h-full flex flex-col">
+      <div className="fixed inset-0 bg-black bg-opacity-40 z-40 flex items-center justify-center py-5 ">
+        <div
+          ref={dialogRef}
+          className="relative bg-slate-950 border-2 border-slate-800 rounded-xl max-w-5xl w-full shadow-xl z-50 h-full flex flex-col"
+        >
           {/* Search Bar */}
           <div className="flex flex-row items-center border-b-2 border-slate-800 px-2 py-1">
             <input

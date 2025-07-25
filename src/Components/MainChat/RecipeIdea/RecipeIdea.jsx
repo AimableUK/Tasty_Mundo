@@ -2,11 +2,14 @@ import React from "react";
 import trendingFlavors from "../../../Data/TastyFoods/trendingFlavors";
 import ingredientsInSeason from "../../../Data/TastyFoods/ingredientsInSeason";
 
-const RecipeIdea = ({ recipeIdea, setRecipeIdea }) => {
+const RecipeIdea = ({ dialogRef, recipeIdea, setRecipeIdea }) => {
   return (
     recipeIdea && (
       <div className="fixed inset-0 bg-black bg-opacity-40 z-40 flex items-center justify-center md:py-5 pt-5">
-        <div className="relative bg-slate-950 border-2 border-slate-800 md:rounded-xl rounded-t-xl max-w-5xl w-full shadow-xl z-50 h-full flex flex-col">
+        <div
+          ref={dialogRef}
+          className="relative bg-slate-950 border-2 border-slate-800 md:rounded-xl rounded-t-xl max-w-5xl w-full shadow-xl z-50 h-full flex flex-col"
+        >
           {/* Search Bar */}
           <div className="flex flex-row items-center border-b-2 border-slate-800 px-2 py-1">
             <input
@@ -54,7 +57,9 @@ const RecipeIdea = ({ recipeIdea, setRecipeIdea }) => {
                       alt={alt}
                       className="size-20 rounded-full"
                     />
-                    <h3 className="mt-2 text-sm font-medium text-center">{label}</h3>
+                    <h3 className="mt-2 text-sm font-medium text-center">
+                      {label}
+                    </h3>
                   </div>
                 ))}
               </div>
@@ -80,7 +85,9 @@ const RecipeIdea = ({ recipeIdea, setRecipeIdea }) => {
                       alt={alt}
                       className="size-20 rounded-full"
                     />
-                    <h3 className="mt-2 text-sm font-medium text-center">{label}</h3>
+                    <h3 className="mt-2 text-sm font-medium text-center">
+                      {label}
+                    </h3>
                   </div>
                 ))}
               </div>
@@ -110,7 +117,7 @@ const RecipeIdea = ({ recipeIdea, setRecipeIdea }) => {
             <div className="flex gap-2">
               <button className="flex items-center bg-slate-900 hover:bg-slate-800 active:bg-slate-700 px-3 py-1 rounded-md text-gray-200 font-semibold">
                 Copy
-                <i className='bx  bx-copy ml-2 bx-xs'  ></i> 
+                <i className="bx  bx-copy ml-2 bx-xs"></i>
               </button>
             </div>
           </div>
