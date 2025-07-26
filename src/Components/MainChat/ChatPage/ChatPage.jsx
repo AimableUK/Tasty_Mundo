@@ -28,7 +28,11 @@ const ChatPage = () => {
       {/* Other */}
       <div className="w-full h-full">
         {/* Header */}
-        <ChatHeader tastyMundoBW={tastyMundoBW} />
+        <ChatHeader
+          tastyMundoBW={tastyMundoBW}
+          setRecipeIdea={setRecipeIdea}
+          setSavedChats={setSavedChats}
+        />
         {/* Body */}
         <ChatBody />
       </div>

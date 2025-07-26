@@ -8,10 +8,12 @@ const RecipeIdea = ({ dialogRef, recipeIdea, setRecipeIdea }) => {
       <div className="fixed inset-0 bg-black bg-opacity-40 z-40 flex items-center justify-center md:py-5 pt-5">
         <div
           ref={dialogRef}
-          className="relative bg-slate-950 border-2 border-slate-800 md:rounded-xl rounded-t-xl max-w-5xl w-full shadow-xl z-50 h-full flex flex-col"
+          className="relative bg-slate-950 border border-slate-800 md:rounded-xl rounded-t-xl max-w-5xl w-full shadow-xl z-50 h-full flex flex-col"
         >
+          <div className="flex md:hidden self-center p-[2px] rounded-full my-2 bg-slate-300 w-2/6 "></div>
+
           {/* Search Bar */}
-          <div className="flex flex-row items-center border-b-2 border-slate-800 px-2 py-1">
+          <div className="flex flex-row items-center border-b border-slate-800 px-2 py-1">
             <input
               type="text"
               placeholder="Search..."
@@ -95,7 +97,7 @@ const RecipeIdea = ({ dialogRef, recipeIdea, setRecipeIdea }) => {
           </div>
 
           {/* Bottom Buttons in Dialog */}
-          <div className="border-t-2 border-slate-800 flex justify-between items-center p-2">
+          <div className="border-t border-slate-800 flex justify-between items-center p-2">
             {/* Close Icon */}
             <i
               onClick={() => setRecipeIdea(false)}

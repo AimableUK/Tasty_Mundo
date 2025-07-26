@@ -50,7 +50,6 @@ const SavedChats = ({ dialogRef, savedChats, setSavedChats }) => {
       setEditChat(true);
       setActiveChatMode({ type: "edit", id: selectedChat.id });
     }
-    
   };
 
   const handleConfirmEdit = () => {
@@ -102,11 +101,12 @@ const SavedChats = ({ dialogRef, savedChats, setSavedChats }) => {
 
   return (
     savedChats && (
-      <div className="fixed inset-0 bg-black bg-opacity-40 z-40 flex items-center justify-center py-5 ">
+      <div className="fixed inset-0 bg-black bg-opacity-40 z-40 flex items-center justify-center md:py-5 pt-10">
         <div
           ref={dialogRef}
-          className="relative bg-slate-950 border border-slate-800 rounded-xl max-w-5xl w-full shadow-xl z-50 h-full flex flex-col"
+          className="relative bg-slate-950 border border-slate-800 rounded-t-xl md:rounded-xl max-w-5xl w-full shadow-xl z-50 h-full flex flex-col"
         >
+          <div className="flex md:hidden self-center p-[2px] rounded-full my-2 bg-slate-300 w-2/6 "></div>
           {/* Search Bar */}
           <div className="flex flex-row items-center border-b border-slate-800 px-2 py-1">
             <input
@@ -163,7 +163,7 @@ const SavedChats = ({ dialogRef, savedChats, setSavedChats }) => {
                         <p
                           className={`${
                             activeChatMode?.id === chat.id ? "hidden " : "flex "
-                          } flex group-hover:hidden`}
+                          } flex group-hover:hidden text-sm text-slate-400`}
                         >
                           {formatChatTimestamp(chat.generatedAt)}
                         </p>
@@ -288,7 +288,7 @@ const SavedChats = ({ dialogRef, savedChats, setSavedChats }) => {
               </div>
 
               {/* Right Panel */}
-              <div className="flex-1">
+              <div className="hidden md:flex flex-1">
                 {previewChat ? (
                   <div
                     key={selectedChat.id}
@@ -328,7 +328,7 @@ const SavedChats = ({ dialogRef, savedChats, setSavedChats }) => {
                   className="flex items-center gap-1 bg-slate-900 hover:bg-slate-800 active:bg-slate-700 px-3 py-1 rounded-md text-gray-200 font-semibold"
                 >
                   View
-                  <span className="p-[2px] rounded-md border border-slate-400">
+                  <span className="hidden md:flex p-[2px] rounded-md border border-slate-400">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 16 16"
@@ -348,7 +348,7 @@ const SavedChats = ({ dialogRef, savedChats, setSavedChats }) => {
                   className="flex items-center gap-2 bg-slate-900 hover:bg-slate-800 active:bg-slate-700 px-3 py-1 rounded-md text-gray-200 font-semibold"
                 >
                   Edit
-                  <span className="p-[2px] flex items-center text-sm rounded-md border border-slate-400 text-slate-400">
+                  <span className=" hidden md:flex p-[2px] items-center text-sm rounded-md border border-slate-400 text-slate-400">
                     Ctrl+
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -370,7 +370,7 @@ const SavedChats = ({ dialogRef, savedChats, setSavedChats }) => {
                   className="flex items-center gap-2 bg-slate-900 hover:bg-slate-800 active:bg-slate-700 px-3 py-1 rounded-md text-gray-200 font-semibold"
                 >
                   Delete
-                  <span className="p-[2px] flex items-center text-sm rounded-md border border-slate-400 text-slate-400">
+                  <span className="hidden md:flex p-[2px] items-center text-sm rounded-md border border-slate-400 text-slate-400">
                     Ctrl+
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -396,7 +396,7 @@ const SavedChats = ({ dialogRef, savedChats, setSavedChats }) => {
                   className="flex items-center gap-1 bg-slate-900 hover:bg-slate-800 active:bg-slate-700 px-3 py-1 rounded-md text-gray-200 font-semibold"
                 >
                   Cancel
-                  <span className="px-1 rounded-md border border-slate-400 text-slate-400 text-sm">
+                  <span className="hidden md:flex px-1 rounded-md border border-slate-400 text-slate-400 text-sm">
                     Esc
                   </span>
                 </button>
@@ -405,21 +405,19 @@ const SavedChats = ({ dialogRef, savedChats, setSavedChats }) => {
                   className="flex items-center bg-slate-900 hover:bg-slate-800 active:bg-slate-700 px-3 py-1 rounded-md text-red-500 font-semibold"
                 >
                   Delete
-                  <span className="ml-1 flex items-center gap-1">
-                    <span className="p-[2px] rounded-md border border-slate-400">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 16 16"
-                        fill="currentColor"
-                        className="size-3 text-slate-400"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M13.25 2a.75.75 0 0 0-.75.75v6.5H4.56l.97-.97a.75.75 0 0 0-1.06-1.06L2.22 9.47a.75.75 0 0 0 0 1.06l2.25 2.25a.75.75 0 0 0 1.06-1.06l-.97-.97h8.69A.75.75 0 0 0 14 10V2.75a.75.75 0 0 0-.75-.75Z"
-                          clipRule="evenodd"
-                        />
-                      </svg>
-                    </span>
+                  <span className="hidden md:flex p-[2px] ml-1 rounded-md border border-slate-400">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 16 16"
+                      fill="currentColor"
+                      className="size-3 text-slate-400"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M13.25 2a.75.75 0 0 0-.75.75v6.5H4.56l.97-.97a.75.75 0 0 0-1.06-1.06L2.22 9.47a.75.75 0 0 0 0 1.06l2.25 2.25a.75.75 0 0 0 1.06-1.06l-.97-.97h8.69A.75.75 0 0 0 14 10V2.75a.75.75 0 0 0-.75-.75Z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
                   </span>
                 </button>
               </div>
@@ -431,27 +429,25 @@ const SavedChats = ({ dialogRef, savedChats, setSavedChats }) => {
                   className="flex items-center gap-1 bg-slate-900 hover:bg-slate-800 active:bg-slate-700 px-3 py-1 rounded-md text-gray-200 font-semibold"
                 >
                   Cancel
-                  <span className="px-1 rounded-md border border-slate-400 text-slate-400 text-sm">
+                  <span className="hidden md:flex px-1 rounded-md border border-slate-400 text-slate-400 text-sm">
                     Esc
                   </span>
                 </button>
                 <button className="flex items-center gap-2 bg-slate-900 hover:bg-slate-800 active:bg-slate-700 px-3 py-1 rounded-md text-green-400 font-semibold">
                   Confirm
-                  <span className="ml-1 flex items-center gap-1">
-                    <span className="p-[2px] rounded-md border border-slate-400">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 16 16"
-                        fill="currentColor"
-                        className="size-3 text-slate-400"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M13.25 2a.75.75 0 0 0-.75.75v6.5H4.56l.97-.97a.75.75 0 0 0-1.06-1.06L2.22 9.47a.75.75 0 0 0 0 1.06l2.25 2.25a.75.75 0 0 0 1.06-1.06l-.97-.97h8.69A.75.75 0 0 0 14 10V2.75a.75.75 0 0 0-.75-.75Z"
-                          clipRule="evenodd"
-                        />
-                      </svg>
-                    </span>
+                  <span className="hidden md:flex p-[2px] rounded-md border border-slate-400">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 16 16"
+                      fill="currentColor"
+                      className="size-3 text-slate-400"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M13.25 2a.75.75 0 0 0-.75.75v6.5H4.56l.97-.97a.75.75 0 0 0-1.06-1.06L2.22 9.47a.75.75 0 0 0 0 1.06l2.25 2.25a.75.75 0 0 0 1.06-1.06l-.97-.97h8.69A.75.75 0 0 0 14 10V2.75a.75.75 0 0 0-.75-.75Z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
                   </span>
                 </button>
               </div>
