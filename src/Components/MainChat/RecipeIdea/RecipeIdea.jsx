@@ -97,27 +97,16 @@ const RecipeIdea = ({ dialogRef, recipeIdea, setRecipeIdea }) => {
           {/* Bottom Buttons in Dialog */}
           <div className="border-t-2 border-slate-800 flex justify-between items-center p-2">
             {/* Close Icon */}
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
+            <i
               onClick={() => setRecipeIdea(false)}
-              className="size-6 cursor-pointer active:scale-90 transition-all duration-150 ease-out"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
-              />
-            </svg>
+              className="bx bx-shrink-right bx-xs cursor-pointer active:scale-75 transition-all duration-150 ease-out pl-2"
+            ></i>
 
             {/* Buttons */}
             <div className="flex gap-2">
               <button className="flex items-center bg-slate-900 hover:bg-slate-800 active:bg-slate-700 px-3 py-1 rounded-md text-gray-200 font-semibold">
                 Copy
-                <i className="bx  bx-copy ml-2 bx-xs"></i>
+                <i class="bx  bx-copy ml-2 bx-xs"></i>
               </button>
             </div>
           </div>

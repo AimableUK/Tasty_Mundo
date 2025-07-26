@@ -12,17 +12,17 @@
 
 /* Track */
 ::-webkit-scrollbar-track {
-  background: #e0e0e0;
+  background: #06071b;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #888;
+  background: #313247;
 }
 
 /* Handle on Hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #555;
+  background: #9b9fee;
 }
 
 img {
