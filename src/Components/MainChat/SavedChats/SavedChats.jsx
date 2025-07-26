@@ -45,11 +45,9 @@ const SavedChats = ({ dialogRef, savedChats, setSavedChats }) => {
   };
 
   // Edit
-  const handleEditChat = () => {
-    if (selectedChat) {
-      setEditChat(true);
-      setActiveChatMode({ type: "edit", id: selectedChat.id });
-    }
+  const handleEditChat = (chat) => {
+    setEditChat(true);
+    setActiveChatMode({ type: "edit", id: chat.id });
   };
 
   const handleConfirmEdit = () => {
@@ -59,11 +57,9 @@ const SavedChats = ({ dialogRef, savedChats, setSavedChats }) => {
   };
 
   // Delete
-  const handleDeleteChat = () => {
-    if (selectedChat) {
-      setDeleteChat(true);
-      setActiveChatMode({ type: "delete", id: selectedChat.id });
-    }
+  const handleDeleteChat = (chat) => {
+    setDeleteChat(true);
+    setActiveChatMode({ type: "delete", id: chat.id });
   };
 
   const handleConfirmDelete = () => {
@@ -157,19 +153,19 @@ const SavedChats = ({ dialogRef, savedChats, setSavedChats }) => {
                       <div
                         onClick={() => viewChat(chat)}
                         key={chat.id}
-                        className="group flex flex-row justify-between cursor-pointer w-full rounded-xl bg-slate-900 p-3 gap-2 items-center font-semibold text-gray-200 hover:bg-slate-800 transition-all duration-200 ease-in-out"
+                        className="group detail flex flex-row justify-between cursor-pointer w-full rounded-xl bg-slate-900 p-3 gap-2 items-center font-semibold text-gray-200 hover:bg-slate-800 transition-all duration-200 ease-in-out"
                       >
                         <h4 className="py-1">{chat.chatName}</h4>
                         <p
                           className={`${
-                            activeChatMode?.id === chat.id ? "hidden " : "flex "
-                          } flex group-hover:hidden text-sm text-slate-400`}
+                            activeChatMode?.id === chat.id ? "hidden" : "flex"
+                          } hidden md:flex md:group-hover:hidden text-sm text-slate-400`}
                         >
                           {formatChatTimestamp(chat.generatedAt)}
                         </p>
                         {activeChatMode?.type === "edit" &&
                           activeChatMode?.id === chat.id && (
-                            <div className="flex flex-row flex-nowrap -my-10 items-center">
+                            <div className="flex flex-row flex-nowrap items-center">
                               <div
                                 onClick={handleExitEdit}
                                 className="cursor-pointer text-slate-400 hover:bg-gray-700
@@ -242,8 +238,52 @@ const SavedChats = ({ dialogRef, savedChats, setSavedChats }) => {
                               </div>
                             </div>
                           )}
+                        {/* Mobile */}
                         {activeChatMode?.id !== chat.id && (
-                          <div className="hidden group-hover:flex flex-row flex-nowrap">
+                          <div
+                            className={`${
+                              selectedChat?.id === chat.id ? "flex" : "hidden"
+                            } flex-row md:hidden`}
+                          >
+                            <div
+                              onClick={handleViewChat}
+                              className="cursor-pointer text-gray-300 hover:bg-gray-700
+                            active:bg-inherit transform duration-100 ease-in-out rounded-md p-1"
+                            >
+                              <i className="bx bx-xs bx-arrow-in-up-right-stroke-circle"></i>
+                            </div>
+                            <div
+                              onClick={() => handleEditChat(chat)}
+                              className="cursor-pointer text-gray-300 hover:bg-gray-700
+                            active:bg-inherit transform duration-100 ease-in-out rounded-md p-1"
+                            >
+                              <i className="bx bx-pencil bx-xs"></i>
+                            </div>
+                            <div
+                              onClick={() => handleDeleteChat(chat)}
+                              className="cursor-pointer text-gray-300 hover:bg-gray-700
+                            active:bg-inherit transform duration-100 ease-in-out rounded-md p-1"
+                            >
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                strokeWidth={1.5}
+                                stroke="currentColor"
+                                className="size-5"
+                              >
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0"
+                                />
+                              </svg>
+                            </div>
+                          </div>
+                        )}
+                        {/* Desktop */}
+                        {activeChatMode?.id !== chat.id && (
+                          <div className="hidden md:group-hover:flex flex-row flex-nowrap">
                             <div
                               onClick={handleViewChat}
                               className="cursor-pointer text-gray-300 hover:bg-gray-700

@@ -315,3 +315,18 @@ body {
     grid-template-columns: repeat(8, minmax(100px, 1fr));
   }
 }
+
+
+@media (max-width: 425px) {
+  .detail {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    text-align: start;
+    align-items: start;
+  }
+
+  .detail h4 {
+    text-align: start;
+  }
+}

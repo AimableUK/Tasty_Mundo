@@ -5,7 +5,7 @@ import ingredientsInSeason from "../../../Data/TastyFoods/ingredientsInSeason";
 const RecipeIdea = ({ dialogRef, recipeIdea, setRecipeIdea }) => {
   return (
     recipeIdea && (
-      <div className="fixed inset-0 bg-black bg-opacity-40 z-40 flex items-center justify-center md:py-5 pt-5">
+      <div className="fixed inset-0 bg-black bg-opacity-40 z-40 flex items-center justify-center md:py-5 pt-10">
         <div
           ref={dialogRef}
           className="relative bg-slate-950 border border-slate-800 md:rounded-xl rounded-t-xl max-w-5xl w-full shadow-xl z-50 h-full flex flex-col"
