@@ -106,7 +106,7 @@ const RecipeIdea = ({ dialogRef, recipeIdea, setRecipeIdea }) => {
             <div className="flex gap-2">
               <button className="flex items-center bg-slate-900 hover:bg-slate-800 active:bg-slate-700 px-3 py-1 rounded-md text-gray-200 font-semibold">
                 Copy
-                <i class="bx  bx-copy ml-2 bx-xs"></i>
+                <i className="bx  bx-copy ml-2 bx-xs"></i>
               </button>
             </div>
           </div>

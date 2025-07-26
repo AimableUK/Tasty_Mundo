@@ -5,7 +5,7 @@ import ChatHeader from "./ChatHeader/ChatHeader";
 import ChatBody from "./ChatBody/ChatBody";
 import SavedChats from "../SavedChats/SavedChats";
 import RecipeIdea from "../RecipeIdea/RecipeIdea";
-import useClickOutside from "../useClickOutside/useClickOutside";
+import useClickOutside from "../Utils/useClickOutside/useClickOutside";
 
 const ChatPage = () => {
   const [savedChats, setSavedChats] = useState(false);

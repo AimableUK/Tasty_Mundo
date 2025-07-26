@@ -1,18 +1,46 @@
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import SavedChatsList from "../../../Data/SavedChats/SavedChats";
+import { formatChatTimestamp } from "../Utils/ChatTimestamp/formatChatTimestamp";
 
 const SavedChats = ({ dialogRef, savedChats, setSavedChats }) => {
   const [previewChat, setPreviewChat] = useState(false);
+  const [selectedChat, setSelectedChat] = useState(null);
+
+  const closeSavedChats = useCallback(() => {
+    setSavedChats(false);
+    setPreviewChat(false);
+  }, [setSavedChats]);
+
+  useEffect(() => {
+    function ClickOutSide(event) {
+      if (dialogRef.current && !dialogRef.current.contains(event.target)) {
+        closeSavedChats();
+      }
+    }
+
+    if (savedChats) {
+      document.addEventListener("mousedown", ClickOutSide);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", ClickOutSide);
+    };
+  }, [dialogRef, savedChats, closeSavedChats]);
+
+  const viewChat = (chat) => {
+    setPreviewChat(true);
+    setSelectedChat(chat);
+  };
 
   return (
     savedChats && (
       <div className="fixed inset-0 bg-black bg-opacity-40 z-40 flex items-center justify-center py-5 ">
         <div
           ref={dialogRef}
-          className="relative bg-slate-950 border-2 border-slate-800 rounded-xl max-w-5xl w-full shadow-xl z-50 h-full flex flex-col"
+          className="relative bg-slate-950 border border-slate-800 rounded-xl max-w-5xl w-full shadow-xl z-50 h-full flex flex-col"
         >
           {/* Search Bar */}
-          <div className="flex flex-row items-center border-b-2 border-slate-800 px-2 py-1">
+          <div className="flex flex-row items-center border-b border-slate-800 px-2 py-1">
             <input
               type="text"
               placeholder="Search..."
@@ -49,7 +77,7 @@ const SavedChats = ({ dialogRef, savedChats, setSavedChats }) => {
                     </h3>
                   </div>
                   <button className="flex w-full rounded-xl bg-slate-900 p-3 gap-2 items-center font-semibold text-gray-200 hover:bg-slate-800 active:scale-95 transition-all duration-200 ease-in-out">
-                    <i class="bx  bx-edit-alt bx-sm"></i>
+                    <i className="bx  bx-edit-alt bx-sm"></i>
                     Create New Chat
                   </button>
                 </div>
@@ -59,13 +87,13 @@ const SavedChats = ({ dialogRef, savedChats, setSavedChats }) => {
                   <div className="py-2 flex flex-col gap-y-2">
                     {SavedChatsList.map((chat) => (
                       <div
-                        onClick={() => setPreviewChat(true)}
+                        onClick={() => viewChat(chat)}
                         key={chat.id}
                         className="group flex flex-row justify-between cursor-pointer w-full rounded-xl bg-slate-900 p-3 gap-2 items-center font-semibold text-gray-200 hover:bg-slate-800 transition-all duration-200 ease-in-out"
                       >
                         <h4 className="py-1">{chat.chatName}</h4>
                         <p className="flex group-hover:hidden">
-                          {chat.generatedAt}
+                          {formatChatTimestamp(chat.generatedAt)}
                         </p>
                         <div className="hidden group-hover:flex flex-row flex-nowrap">
                           <div
@@ -110,64 +138,75 @@ const SavedChats = ({ dialogRef, savedChats, setSavedChats }) => {
               {/* Right Panel */}
               <div className="flex-1 ">
                 {previewChat ? (
-                  <p className="font-semibold text-slate-200">
-                    {/* {Select a Conversation to Previe} */}
-                  </p>
+                  <div
+                    key={selectedChat.id}
+                    className="font-semibold text-slate-200 flex flex-col p-4 gap-y-6"
+                  >
+                    <div className="self-end bg-slate-900 p-3 rounded-l-3xl rounded-t-3xl rounded-br-md px-4 max-w-5/6 text-end text-wrap">
+                      {selectedChat.ingredients.map((ingredient, index) => (
+                        <span key={index} className="">
+                          {ingredient},&nbsp;
+                        </span>
+                      ))}
+                    </div>
+                    <div>{selectedChat.result}</div>
+                  </div>
                 ) : (
-                  <p className="font-semibold text-slate-200">
+                  <div className="flex flex-col justify-center items-center h-full w-full font-semibold text-slate-200">
                     Select a Conversation to Preview
-                  </p>
+                  </div>
                 )}
               </div>
             </div>
           </div>
 
           {/* Bottom Buttons in Dialog */}
-          <div className="border-t-2 border-slate-800 flex justify-between items-center p-2">
+          <div className="border-t border-slate-800 flex justify-between items-center p-2">
             {/* Close Icon */}
-
             <i
-              onClick={() => setSavedChats(false)}
+              onClick={() => closeSavedChats()}
               className="bx bx-shrink-right bx-xs cursor-pointer active:scale-75 transition-all duration-150 ease-out pl-2"
             ></i>
 
             {/* Buttons */}
-            <div className="flex gap-2">
-              <button className="flex items-center bg-slate-900 hover:bg-slate-800 active:bg-slate-700 px-3 py-1 rounded-md text-gray-200 font-semibold">
-                View
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 16 16"
-                  fill="currentColor"
-                  className="size-4 ml-1"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M13.25 2a.75.75 0 0 0-.75.75v6.5H4.56l.97-.97a.75.75 0 0 0-1.06-1.06L2.22 9.47a.75.75 0 0 0 0 1.06l2.25 2.25a.75.75 0 0 0 1.06-1.06l-.97-.97h8.69A.75.75 0 0 0 14 10V2.75a.75.75 0 0 0-.75-.75Z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-              </button>
-              <button className="flex items-center bg-slate-900 hover:bg-slate-800 active:bg-slate-700 px-3 py-1 rounded-md text-gray-200 font-semibold">
-                Delete
-                <span className="ml-1 flex items-center gap-1">
-                  Ctrl+
+            {previewChat && (
+              <div className="flex gap-2">
+                <button className="flex items-center bg-slate-900 hover:bg-slate-800 active:bg-slate-700 px-3 py-1 rounded-md text-gray-200 font-semibold">
+                  View
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 16 16"
                     fill="currentColor"
-                    className="size-3"
+                    className="size-4 ml-1"
                   >
                     <path
                       fillRule="evenodd"
-                      d="M8 14a.75.75 0 0 1-.75-.75V4.56L4.03 7.78a.75.75 0 0 1-1.06-1.06l4.5-4.5a.75.75 0 0 1 1.06 0l4.5 4.5a.75.75 0 0 1-1.06 1.06L8.75 4.56v8.69A.75.75 0 0 1 8 14Z"
+                      d="M13.25 2a.75.75 0 0 0-.75.75v6.5H4.56l.97-.97a.75.75 0 0 0-1.06-1.06L2.22 9.47a.75.75 0 0 0 0 1.06l2.25 2.25a.75.75 0 0 0 1.06-1.06l-.97-.97h8.69A.75.75 0 0 0 14 10V2.75a.75.75 0 0 0-.75-.75Z"
                       clipRule="evenodd"
                     />
                   </svg>
-                  D
-                </span>
-              </button>
-            </div>
+                </button>
+                <button className="flex items-center bg-slate-900 hover:bg-slate-800 active:bg-slate-700 px-3 py-1 rounded-md text-gray-200 font-semibold">
+                  Delete
+                  <span className="ml-1 flex items-center gap-1">
+                    Ctrl+
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 16 16"
+                      fill="currentColor"
+                      className="size-3"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M8 14a.75.75 0 0 1-.75-.75V4.56L4.03 7.78a.75.75 0 0 1-1.06-1.06l4.5-4.5a.75.75 0 0 1 1.06 0l4.5 4.5a.75.75 0 0 1-1.06 1.06L8.75 4.56v8.69A.75.75 0 0 1 8 14Z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                    D
+                  </span>
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </div>
