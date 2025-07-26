@@ -6,10 +6,12 @@ const SavedChats = ({ dialogRef, savedChats, setSavedChats }) => {
   const [previewChat, setPreviewChat] = useState(false);
   const [selectedChat, setSelectedChat] = useState(null);
   const [deleteChat, setDeleteChat] = useState(false);
+  const [editChat, setEditChat] = useState(false);
 
   const closeSavedChats = useCallback(() => {
     setSavedChats(false);
     setPreviewChat(false);
+    setDeleteChat(false);
   }, [setSavedChats]);
 
   useEffect(() => {
@@ -101,7 +103,9 @@ const SavedChats = ({ dialogRef, savedChats, setSavedChats }) => {
                         <h4 className="py-1">{chat.chatName}</h4>
                         <p
                           className={`${
-                            selectedChat.id === chat.id && deleteChat ? "hidden" : "flex"
+                            selectedChat?.id === chat.id && deleteChat
+                              ? "hidden"
+                              : "flex"
                           } flex group-hover:hidden`}
                         >
                           {formatChatTimestamp(chat.generatedAt)}
