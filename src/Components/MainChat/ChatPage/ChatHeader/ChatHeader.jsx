@@ -31,7 +31,7 @@ const ChatHeader = ({ tastyMundoBW, setRecipeIdea, setSavedChats }) => {
   };
 
   return (
-    <div className="fixed overflow-hidden flex flex-row p-1 py-3 md:py-4 px-4 md:ml-14 justify-between w-full border-b border-b-gray-700 items-center bg-primaryBody md:border-l border-l-gray-700">
+    <div className="fixed flex flex-row p-1 py-3 md:py-4 px-4 md:ml-14 justify-between w-full border-b border-b-gray-700 items-center bg-primaryBody md:border-l border-l-gray-700">
       <p className="font-roboto font-semibold text-gray-200">Tasty Mundo</p>
       <div className="relative flex flex-row flex-nowrap items-center md:mr-14">
         <svg
