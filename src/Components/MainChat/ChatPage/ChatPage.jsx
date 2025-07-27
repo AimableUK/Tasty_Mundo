@@ -39,7 +39,7 @@ const ChatPage = () => {
   useClickOutside(recipeRef, recipeIdea, () => setRecipeIdea(false));
 
   return (
-    <div className="flex flex-row h-screen bg-primaryBody text-white">
+    <div className="flex flex-row h-screen overflow-x-hidden overflow-y-scroll bg-primaryBody text-white">
       {/* SideBar */}
       <ChatSideBar
         tastyMundoBW={tastyMundoBW}

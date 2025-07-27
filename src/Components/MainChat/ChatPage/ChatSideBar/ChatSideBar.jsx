@@ -11,7 +11,7 @@ const ChatSideBar = ({ tastyMundoBW, setSavedChats, setRecipeIdea }) => {
   };
 
   return (
-    <div className="hidden md:flex flex-col p-1 py-3 px-2 justify-between border-r border-r-gray-700 items-center">
+    <div className="fixed h-full  hidden md:flex flex-col p-1 py-3 px-2 justify-between border-r border-r-gray-700 items-center">
       {/* SideBar Header */}
       <div className="flex flex-col gap-y-5 items-center">
         <div className="cursor-pointer">
@@ -26,22 +26,41 @@ const ChatSideBar = ({ tastyMundoBW, setSavedChats, setRecipeIdea }) => {
         <div className="flex flex-col gap-y-2 items-center">
           {/* New Chat */}
           <div className="relative flex flex-row items-center group">
-            <i
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              fill="currentColor"
+              viewBox="0 0 24 24"
               onClick={newChat}
-              className="bx  bx-edit-alt bx-sm cursor-pointer text-gray-300 hover:bg-gray-700
+              className="bx  bx-edit-alt size-9 cursor-pointer text-gray-300 hover:bg-gray-700
                 active:bg-inherit transform duration-100 ease-in-out p-1 rounded-md"
-            ></i>
+            >
+              <path d="m17.71 7.29-3-3a.996.996 0 0 0-1.41 0l-11.01 11A1 1 0 0 0 2 16v3c0 .55.45 1 1 1h3c.27 0 .52-.11.71-.29l11-11a.996.996 0 0 0 0-1.41ZM5.59 18H4v-1.59l7.5-7.5 1.59 1.59zm8.91-8.91L12.91 7.5 14 6.41 15.59 8zM11 18h11v2H11z"></path>
+            </svg>
             <p className="hidden group-hover:block text-sm absolute whitespace-nowrap font-semibold -right-28 border border-gray-800 px-3 rounded-md bg-gray-900">
               New Chat
             </p>
           </div>
           {/* Ingredient Ideas */}
           <div className="relative flex flex-row items-center group">
-            <i
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              fill="currentColor"
+              viewBox="0 0 24 24"
               onClick={() => setRecipeIdea(true)}
-              className="bx bx-sm bx-burger-alt cursor-pointer text-gray-300 hover:bg-gray-700
+              className="size-8 cursor-pointer text-gray-300 hover:bg-gray-700
                 active:bg-inherit transform duration-100 ease-in-out rounded-md p-1"
-            ></i>
+            >
+              <path d="m3,12h18c.55,0,1-.45,1-1v-2c0-3.93-4.39-7-10-7S2,5.07,2,9v2c0,.55.45,1,1,1Zm1-3c0-2.71,3.66-5,8-5s8,2.29,8,5v1H4v-1Z"></path>
+              <path d="M2 13H22V15H2z"></path>
+              <path d="m5,22h14c1.65,0,3-1.35,3-3v-2c0-.55-.45-1-1-1h-9c-.27,0-.52.11-.71.29l-2.29,2.29-2.29-2.29c-.19-.19-.44-.29-.71-.29h-3c-.55,0-1,.45-1,1v2c0,1.65,1.35,3,3,3Zm7.41-4h7.59v1c0,.55-.45,1-1,1h-8.59l2-2Zm-8.41,0h1.59l2,2h-2.59c-.55,0-1-.45-1-1v-1Z"></path>
+              <path d="M15 6A1 1 0 1 0 15 8 1 1 0 1 0 15 6z"></path>
+              <path d="M12.5 7A.5.5 0 1 0 12.5 8 .5.5 0 1 0 12.5 7z"></path>
+              <path d="M17.5 8A.5.5 0 1 0 17.5 9 .5.5 0 1 0 17.5 8z"></path>
+            </svg>
             <p className="hidden group-hover:block text-sm absolute whitespace-nowrap font-semibold -right-28 border border-gray-800 px-3 rounded-md bg-gray-900">
               Get Ideas
             </p>
@@ -73,7 +92,17 @@ const ChatSideBar = ({ tastyMundoBW, setSavedChats, setRecipeIdea }) => {
       </div>
       {/* SideBar Footer */}
       <div className="relative flex flex-row items-center group hover:bg-gray-700 active:bg-inherit transition-all duration-100 ease-in-out rounded-md border-inherit p-1">
-        <i className="bx  bx-cog bx-sm cursor-pointer"></i>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          fill="currentColor"
+          viewBox="0 0 24 24"
+          className="cursor-pointer"
+        >
+          <path d="M12 8c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4m0 6c-1.08 0-2-.92-2-2s.92-2 2-2 2 .92 2 2-.92 2-2 2"></path>
+          <path d="m20.42 13.4-.51-.29c.05-.37.08-.74.08-1.11s-.03-.74-.08-1.11l.51-.29c.96-.55 1.28-1.78.73-2.73l-1-1.73a2.006 2.006 0 0 0-2.73-.73l-.53.31c-.58-.46-1.22-.83-1.9-1.11v-.6c0-1.1-.9-2-2-2h-2c-1.1 0-2 .9-2 2v.6c-.67.28-1.31.66-1.9 1.11l-.53-.31c-.96-.55-2.18-.22-2.73.73l-1 1.73c-.55.96-.22 2.18.73 2.73l.51.29c-.05.37-.08.74-.08 1.11s.03.74.08 1.11l-.51.29c-.96.55-1.28 1.78-.73 2.73l1 1.73c.55.95 1.77 1.28 2.73.73l.53-.31c.58.46 1.22.83 1.9 1.11v.6c0 1.1.9 2 2 2h2c1.1 0 2-.9 2-2v-.6a8.7 8.7 0 0 0 1.9-1.11l.53.31c.95.55 2.18.22 2.73-.73l1-1.73c.55-.96.22-2.18-.73-2.73m-2.59-2.78c.11.45.17.92.17 1.38s-.06.92-.17 1.38a1 1 0 0 0 .47 1.11l1.12.65-1 1.73-1.14-.66c-.38-.22-.87-.16-1.19.14-.68.65-1.51 1.13-2.38 1.4-.42.13-.71.52-.71.96v1.3h-2v-1.3c0-.44-.29-.83-.71-.96-.88-.27-1.7-.75-2.38-1.4a1.01 1.01 0 0 0-1.19-.15l-1.14.66-1-1.73 1.12-.65c.39-.22.58-.68.47-1.11-.11-.45-.17-.92-.17-1.38s.06-.93.17-1.38A1 1 0 0 0 5.7 9.5l-1.12-.65 1-1.73 1.14.66c.38.22.87.16 1.19-.14.68-.65 1.51-1.13 2.38-1.4.42-.13.71-.52.71-.96v-1.3h2v1.3c0 .44.29.83.71.96.88.27 1.7.75 2.38 1.4.32.31.81.36 1.19.14l1.14-.66 1 1.73-1.12.65c-.39.22-.58.68-.47 1.11Z"></path>
+        </svg>
         <p className="hidden group-hover:block text-sm absolute whitespace-nowrap font-semibold -right-24 border border-gray-800 px-3 rounded-md bg-gray-900">
           Settings
         </p>

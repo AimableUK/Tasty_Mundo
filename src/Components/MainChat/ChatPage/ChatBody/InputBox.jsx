@@ -2,7 +2,7 @@ import React from "react";
 
 const InputBox = () => {
   return (
-    <section className="w-11/12 md:w-3/4 lg:w-2/4 fixed bottom-5 md:bottom-7 lg:bottom-10 left-1/2 -translate-x-1/2 flex justify-center flex-row items-center gap-1">
+    <section className="w-11/12 md:w-3/4 lg:w-3/5 fixed bottom-0 pb-5 left-1/2 -translate-x-1/2 flex justify-center flex-row items-center gap-1 bg-primaryBody ">
       <div className="w-full flex flex-row border border-gray-600 px-3 md:px-4 py-2 md:py-3 rounded-full md:rounded-xl text-primaryBody bg-[#1b1c33]">
         <input
           type="text"

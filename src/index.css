@@ -286,31 +286,55 @@ body {
   grid-template-columns: repeat(2, minmax(100px, 1fr));
 }
 
+.chatpage {
+  padding: 0 1.5rem 0 1.5rem;
+}
+
 @media (min-width: 480px) {
+  .chatpage {
+    padding: 0 1.875rem 0 1.875rem;
+  }
+
   .ingredient-container {
     grid-template-columns: repeat(3, minmax(100px, 1fr));
   }
 }
 
 @media (min-width: 640px) {
+  .chatpage {
+    padding: 0 2.25rem 0 2.25rem;
+  }
+
   .ingredient-container {
     grid-template-columns: repeat(4, minmax(100px, 1fr));
   }
 }
 
 @media (min-width: 768px) {
+  .chatpage {
+    padding: 0 7.5rem 0 7.5rem;
+  }
+
   .ingredient-container {
     grid-template-columns: repeat(5, minmax(100px, 1fr));
   }
 }
 
 @media (min-width: 1024px) {
+  .chatpage {
+    padding: 0 13.125rem 0 13.125rem;
+  }
+
   .ingredient-container {
     grid-template-columns: repeat(6, minmax(100px, 1fr));
   }
 }
 
 @media (min-width: 1280px) {
+  .chatpage {
+    padding: 0 18.75rem 0 18.75rem;
+  }
+
   .ingredient-container {
     grid-template-columns: repeat(8, minmax(100px, 1fr));
   }

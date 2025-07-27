@@ -11,7 +11,7 @@ const ChatBody = () => {
   const chatTaglines = getRandomItem(ChatTaglines);
 
   return (
-    <div className="">
+    <div className="flex flex-col">
       {/* Welcome Text */}
       <div className="flex flex-col items-center justify-center fixed md:left-1/2 top-1/4 md:-translate-x-1/2">
         <div className="flex flex-col md:flex-row flex-nowrap items-center gap-x-2 text-center">
