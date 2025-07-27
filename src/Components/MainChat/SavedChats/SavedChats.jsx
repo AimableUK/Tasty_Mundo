@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 import SavedChatsList from "../../../Data/SavedChats/SavedChats";
 import { formatChatTimestamp } from "../Utils/ChatTimestamp/formatChatTimestamp";
-import KeyboardShortcuts from "../Utils/KeyboardShortcuts/KeyboardShortcuts";
+import { useNavigate } from "react-router-dom";
 
 const SavedChats = ({ dialogRef, savedChats, setSavedChats }) => {
   const [previewChat, setPreviewChat] = useState(false);
@@ -11,6 +11,8 @@ const SavedChats = ({ dialogRef, savedChats, setSavedChats }) => {
 
   const [activeChatMode, setActiveChatMode] = useState(null);
 
+  const navigate = useNavigate();
+
   const closeSavedChats = useCallback(() => {
     setSavedChats(false);
     setPreviewChat(false);
@@ -18,6 +20,11 @@ const SavedChats = ({ dialogRef, savedChats, setSavedChats }) => {
     setActiveChatMode(null);
     setSelectedChat(null);
   }, [setSavedChats]);
+
+  useEffect(() => {
+    setPreviewChat(false);
+    setSelectedChat(null);
+  }, []);
 
   useEffect(() => {
     function ClickOutSide(event) {
@@ -40,12 +47,27 @@ const SavedChats = ({ dialogRef, savedChats, setSavedChats }) => {
     setSelectedChat(chat);
   };
 
-  const handleViewChat = () => {
-    console.log("Viewied");
+  const handleViewChat = (chat) => {
+    const targetChat = chat || selectedChat;
+    if (!targetChat) {
+      console.warn("Tried to view a chat, but none was selected");
+      return;
+    }
+
+    setActiveChatMode(targetChat);
+    navigate(`/c/${targetChat.id}`);
+    setPreviewChat(null);
+    setSelectedChat(null);
+    setSavedChats(null);
+    setActiveChatMode(null);
   };
 
   // Edit
   const handleEditChat = (chat) => {
+    if (!chat) {
+      console.warn("Tried to Edit a chat, but no chat was selected");
+      return;
+    }
     setEditChat(true);
     setActiveChatMode({ type: "edit", id: chat.id });
   };
@@ -58,6 +80,10 @@ const SavedChats = ({ dialogRef, savedChats, setSavedChats }) => {
 
   // Delete
   const handleDeleteChat = (chat) => {
+    if (!chat) {
+      console.warn("Tried to delete a chat, but no chat was selected");
+      return;
+    }
     setDeleteChat(true);
     setActiveChatMode({ type: "delete", id: chat.id });
   };
@@ -80,20 +106,6 @@ const SavedChats = ({ dialogRef, savedChats, setSavedChats }) => {
     setDeleteChat(false);
     setActiveChatMode(null);
   };
-
-  KeyboardShortcuts({
-    activeChatMode,
-    selectedChat,
-    isEditMode: editChat,
-    isDeleteMode: deleteChat,
-    onDelete: handleDeleteChat,
-    onEdit: handleEditChat,
-    onConfirmView: handleViewChat,
-    onConfirmEdit: handleConfirmEdit,
-    onConfirmDelete: handleConfirmDelete,
-    onExitEdit: handleExitEdit,
-    onExitDelete: handleExitDelete,
-  });
 
   return (
     savedChats && (
@@ -246,7 +258,7 @@ const SavedChats = ({ dialogRef, savedChats, setSavedChats }) => {
                             } flex-row md:hidden`}
                           >
                             <div
-                              onClick={handleViewChat}
+                              onClick={() => handleViewChat(chat)}
                               className="cursor-pointer text-gray-300 hover:bg-gray-700
                             active:bg-inherit transform duration-100 ease-in-out rounded-md p-1"
                             >
@@ -285,7 +297,7 @@ const SavedChats = ({ dialogRef, savedChats, setSavedChats }) => {
                         {activeChatMode?.id !== chat.id && (
                           <div className="hidden md:group-hover:flex flex-row flex-nowrap">
                             <div
-                              onClick={handleViewChat}
+                              onClick={() => handleViewChat(chat)}
                               className="cursor-pointer text-gray-300 hover:bg-gray-700
                             active:bg-inherit transform duration-100 ease-in-out rounded-md p-1"
                             >
@@ -335,7 +347,7 @@ const SavedChats = ({ dialogRef, savedChats, setSavedChats }) => {
                     className="font-semibold text-slate-200 flex flex-col p-4 gap-y-6"
                   >
                     <div className="self-end bg-slate-900 p-3 rounded-l-3xl rounded-t-3xl rounded-br-md px-4 max-w-5/6 text-end text-wrap">
-                      {selectedChat.ingredients.map((ingredient, index) => (
+                      {selectedChat?.ingredients.map((ingredient, index) => (
                         <span key={index} className="">
                           {ingredient},&nbsp;
                         </span>
@@ -364,68 +376,22 @@ const SavedChats = ({ dialogRef, savedChats, setSavedChats }) => {
             {!activeChatMode && selectedChat !== null && (
               <div className="flex gap-2">
                 <button
-                  onClick={handleViewChat}
-                  className="flex items-center gap-1 bg-slate-900 hover:bg-slate-800 active:bg-slate-700 px-3 py-1 rounded-md text-gray-200 font-semibold"
+                  onClick={() => handleViewChat(selectedChat)}
+                  className=" bg-slate-900 hover:bg-slate-800 active:bg-slate-700 px-3 py-1 rounded-md text-gray-200 font-semibold"
                 >
                   View
-                  <span className="hidden md:flex p-[2px] rounded-md border border-slate-400">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 16 16"
-                      fill="currentColor"
-                      className="size-3 text-slate-400"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M13.25 2a.75.75 0 0 0-.75.75v6.5H4.56l.97-.97a.75.75 0 0 0-1.06-1.06L2.22 9.47a.75.75 0 0 0 0 1.06l2.25 2.25a.75.75 0 0 0 1.06-1.06l-.97-.97h8.69A.75.75 0 0 0 14 10V2.75a.75.75 0 0 0-.75-.75Z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                  </span>
                 </button>
                 <button
                   onClick={() => handleEditChat(selectedChat)}
-                  className="flex items-center gap-2 bg-slate-900 hover:bg-slate-800 active:bg-slate-700 px-3 py-1 rounded-md text-gray-200 font-semibold"
+                  className="bg-slate-900 hover:bg-slate-800 active:bg-slate-700 px-3 py-1 rounded-md text-gray-200 font-semibold"
                 >
                   Edit
-                  <span className=" hidden md:flex p-[2px] items-center text-sm rounded-md border border-slate-400 text-slate-400">
-                    Ctrl+
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 16 16"
-                      fill="currentColor"
-                      className="size-3"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M8 14a.75.75 0 0 1-.75-.75V4.56L4.03 7.78a.75.75 0 0 1-1.06-1.06l4.5-4.5a.75.75 0 0 1 1.06 0l4.5 4.5a.75.75 0 0 1-1.06 1.06L8.75 4.56v8.69A.75.75 0 0 1 8 14Z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                    R
-                  </span>
                 </button>
                 <button
                   onClick={() => handleDeleteChat(selectedChat)}
-                  className="flex items-center gap-2 bg-slate-900 hover:bg-slate-800 active:bg-slate-700 px-3 py-1 rounded-md text-gray-200 font-semibold"
+                  className="bg-slate-900 hover:bg-slate-800 active:bg-slate-700 px-3 py-1 rounded-md text-gray-200 font-semibold"
                 >
                   Delete
-                  <span className="hidden md:flex p-[2px] items-center text-sm rounded-md border border-slate-400 text-slate-400">
-                    Ctrl+
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 16 16"
-                      fill="currentColor"
-                      className="size-3"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M8 14a.75.75 0 0 1-.75-.75V4.56L4.03 7.78a.75.75 0 0 1-1.06-1.06l4.5-4.5a.75.75 0 0 1 1.06 0l4.5 4.5a.75.75 0 0 1-1.06 1.06L8.75 4.56v8.69A.75.75 0 0 1 8 14Z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                    D
-                  </span>
                 </button>
               </div>
             )}
@@ -433,32 +399,15 @@ const SavedChats = ({ dialogRef, savedChats, setSavedChats }) => {
               <div className="flex gap-2">
                 <button
                   onClick={handleExitDelete}
-                  className="flex items-center gap-1 bg-slate-900 hover:bg-slate-800 active:bg-slate-700 px-3 py-1 rounded-md text-gray-200 font-semibold"
+                  className="bg-slate-900 hover:bg-slate-800 active:bg-slate-700 px-3 py-1 rounded-md text-gray-200 font-semibold"
                 >
                   Cancel
-                  <span className="hidden md:flex px-1 rounded-md border border-slate-400 text-slate-400 text-sm">
-                    Esc
-                  </span>
                 </button>
                 <button
                   onClick={() => setDeleteChat(true)}
-                  className="flex items-center bg-slate-900 hover:bg-slate-800 active:bg-slate-700 px-3 py-1 rounded-md text-red-500 font-semibold"
+                  className="bg-slate-900 hover:bg-slate-800 active:bg-slate-700 px-3 py-1 rounded-md text-red-500 font-semibold"
                 >
                   Delete
-                  <span className="hidden md:flex p-[2px] ml-1 rounded-md border border-slate-400">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 16 16"
-                      fill="currentColor"
-                      className="size-3 text-slate-400"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M13.25 2a.75.75 0 0 0-.75.75v6.5H4.56l.97-.97a.75.75 0 0 0-1.06-1.06L2.22 9.47a.75.75 0 0 0 0 1.06l2.25 2.25a.75.75 0 0 0 1.06-1.06l-.97-.97h8.69A.75.75 0 0 0 14 10V2.75a.75.75 0 0 0-.75-.75Z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                  </span>
                 </button>
               </div>
             )}
@@ -466,29 +415,12 @@ const SavedChats = ({ dialogRef, savedChats, setSavedChats }) => {
               <div className="flex gap-2">
                 <button
                   onClick={handleExitEdit}
-                  className="flex items-center gap-1 bg-slate-900 hover:bg-slate-800 active:bg-slate-700 px-3 py-1 rounded-md text-gray-200 font-semibold"
+                  className="bg-slate-900 hover:bg-slate-800 active:bg-slate-700 px-3 py-1 rounded-md text-gray-200 font-semibold"
                 >
                   Cancel
-                  <span className="hidden md:flex px-1 rounded-md border border-slate-400 text-slate-400 text-sm">
-                    Esc
-                  </span>
                 </button>
-                <button className="flex items-center gap-2 bg-slate-900 hover:bg-slate-800 active:bg-slate-700 px-3 py-1 rounded-md text-green-400 font-semibold">
+                <button className=" bg-slate-900 hover:bg-slate-800 active:bg-slate-700 px-3 py-1 rounded-md text-green-400 font-semibold">
                   Confirm
-                  <span className="hidden md:flex p-[2px] rounded-md border border-slate-400">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 16 16"
-                      fill="currentColor"
-                      className="size-3 text-slate-400"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M13.25 2a.75.75 0 0 0-.75.75v6.5H4.56l.97-.97a.75.75 0 0 0-1.06-1.06L2.22 9.47a.75.75 0 0 0 0 1.06l2.25 2.25a.75.75 0 0 0 1.06-1.06l-.97-.97h8.69A.75.75 0 0 0 14 10V2.75a.75.75 0 0 0-.75-.75Z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                  </span>
                 </button>
               </div>
             )}

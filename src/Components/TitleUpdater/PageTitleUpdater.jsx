@@ -19,6 +19,8 @@ const PageTitleUpdater = () => {
       title = "Recipe Details - TastyMundo";
     } else if (location.pathname === "/c") {
       title = "Tasty Mundo Chat";
+    } else if (location.pathname.startsWith("/c")) {
+      title = "Chat Viewing";
     } else {
       title = "404 Page Not Found";
     }

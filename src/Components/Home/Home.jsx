@@ -24,7 +24,7 @@ import faqData from "../../Data/FAQ/faqData.js";
 // Testimonials
 import Testimonials from "../Testimonials/Testimonials.jsx";
 import { getDailyItems } from "../../utils/getDailyItems.js";
-import Chat from "../Chat/Chat.jsx";
+import Chat from "../HomeChatInput/Chat.jsx";
 import { Link } from "react-router-dom";
 
 const Home = () => {

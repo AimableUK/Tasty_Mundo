@@ -5,7 +5,8 @@ import PageTitleUpdater from "./Components/TitleUpdater/PageTitleUpdater";
 
 const Layout = () => {
   const location = useLocation();
-  const isChat = location.pathname === "/c";
+  const isChat =
+    location.pathname === "/c" || location.pathname.startsWith("/c/");
 
   return (
     <div className="overflow-x-hidden w-full">
