@@ -1,10 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const ChatHeader = ({ tastyMundoBW, setRecipeIdea, setSavedChats }) => {
   const [showMore, setShowMore] = useState(false);
 
   const dropdownRef = useRef(null);
+
+  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const handleClickOutside = () => {
@@ -21,6 +24,11 @@ const ChatHeader = ({ tastyMundoBW, setRecipeIdea, setSavedChats }) => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [showMore]);
+
+  const newChat = () => {
+    if (location.pathname == "/c") return;
+    navigate("/c");
+  };
 
   return (
     <div className="flex flex-row p-1 py-3 md:py-4 px-4 justify-between w-full border-b border-b-gray-700 items-center">
@@ -48,7 +56,10 @@ const ChatHeader = ({ tastyMundoBW, setRecipeIdea, setSavedChats }) => {
           className="md:hidden bx bx-sm bx-burger-alt cursor-pointer text-gray-200 
             active:scale-90 transform duration-100 ease-in-out rounded-md p-1"
         ></i>
-        <i className="bx bx-edit-alt bx-sm flex md:hidden cursor-pointer text-gray-300 active:scale-90 transform duration-100 ease-in-out rounded-md p-1"></i>
+        <i
+          onClick={newChat}
+          className="bx bx-edit-alt bx-sm flex md:hidden cursor-pointer text-gray-300 active:scale-90 transform duration-100 ease-in-out rounded-md p-1"
+        ></i>
         <div
           onClick={() => setShowMore((prev) => !prev)}
           className="cursor-pointer flex flex-col md:flex-row gap-[3px] active:scale-90 ml-2"
@@ -60,10 +71,10 @@ const ChatHeader = ({ tastyMundoBW, setRecipeIdea, setSavedChats }) => {
         {showMore && (
           <div
             ref={dropdownRef}
-            className="flex absolute right-1 top-8 md:top-4 flex-col items-start border border-gray-800 gap-y-1 rounded-md p-1 bg-gray-900"
+            className="items-stretch flex absolute right-1 top-8 md:top-4 flex-col border border-gray-800 gap-y-1 rounded-md p-1 bg-gray-900"
           >
             <Link to="/">
-              <button className="flex flex-row flex-nowrap items-center font-semibold border-gray-900 hover:bg-gray-800 rounded-md p-1 px-2 gap-1 transition-all duration-200 ease-in-out active:scale-95">
+              <button className="w-full flex flex-row flex-nowrap items-center font-semibold border-gray-900 hover:bg-gray-800 rounded-md p-1 px-2 gap-1 transition-all duration-200 ease-in-out active:scale-95">
                 <span>
                   <img
                     src={tastyMundoBW}
