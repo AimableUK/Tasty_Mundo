@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 import SavedChatsList from "../../../Data/SavedChats/SavedChats";
 import { formatChatTimestamp } from "../Utils/ChatTimestamp/formatChatTimestamp";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const SavedChats = ({ dialogRef, savedChats, setSavedChats }) => {
   const [previewChat, setPreviewChat] = useState(false);
@@ -12,6 +12,7 @@ const SavedChats = ({ dialogRef, savedChats, setSavedChats }) => {
   const [activeChatMode, setActiveChatMode] = useState(null);
 
   const navigate = useNavigate();
+  const location = useLocation();
 
   const closeSavedChats = useCallback(() => {
     setSavedChats(false);
@@ -41,6 +42,12 @@ const SavedChats = ({ dialogRef, savedChats, setSavedChats }) => {
       document.removeEventListener("mousedown", ClickOutSide);
     };
   }, [dialogRef, savedChats, closeSavedChats]);
+
+  const newChat = () => {
+    if (location.pathname == "/c") return;
+    closeSavedChats();
+    navigate("/c");
+  };
 
   const viewChat = (chat) => {
     setPreviewChat(true);
@@ -114,7 +121,7 @@ const SavedChats = ({ dialogRef, savedChats, setSavedChats }) => {
           ref={dialogRef}
           className="relative bg-slate-950 border border-slate-800 rounded-t-xl md:rounded-xl max-w-5xl w-full shadow-xl z-50 h-full flex flex-col"
         >
-          <div className="flex md:hidden self-center p-[2px] rounded-full my-2 bg-slate-300 w-2/6 "></div>
+          <div className="flex md:hidden self-center p-[1px] md:p-[2px] rounded-full my-2 bg-slate-300 w-2/6 "></div>
           {/* Search Bar */}
           <div className="flex flex-row items-center border-b border-slate-800 px-2 py-1">
             <input
@@ -152,7 +159,10 @@ const SavedChats = ({ dialogRef, savedChats, setSavedChats }) => {
                       Show All
                     </h3>
                   </div>
-                  <button className="flex w-full rounded-xl bg-slate-900 p-3 gap-2 items-center font-semibold text-gray-200 hover:bg-slate-800 active:scale-95 transition-all duration-200 ease-in-out">
+                  <button
+                    onClick={newChat}
+                    className="flex w-full rounded-xl bg-slate-900 p-3 gap-2 items-center font-semibold text-gray-200 hover:bg-slate-800 active:scale-95 transition-all duration-200 ease-in-out"
+                  >
                     <i className="bx  bx-edit-alt bx-sm"></i>
                     Create New Chat
                   </button>

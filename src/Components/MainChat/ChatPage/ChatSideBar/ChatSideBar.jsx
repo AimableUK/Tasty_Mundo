@@ -1,6 +1,15 @@
 import React from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const ChatSideBar = ({ tastyMundoBW, setSavedChats, setRecipeIdea }) => {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const newChat = () => {
+    if (location.pathname == "/c") return;
+    navigate("/c");
+  };
+
   return (
     <div className="hidden md:flex flex-col p-1 py-3 px-2 justify-between border-r border-r-gray-700 items-center">
       {/* SideBar Header */}
@@ -18,6 +27,7 @@ const ChatSideBar = ({ tastyMundoBW, setSavedChats, setRecipeIdea }) => {
           {/* New Chat */}
           <div className="relative flex flex-row items-center group">
             <i
+              onClick={newChat}
               className="bx  bx-edit-alt bx-sm cursor-pointer text-gray-300 hover:bg-gray-700
                 active:bg-inherit transform duration-100 ease-in-out p-1 rounded-md"
             ></i>
@@ -63,22 +73,9 @@ const ChatSideBar = ({ tastyMundoBW, setSavedChats, setRecipeIdea }) => {
       </div>
       {/* SideBar Footer */}
       <div className="relative flex flex-row items-center group hover:bg-gray-700 active:bg-inherit transition-all duration-100 ease-in-out rounded-md border-inherit p-1">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          strokeWidth={1.5}
-          stroke="currentColor"
-          className="size-7 border-2 cursor-pointer text-gray-300 hover:bg-gray-700 active:bg-inherit rounded-full border-inherit p-1"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"
-          />
-        </svg>
-        <p className="hidden group-hover:block text-sm absolute whitespace-nowrap font-semibold -right-32 border border-gray-800 px-3 rounded-md bg-gray-900">
-          Your Account
+        <i className="bx  bx-cog bx-sm cursor-pointer"></i>
+        <p className="hidden group-hover:block text-sm absolute whitespace-nowrap font-semibold -right-24 border border-gray-800 px-3 rounded-md bg-gray-900">
+          Settings
         </p>
       </div>
     </div>

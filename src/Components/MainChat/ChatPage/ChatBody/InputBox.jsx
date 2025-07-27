@@ -7,7 +7,7 @@ const InputBox = () => {
         <input
           type="text"
           placeholder="Enter Your Ingredients... "
-          className="outline-none md:w-[300px] lg:w-[500px] bg-[#1b1c33] text-white transform transition-all duration-300 ease-in-out"
+          className="outline-none md:w-[300px] lg:w-[790px] bg-[#1b1c33] text-white transform transition-all duration-300 ease-in-out"
         />
       </div>
       <button className="hover:scale-105 active:scale-90 transition-all duration-200 ease-in-out border border-gray-600 p-2 md:p-3 rounded-full md:rounded-xl font-bold bg-[#1b1c33] flex flex-row flex-nowrap">
