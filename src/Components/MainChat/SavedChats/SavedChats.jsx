@@ -146,7 +146,7 @@ const SavedChats = ({ dialogRef, savedChats, setSavedChats }) => {
           <div className="flex flex-row items-center border-b border-slate-800 px-2 py-1">
             <input
               type="text"
-              placeholder="Search..."
+              placeholder="Search a chat..."
               value={query}
               onChange={(e) => handleChange(e.target.value)}
               className="w-full rounded-t-md py-3 px-3 outline-none bg-slate-950"

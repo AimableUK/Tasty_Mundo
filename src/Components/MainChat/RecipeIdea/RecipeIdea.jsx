@@ -17,6 +17,11 @@ const RecipeIdea = ({ dialogRef, recipeIdea, setRecipeIdea }) => {
   const handleChange = (value) => {
     setQuery(value.trimStart());
   };
+  const allIng = [...trendingFlavors, ...ingredientsInSeason];
+
+  const filteredIng = allIng.filter((ing) =>
+    ing.label.toLowerCase().includes(debouncedQuery.toLowerCase())
+  );
 
   return (
     recipeIdea && (
@@ -31,7 +36,7 @@ const RecipeIdea = ({ dialogRef, recipeIdea, setRecipeIdea }) => {
           <div className="flex flex-row items-center border-b border-slate-800 px-2 py-1">
             <input
               type="text"
-              placeholder="Search..."
+              placeholder="Search an Ingredient..."
               value={query}
               onChange={(e) => handleChange(e.target.value)}
               className="w-full rounded-t-md py-3 px-3 outline-none bg-slate-950"
@@ -54,65 +59,83 @@ const RecipeIdea = ({ dialogRef, recipeIdea, setRecipeIdea }) => {
 
           {/* Scrollable Content */}
           <div className="flex-1 overflow-y-auto pt-2 md:pt-5">
-            {/* Trending Flavors */}
-            {query.length < 1 && (
-              <div className="flex flex-col px-2">
-                {/* Header */}
-                <div className="flex flex-row justify-between items-center">
-                  <h1 className="font-roboto text-lg md:text-xl font-semibold pl-2">
-                    Trending Flavors
-                  </h1>
+            {query.length < 1 ? (
+              <div>
+                {/* Trending Flavors */}
+                <div className="flex flex-col px-2">
+                  {/* Header */}
+                  <div className="flex flex-row justify-between items-center">
+                    <h1 className="font-roboto text-lg md:text-xl font-semibold pl-2">
+                      Trending Flavors
+                    </h1>
+                  </div>
+                  <div className="ingredient-container gap-1 p-1">
+                    {trendingFlavors.map(({ id, src, alt, label }) => (
+                      <div
+                        key={id}
+                        className="ingredient flex flex-col items-center mx-2 h-fit"
+                      >
+                        <img
+                          src={src}
+                          loading="lazy"
+                          alt={alt}
+                          className="size-20 rounded-full"
+                        />
+                        <h3 className="mt-2 text-sm font-medium text-center">
+                          {label}
+                        </h3>
+                      </div>
+                    ))}
+                  </div>
                 </div>
-                {/* grid grid-cols-6 lg:grid-cols-8 */}
-                <div className="ingredient-container gap-1 p-1 scrollbar-hide">
-                  {trendingFlavors.map(({ id, src, alt, label }) => (
-                    <div
-                      // onClick={() => addIngredient(label)}
-                      key={id}
-                      className="ingredient flex flex-col items-center mx-2 active:scale-90 h-fit"
-                    >
-                      <img
-                        src={src}
-                        loading="lazy"
-                        alt={alt}
-                        className="size-20 rounded-full"
-                      />
-                      <h3 className="mt-2 text-sm font-medium text-center">
-                        {label}
-                      </h3>
-                    </div>
-                  ))}
+                {/* Ingredients In Season */}
+                <div className="flex flex-col justify-center px-2 pt-3 md:pt-5">
+                  {/* Header */}
+                  <div className="flex flex-row justify-between items-center">
+                    <h1 className="font-roboto text-lg md:text-xl font-semibold pl-2">
+                      Ingredients In Season
+                    </h1>
+                  </div>
+                  <div className="ingredient-container gap-1 p-1">
+                    {ingredientsInSeason.map(({ id, src, alt, label }) => (
+                      <div
+                        key={id}
+                        className="ingredient flex flex-col items-center mx-2 h-fit"
+                      >
+                        <img
+                          src={src}
+                          loading="lazy"
+                          alt={alt}
+                          className="size-20 rounded-full"
+                        />
+                        <h3 className="mt-2 text-sm font-medium text-center">
+                          {label}
+                        </h3>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
-            )}
-            {/* Ingredients In Season */}
-            {query.length < 1 && (
-              <div className="flex flex-col justify-center px-2 pt-3 md:pt-5">
-                {/* Header */}
-                <div className="flex flex-row justify-between items-center">
-                  <h1 className="font-roboto text-lg md:text-xl font-semibold pl-2">
-                    Ingredients In Season
-                  </h1>
-                </div>
-                <div className="ingredient-container gap-1 p-1 scrollbar-hide">
-                  {ingredientsInSeason.map(({ id, src, alt, label }) => (
-                    <div
-                      // onClick={() => addIngredient(label)}
-                      key={id}
-                      className="ingredient flex flex-col items-center mx-2 active:scale-90 h-fit"
-                    >
-                      <img
-                        src={src}
-                        loading="lazy"
-                        alt={alt}
-                        className="size-20 rounded-full"
-                      />
-                      <h3 className="mt-2 text-sm font-medium text-center">
-                        {label}
-                      </h3>
-                    </div>
-                  ))}
-                </div>
+            ) : filteredIng.length === 0 ? (
+              <p className="text-gray-400 text-center py-4">No results found</p>
+            ) : (
+              <div className="ingredient-container gap-1 p-1">
+                {filteredIng.map(({ id, src, alt, label }) => (
+                  <div
+                    key={id}
+                    className="ingredient flex flex-col items-center mx-2 h-fit"
+                  >
+                    <img
+                      src={src}
+                      loading="lazy"
+                      alt={alt}
+                      className="size-20 rounded-full"
+                    />
+                    <h3 className="mt-2 text-sm font-medium text-center">
+                      {label}
+                    </h3>
+                  </div>
+                ))}
               </div>
             )}
           </div>
