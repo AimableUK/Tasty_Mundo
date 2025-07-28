@@ -1,4 +1,5 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
+import { useSettingsStore } from "../../../store/settingsStore";
 
 const SiteSettings = ({ dialogRef, settings, setSettings }) => {
   const [settingView, setSettingView] = useState("general");
@@ -6,6 +7,24 @@ const SiteSettings = ({ dialogRef, settings, setSettings }) => {
 
   const appVersion = "v1.0.0";
   const formRef = useRef(null);
+
+  const { clearSavedRecipes, resetAllSettings, savedRecipes } =
+    useSettingsStore();
+
+  const exportData = () => {
+    const data = {
+      savedRecipes,
+    };
+    const blob = new Blob([JSON.stringify(data, null, 2)], {
+      type: "application/json",
+    });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "recipe_data.json";
+    a.click();
+    URL.revokeObjectURL(url);
+  };
 
   const viewForm = () => {
     setFeedbackForm((prev) => !prev);
@@ -22,9 +41,51 @@ const SiteSettings = ({ dialogRef, settings, setSettings }) => {
 
   const settingsComponents = {
     general: <div>General</div>,
-    data: <div>Data</div>,
+    data: (
+      <div className="md:p-4 max-w-2xl mx-auto">
+        <div className="bg-gray-900 rounded-xl p-4 mb-4 shadow">
+          <h3 className="text-lg font-semibold mb-2">Saved Recipes</h3>
+          <p className="text-sm text-gray-400 mb-3">
+            You have {savedRecipes.length} recipe(s) saved on your device.
+          </p>
+          <button
+            onClick={clearSavedRecipes}
+            className="px-4 py-2 bg-red-800 text-white rounded-xl hover:bg-red-900 active:bg-red-950 transition"
+          >
+            Delete All Saved Recipes
+          </button>
+        </div>
+
+        <div className="bg-gray-900 rounded-xl p-4 mb-4 shadow">
+          <h3 className="text-lg font-semibold mb-2">Export My Data</h3>
+          <p className="text-sm text-gray-400 mb-3">
+            Download your saved recipes and ingredients as a JSON file.
+          </p>
+          <button
+            onClick={exportData}
+            className="px-4 py-2 bg-blue-800 text-gray-100 font-semibold rounded-xl hover:bg-blue-900 active:bg-blue-950 transition"
+          >
+            Export My Data
+          </button>
+        </div>
+
+        <div className="bg-gray-900 rounded-xl p-4 mb-4 shadow">
+          <h3 className="text-lg font-semibold mb-2">Reset Everything</h3>
+          <p className="text-sm text-gray-400 mb-3">
+            This will erase all your preferences, saved recipes, and ingredient
+            history from this device.
+          </p>
+          <button
+            onClick={resetAllSettings}
+            className="px-4 py-2 bg-red-800 text-white rounded-xl hover:bg-red-900 active:bg-red-950 transition"
+          >
+            Reset All Settings
+          </button>
+        </div>
+      </div>
+    ),
     about: (
-      <div className="md:p-4 text-gray-100 space-y-4">
+      <div className="md:p-4 text-gray-100 space-y-4 transition-all duration-500 ease-in-out">
         <div className="bg-gray-900 p-4 rounded-xl shadow-md space-y-2">
           <h3 className="text-lg font-medium">App Purpose</h3>
           <p className="text-sm text-gray-300">
