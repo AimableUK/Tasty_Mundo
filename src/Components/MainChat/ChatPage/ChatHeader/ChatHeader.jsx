@@ -1,7 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
-const ChatHeader = ({ tastyMundoBW, setRecipeIdea, setSavedChats }) => {
+const ChatHeader = ({
+  tastyMundoBW,
+  setRecipeIdea,
+  setSavedChats,
+  setSettings,
+}) => {
   const [showMore, setShowMore] = useState(false);
 
   const dropdownRef = useRef(null);
@@ -125,7 +130,10 @@ const ChatHeader = ({ tastyMundoBW, setRecipeIdea, setSavedChats }) => {
               </span>
               DELETE
             </button>
-            <button className="flex md:hidden flex-row flex-nowrap items-center font-semibold border-gray-900 hover:bg-gray-800 rounded-md p-1 px-2 gap-1 transition-all duration-200 ease-in-out active:scale-95">
+            <button
+              onClick={() => setSettings(true)}
+              className="flex md:hidden flex-row flex-nowrap items-center font-semibold border-gray-900 hover:bg-gray-800 rounded-md p-1 px-2 gap-1 transition-all duration-200 ease-in-out active:scale-95"
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"

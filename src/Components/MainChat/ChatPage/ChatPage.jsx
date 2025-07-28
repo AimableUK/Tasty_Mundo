@@ -7,12 +7,12 @@ import SavedChatsList from "../../../Data/SavedChats/SavedChats";
 import SavedChats from "../SavedChats/SavedChats";
 import RecipeIdea from "../RecipeIdea/RecipeIdea";
 import useClickOutside from "../Utils/useClickOutside/useClickOutside";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import Chat from "./ChatBody/Chat";
+import SiteSettings from "../Settings/SiteSettings";
 
 const ChatPage = () => {
   const { chatId } = useParams();
-  const navigate = useNavigate();
 
   const [activeChat, setActiveChat] = useState(null);
 
@@ -31,12 +31,15 @@ const ChatPage = () => {
 
   const [savedChats, setSavedChats] = useState(false);
   const [recipeIdea, setRecipeIdea] = useState(false);
+  const [settings, setSettings] = useState(false);
 
   const savedRef = useRef(null);
   const recipeRef = useRef(null);
+  const settingsRef = useRef(null);
 
   useClickOutside(savedRef, savedChats, () => setSavedChats(false));
   useClickOutside(recipeRef, recipeIdea, () => setRecipeIdea(false));
+  useClickOutside(settingsRef, settings, () => setSettings(false));
 
   return (
     <div className="flex flex-row h-screen overflow-x-hidden overflow-y-scroll bg-primaryBody text-white">
@@ -45,6 +48,7 @@ const ChatPage = () => {
         tastyMundoBW={tastyMundoBW}
         setSavedChats={setSavedChats}
         setRecipeIdea={setRecipeIdea}
+        setSettings={setSettings}
       />
       {/* Other */}
       <div className="w-full h-full">
@@ -53,6 +57,7 @@ const ChatPage = () => {
           tastyMundoBW={tastyMundoBW}
           setRecipeIdea={setRecipeIdea}
           setSavedChats={setSavedChats}
+          setSettings={setSettings}
         />
 
         {/* Body */}
@@ -69,6 +74,12 @@ const ChatPage = () => {
         dialogRef={recipeRef}
         recipeIdea={recipeIdea}
         setRecipeIdea={setRecipeIdea}
+      />
+
+      <SiteSettings
+        dialogRef={settingsRef}
+        settings={settings}
+        setSettings={setSettings}
       />
     </div>
   );
