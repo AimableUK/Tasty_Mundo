@@ -1,8 +1,23 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import trendingFlavors from "../../../Data/TastyFoods/trendingFlavors";
 import ingredientsInSeason from "../../../Data/TastyFoods/ingredientsInSeason";
 
 const RecipeIdea = ({ dialogRef, recipeIdea, setRecipeIdea }) => {
+  const [query, setQuery] = useState("");
+  const [debouncedQuery, setDebouncedQuery] = useState("");
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedQuery(query);
+    }, 300);
+
+    return () => clearTimeout(timer);
+  }, [query]);
+
+  const handleChange = (value) => {
+    setQuery(value.trimStart());
+  };
+
   return (
     recipeIdea && (
       <div className="fixed inset-0 bg-black bg-opacity-40 z-40 flex items-center justify-center md:py-5 pt-10">
@@ -17,6 +32,8 @@ const RecipeIdea = ({ dialogRef, recipeIdea, setRecipeIdea }) => {
             <input
               type="text"
               placeholder="Search..."
+              value={query}
+              onChange={(e) => handleChange(e.target.value)}
               className="w-full rounded-t-md py-3 px-3 outline-none bg-slate-950"
             />
             <svg
@@ -38,62 +55,66 @@ const RecipeIdea = ({ dialogRef, recipeIdea, setRecipeIdea }) => {
           {/* Scrollable Content */}
           <div className="flex-1 overflow-y-auto pt-2 md:pt-5">
             {/* Trending Flavors */}
-            <div className="flex flex-col px-2">
-              {/* Header */}
-              <div className="flex flex-row justify-between items-center">
-                <h1 className="font-roboto text-lg md:text-xl font-semibold pl-2">
-                  Trending Flavors
-                </h1>
+            {query.length < 1 && (
+              <div className="flex flex-col px-2">
+                {/* Header */}
+                <div className="flex flex-row justify-between items-center">
+                  <h1 className="font-roboto text-lg md:text-xl font-semibold pl-2">
+                    Trending Flavors
+                  </h1>
+                </div>
+                {/* grid grid-cols-6 lg:grid-cols-8 */}
+                <div className="ingredient-container gap-1 p-1 scrollbar-hide">
+                  {trendingFlavors.map(({ id, src, alt, label }) => (
+                    <div
+                      // onClick={() => addIngredient(label)}
+                      key={id}
+                      className="ingredient flex flex-col items-center mx-2 active:scale-90 h-fit"
+                    >
+                      <img
+                        src={src}
+                        loading="lazy"
+                        alt={alt}
+                        className="size-20 rounded-full"
+                      />
+                      <h3 className="mt-2 text-sm font-medium text-center">
+                        {label}
+                      </h3>
+                    </div>
+                  ))}
+                </div>
               </div>
-              {/* grid grid-cols-6 lg:grid-cols-8 */}
-              <div className="ingredient-container gap-1 p-1 scrollbar-hide">
-                {trendingFlavors.map(({ id, src, alt, label }) => (
-                  <div
-                    // onClick={() => addIngredient(label)}
-                    key={id}
-                    className="ingredient flex flex-col items-center mx-2 active:scale-90 h-fit"
-                  >
-                    <img
-                      src={src}
-                      loading="lazy"
-                      alt={alt}
-                      className="size-20 rounded-full"
-                    />
-                    <h3 className="mt-2 text-sm font-medium text-center">
-                      {label}
-                    </h3>
-                  </div>
-                ))}
-              </div>
-            </div>
+            )}
             {/* Ingredients In Season */}
-            <div className="flex flex-col justify-center px-2 pt-3 md:pt-5">
-              {/* Header */}
-              <div className="flex flex-row justify-between items-center">
-                <h1 className="font-roboto text-lg md:text-xl font-semibold pl-2">
-                  Ingredients In Season
-                </h1>
+            {query.length < 1 && (
+              <div className="flex flex-col justify-center px-2 pt-3 md:pt-5">
+                {/* Header */}
+                <div className="flex flex-row justify-between items-center">
+                  <h1 className="font-roboto text-lg md:text-xl font-semibold pl-2">
+                    Ingredients In Season
+                  </h1>
+                </div>
+                <div className="ingredient-container gap-1 p-1 scrollbar-hide">
+                  {ingredientsInSeason.map(({ id, src, alt, label }) => (
+                    <div
+                      // onClick={() => addIngredient(label)}
+                      key={id}
+                      className="ingredient flex flex-col items-center mx-2 active:scale-90 h-fit"
+                    >
+                      <img
+                        src={src}
+                        loading="lazy"
+                        alt={alt}
+                        className="size-20 rounded-full"
+                      />
+                      <h3 className="mt-2 text-sm font-medium text-center">
+                        {label}
+                      </h3>
+                    </div>
+                  ))}
+                </div>
               </div>
-              <div className="ingredient-container gap-1 p-1 scrollbar-hide">
-                {ingredientsInSeason.map(({ id, src, alt, label }) => (
-                  <div
-                    // onClick={() => addIngredient(label)}
-                    key={id}
-                    className="ingredient flex flex-col items-center mx-2 active:scale-90 h-fit"
-                  >
-                    <img
-                      src={src}
-                      loading="lazy"
-                      alt={alt}
-                      className="size-20 rounded-full"
-                    />
-                    <h3 className="mt-2 text-sm font-medium text-center">
-                      {label}
-                    </h3>
-                  </div>
-                ))}
-              </div>
-            </div>
+            )}
           </div>
 
           {/* Bottom Buttons in Dialog */}
