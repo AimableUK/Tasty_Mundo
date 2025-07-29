@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import NewFoods from "../../Data/TastyFoods/NewFoods";
 import recentDiscoveries from "../../Data/TastyFoods/recentDiscoveries";
+import { scrollToTop } from "../../utils/scrollToTop";
 
 const RelatedRecipes = ({ recipe, recipeIngredients }) => {
   const [previewId, setPreviewId] = useState(false);
@@ -20,6 +21,7 @@ const RelatedRecipes = ({ recipe, recipeIngredients }) => {
     if (!found) return;
 
     navigate(`/recipedetails/${found.id}`);
+    scrollToTop();
   };
 
   const allRecipes = [...NewFoods, ...recentDiscoveries];

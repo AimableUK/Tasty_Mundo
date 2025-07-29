@@ -1,15 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import tastyMundoLogo from "/tastyMundo.png";
+import { scrollToTop } from "../../utils/scrollToTop";
 
 const Footer = () => {
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-  };
-
   return (
     <footer className="relative bg-primaryBody text-white flex flex-col md:flex-row justify-between p-6 gap-3 md:gap-10 pb-2 md:pl-20 md:pr-20 items-center border-t border-gray-700">
       <div className="flex flex-row items-center">
