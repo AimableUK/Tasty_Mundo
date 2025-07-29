@@ -1,11 +1,43 @@
 import React, { useRef, useState } from "react";
 import { useSettingsStore } from "../../../store/settingsStore";
-import { ErrorMessage, Field, Formik,Form } from "formik";
+import { ErrorMessage, Field, Formik, Form } from "formik";
 import { contactUsSchema } from "../../../Schema/contactUsSchema";
+import emailjs from "@emailjs/browser";
 
 const SiteSettings = ({ dialogRef, settings, setSettings }) => {
   const [settingView, setSettingView] = useState("data");
   const [feedbackForm, setFeedbackForm] = useState(false);
+
+  const [submitStatus, setSubmitStatus] = useState(null);
+
+  async function onSubmit(values, actions) {
+    try {
+      await emailjs.send(
+        import.meta.env.VITE_EMAILJS_SERVICE_KEY,
+        import.meta.env.VITE_EMAILJS_TEMPLATE_KEY,
+        {
+          name: values.name,
+          email: values.email,
+          phone: values.phone,
+          subject: values.subject,
+          message: values.message,
+        },
+        import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+      );
+
+      setSubmitStatus("success");
+
+      setTimeout(() => {
+        actions.resetForm();
+        setSubmitStatus(null);
+      }, 3000);
+    } catch (e) {
+      setSubmitStatus("error");
+      setTimeout(() => {
+        setSubmitStatus(null);
+      }, 3000);
+    }
+  }
 
   const appVersion = "v1.0.0";
   const formRef = useRef(null);
@@ -34,8 +66,6 @@ const SiteSettings = ({ dialogRef, settings, setSettings }) => {
       formRef.current?.scrollIntoView({ behavior: "smooth" });
     }, 100);
   };
-
-  const submitForm = () => {};
 
   const settingsTitles = {
     data: "Data & Privacy",
@@ -152,102 +182,116 @@ const SiteSettings = ({ dialogRef, settings, setSettings }) => {
                 message: "",
               }}
               validationSchema={contactUsSchema}
-              onSubmit={submitForm}
+              onSubmit={onSubmit}
             >
-              <Form autoComplete="off" className="space-y-6">
-                <div>
-                  <label htmlFor="name" className="block mb-2 font-medium">
-                    Your Name
-                  </label>
-                  <Field
-                    type="text"
-                    id="name"
-                    name="name"
-                    placeholder="Enter Your Name..."
-                    className="w-full p-3 border text-slate-900 bg-gray-100 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-300 transition duration-300 ease-in-out"
-                  />
-                  <ErrorMessage
-                    name="name"
-                    component="div"
-                    className="text-red-300 text-sm font-semibold"
-                  />
-                </div>
-                <div>
-                  <label htmlFor="email" className="block mb-2 font-medium">
-                    Email Address
-                  </label>
-                  <Field
-                    type="email"
-                    id="email"
-                    name="email"
-                    placeholder="Enter Your Email..."
-                    className="w-full p-3 border text-slate-900 bg-gray-100 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-300 transition duration-300 ease-in-out"
-                  />
-                  <ErrorMessage
-                    name="email"
-                    component="div"
-                    className="text-red-300 text-sm font-semibold"
-                  />
-                </div>
-                <div>
-                  <label htmlFor="phone" className="block mb-2 font-medium">
-                    Phone Number
-                  </label>
-                  <Field
-                    type="tel"
-                    id="phone"
-                    name="phone"
-                    placeholder="Enter Your Phone Number..."
-                    className="w-full p-3 border text-slate-900 bg-gray-100 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-300 transition duration-300 ease-in-out"
-                  />
-                  <ErrorMessage
-                    name="phone"
-                    component="div"
-                    className="text-red-300 text-sm font-semibold"
-                  />
-                </div>
-                <div>
-                  <label htmlFor="subject" className="block mb-2 font-medium">
-                    Subject
-                  </label>
-                  <Field
-                    type="text"
-                    id="subject"
-                    name="subject"
-                    placeholder="Enter Subject..."
-                    className="w-full p-3 border text-slate-900 bg-gray-100 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-300 transition duration-300 ease-in-out"
-                  />
-                  <ErrorMessage
-                    name="subject"
-                    component="div"
-                    className="text-red-300 text-sm font-semibold"
-                  />
-                </div>
-                <div>
-                  <label htmlFor="message" className="block mb-2 font-medium">
-                    Your Message
-                  </label>
-                  <Field
-                    id="message"
-                    name="message"
-                    as="textarea"
-                    placeholder="Enter Your Message..."
-                    className="w-full p-3 border text-slate-900 bg-gray-100 border-gray-300 rounded-md min-h-[150px] resize-y focus:outline-none focus:ring-2 focus:ring-blue-300 transition duration-300 ease-in-out"
-                  />
-                  <ErrorMessage
-                    name="message"
-                    component="div"
-                    className="text-red-300 text-sm font-semibold"
-                  />
-                </div>
+              {({ isSubmitting }) => (
+                <Form autoComplete="off" className="space-y-6">
+                  <div>
+                    <label htmlFor="name" className="block mb-2 font-medium">
+                      Your Name
+                    </label>
+                    <Field
+                      type="text"
+                      id="name"
+                      name="name"
+                      placeholder="Enter Your Name..."
+                      className="w-full p-3 border text-slate-900 bg-gray-100 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-300 transition duration-300 ease-in-out"
+                    />
+                    <ErrorMessage
+                      name="name"
+                      component="div"
+                      className="text-red-300 text-sm font-semibold"
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="email" className="block mb-2 font-medium">
+                      Email Address
+                    </label>
+                    <Field
+                      type="email"
+                      id="email"
+                      name="email"
+                      placeholder="Enter Your Email..."
+                      className="w-full p-3 border text-slate-900 bg-gray-100 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-300 transition duration-300 ease-in-out"
+                    />
+                    <ErrorMessage
+                      name="email"
+                      component="div"
+                      className="text-red-300 text-sm font-semibold"
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="phone" className="block mb-2 font-medium">
+                      Phone Number
+                    </label>
+                    <Field
+                      type="tel"
+                      id="phone"
+                      name="phone"
+                      placeholder="Enter Your Phone Number..."
+                      className="w-full p-3 border text-slate-900 bg-gray-100 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-300 transition duration-300 ease-in-out"
+                    />
+                    <ErrorMessage
+                      name="phone"
+                      component="div"
+                      className="text-red-300 text-sm font-semibold"
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="subject" className="block mb-2 font-medium">
+                      Subject
+                    </label>
+                    <Field
+                      type="text"
+                      id="subject"
+                      name="subject"
+                      placeholder="Enter Subject..."
+                      className="w-full p-3 border text-slate-900 bg-gray-100 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-300 transition duration-300 ease-in-out"
+                    />
+                    <ErrorMessage
+                      name="subject"
+                      component="div"
+                      className="text-red-300 text-sm font-semibold"
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="message" className="block mb-2 font-medium">
+                      Your Message
+                    </label>
+                    <Field
+                      id="message"
+                      name="message"
+                      as="textarea"
+                      placeholder="Enter Your Message..."
+                      className="w-full p-3 border text-slate-900 bg-gray-100 border-gray-300 rounded-md min-h-[150px] resize-y focus:outline-none focus:ring-2 focus:ring-blue-300 transition duration-300 ease-in-out"
+                    />
+                    <ErrorMessage
+                      name="message"
+                      component="div"
+                      className="text-red-300 text-sm font-semibold"
+                    />
+                  </div>
 
-                <button
-                  type="submit"
-                  className="flex items-center gap-2 bg-gradient-to-br from-blue-500 to-blue-400 text-white font-semibold py-3 px-6 rounded-full hover:scale-105 hover:shadow-lg transition duration-300"
-                >
-                  <i className="fas fa-paper-plane"></i> Send Message
-                </button>
-              </Form>
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="flex items-center gap-2 bg-gradient-to-br from-blue-500 to-blue-400 text-white font-semibold py-3 px-6 rounded-full hover:scale-105 hover:shadow-lg transition duration-300"
+                  >
+                    <i className="fas fa-paper-plane"></i> Send Message
+                  </button>
+                  {isSubmitting && <span className="loader"></span>}
+                  {submitStatus === "success" && (
+                    <p className="text-green-500 font-semibold">
+                      Message sent successfully!
+                    </p>
+                  )}
+                  {submitStatus === "error" && (
+                    <p className="text-red-500 font-semibold">
+                      Failed to send message. Please try again.
+                    </p>
+                  )}
+                </Form>
+              )}
             </Formik>
           </div>
         )}
