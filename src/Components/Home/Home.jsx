@@ -26,6 +26,8 @@ import Testimonials from "../Testimonials/Testimonials.jsx";
 import { getDailyItems } from "../../utils/getDailyItems.js";
 import Chat from "../HomeChatInput/Chat.jsx";
 import { Link } from "react-router-dom";
+import { Form, Formik, Field, ErrorMessage } from "formik";
+import { contactUsSchema } from "../../Schema/contactUsSchema.js";
 
 const Home = () => {
   const trendingRef = useRef(null);
@@ -70,6 +72,8 @@ const Home = () => {
   const handleSubmitTop = () => {
     console.log(ingredientsTop);
   };
+
+  const submitForm = () => {};
 
   return (
     <div className="relative">
@@ -443,6 +447,215 @@ const Home = () => {
             </ul>
           </div>
         </div>
+      </section>
+
+      <section className="md:px-20 bg-primaryBody pb-3 transition duration-200 ease-in-out">
+        <section className="contact-section">
+          <div className="container mx-auto px-4 py-8">
+            <div className="grid md:grid-cols-2 gap-8 bg-gray-200 rounded-lg shadow-lg overflow-hidden">
+              <div className="p-3 md:p-8 bg-gray-800 text-white">
+                <h2 className="text-2xl text-blue-400 mb-8 relative pb-4">
+                  Contact Information
+                  <span className="absolute bottom-0 left-0 w-12 h-0.5 bg-blue-500"></span>
+                </h2>
+
+                {/* Location */}
+                <div className="flex items-start gap-2 md:gap-4 mb-8">
+                  <div className="w-12 h-12 text-blue-500 md:text-white md:bg-blue-500 flex items-center justify-center rounded-full text-xl">
+                    <i className="fas fa-map-marker-alt"></i>
+                  </div>
+                  <div>
+                    <h3 className="text-lg mb-1">Our Location</h3>
+                    <p className="text-gray-300 leading-relaxed">
+                      Kigali, Rwanda
+                    </p>
+                  </div>
+                </div>
+
+                {/* Phone Number */}
+                <div className="flex items-start gap-2 md:gap-4 mb-8">
+                  <div className="w-12 h-12 text-blue-500 md:text-white md:bg-blue-500 flex items-center justify-center rounded-full text-xl">
+                    <i className="fas fa-phone-alt"></i>
+                  </div>
+                  <div>
+                    <h3 className="text-lg mb-1">Phone Number</h3>
+                    <p className="text-gray-300 leading-relaxed">
+                      <a
+                        href="tel:+250794115143"
+                        className="hover:text-blue-400"
+                      >
+                        +250 794115143
+                      </a>
+                    </p>
+                  </div>
+                </div>
+
+                {/* Email */}
+                <div className="flex items-start gap-2 md:gap-4 mb-8">
+                  <div className="w-12 h-12 text-blue-500 md:text-white md:bg-blue-500 flex items-center justify-center rounded-full text-xl">
+                    <i className="fas fa-envelope"></i>
+                  </div>
+                  <div>
+                    <h3 className="text-lg mb-1">Email Address</h3>
+                    <p className="text-gray-300 leading-relaxed">
+                      <a
+                        href="mailto:vumiriyaemile@gmail.com"
+                        className="hover:text-blue-400"
+                      >
+                        vumiriyaemile@gmail.com
+                      </a>
+                      <br />
+                    </p>
+                  </div>
+                </div>
+
+                {/* Socials */}
+                <div className="flex gap-2 md:gap-4 mt-8">
+                  <a
+                    href="#"
+                    className="w-10 h-10 bg-gray-700 flex items-center justify-center rounded-full text-white transition duration-300 hover:bg-blue-500 transform hover:-translate-y-1"
+                  >
+                    <i className="fab fa-facebook-f"></i>
+                  </a>
+                  <a
+                    href="#"
+                    className="w-10 h-10 bg-gray-700 flex items-center justify-center rounded-full text-white transition duration-300 hover:bg-pink-500 transform hover:-translate-y-1"
+                  >
+                    <i className="fab fa-instagram"></i>
+                  </a>
+                  <a
+                    href="#"
+                    className="w-10 h-10 bg-gray-700 flex items-center justify-center rounded-full text-white transition duration-300 hover:bg-blue-400 transform hover:-translate-y-1"
+                  >
+                    <i className="fab fa-twitter"></i>
+                  </a>
+                  <a
+                    href="#"
+                    className="w-10 h-10 bg-gray-700 flex items-center justify-center rounded-full text-white transition duration-300 hover:bg-blue-700 transform hover:-translate-y-1"
+                  >
+                    <i className="fab fa-linkedin-in"></i>
+                  </a>
+                </div>
+              </div>
+
+              {/* Contact Form */}
+              <div className="p-3 md:p-8 bg-gray-200">
+                <h2 className="text-2xl text-blue-500 mb-8 relative pb-4">
+                  Send Us a Message
+                  <span className="absolute bottom-0 left-0 w-12 h-0.5 bg-blue-500"></span>
+                </h2>
+                <Formik
+                  initialValues={{
+                    name: "",
+                    email: "",
+                    phone: "",
+                    subject: "",
+                    message: "",
+                  }}
+                  validationSchema={contactUsSchema}
+                  onSubmit={submitForm}
+                >
+                  <Form autoComplete="off" className="space-y-6">
+                    <div>
+                      <label htmlFor="name" className="block mb-2 font-medium">
+                        Your Name
+                      </label>
+                      <Field
+                        type="text"
+                        id="name"
+                        name="name"
+                        className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-300 transition duration-300 ease-in-out"
+                      />
+                      <ErrorMessage
+                        name="name"
+                        component="div"
+                        className="text-red-400 text-sm font-semibold"
+                      />
+                    </div>
+                    <div>
+                      <label htmlFor="email" className="block mb-2 font-medium">
+                        Email Address
+                      </label>
+                      <Field
+                        type="email"
+                        id="email"
+                        name="email"
+                        className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-300 transition duration-300 ease-in-out"
+                      />
+                      <ErrorMessage
+                        name="email"
+                        component="div"
+                        className="text-red-400 text-sm font-semibold"
+                      />
+                    </div>
+                    <div>
+                      <label htmlFor="phone" className="block mb-2 font-medium">
+                        Phone Number
+                      </label>
+                      <Field
+                        type="tel"
+                        id="phone"
+                        name="phone"
+                        className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-300 transition duration-300 ease-in-out"
+                      />
+                      <ErrorMessage
+                        name="phone"
+                        component="div"
+                        className="text-red-400 text-sm font-semibold"
+                      />
+                    </div>
+                    <div>
+                      <label
+                        htmlFor="subject"
+                        className="block mb-2 font-medium"
+                      >
+                        Subject
+                      </label>
+                      <Field
+                        as="textarea"
+                        id="subject"
+                        name="subject"
+                        className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-300 transition duration-300 ease-in-out"
+                      />
+                      <ErrorMessage
+                        name="subject"
+                        component="div"
+                        className="text-red-400 text-sm font-semibold"
+                      />
+                    </div>
+                    <div>
+                      <label
+                        htmlFor="message"
+                        className="block mb-2 font-medium"
+                      >
+                        Your Message
+                      </label>
+                      <Field
+                        type="text"
+                        id="message"
+                        name="message"
+                        className="w-full p-3 border border-gray-300 rounded-md min-h-[150px] resize-y focus:outline-none focus:ring-2 focus:ring-blue-300 transition duration-300 ease-in-out"
+                      />
+                      <ErrorMessage
+                        name="message"
+                        component="div"
+                        className="text-red-400 text-sm font-semibold"
+                      />
+                    </div>
+
+                    <button
+                      type="submit"
+                      value="send"
+                      className="flex items-center gap-2 bg-gradient-to-br from-blue-500 to-blue-400 text-white font-semibold py-3 px-6 rounded-full hover:scale-105 hover:shadow-lg transition duration-300"
+                    >
+                      <i className="fas fa-paper-plane"></i> Send Message
+                    </button>
+                  </Form>
+                </Formik>
+              </div>
+            </div>
+          </div>
+        </section>
       </section>
     </div>
   );

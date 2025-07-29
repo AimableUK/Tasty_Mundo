@@ -1,8 +1,11 @@
 import React, { useRef, useState } from "react";
 import { useSettingsStore } from "../../../store/settingsStore";
+import { ErrorMessage, Field, Formik } from "formik";
+import { Form } from "react-router-dom";
+import { contactUsSchema } from "../../../Schema/contactUsSchema";
 
 const SiteSettings = ({ dialogRef, settings, setSettings }) => {
-  const [settingView, setSettingView] = useState("general");
+  const [settingView, setSettingView] = useState("data");
   const [feedbackForm, setFeedbackForm] = useState(false);
 
   const appVersion = "v1.0.0";
@@ -33,16 +36,16 @@ const SiteSettings = ({ dialogRef, settings, setSettings }) => {
     }, 100);
   };
 
+  const submitForm = () => {};
+
   const settingsTitles = {
-    general: "General",
     data: "Data & Privacy",
     about: "About App",
   };
 
   const settingsComponents = {
-    general: <div>General</div>,
     data: (
-      <div className="md:p-4 max-w-2xl mx-auto">
+      <div className="md:p-4 max-w-2xl mx-auto transition-all duration-500 ease-in-out">
         <div className="bg-gray-900 rounded-xl p-4 mb-4 shadow">
           <h3 className="text-lg font-semibold mb-2">Saved Recipes</h3>
           <p className="text-sm text-gray-400 mb-3">
@@ -135,49 +138,118 @@ const SiteSettings = ({ dialogRef, settings, setSettings }) => {
         {feedbackForm && (
           <div
             ref={formRef}
-            className="bg-gray-900 p-4 rounded-xl shadow-md space-y-2 w-full transition-all duration-200 ease-in"
+            className="bg-gray-900 p-4 rounded-xl shadow-md space-y-2 w-full h-full transition-all duration-200 ease-in"
           >
-            <form autoComplete="off" className="w-full flex flex-col gap-y-2">
-              <h3 className="flex justify-center font-semibold">
-                FeedBack Form
-              </h3>
-              <div className="flex flex-row flex-nowrap gap-x-2">
-                <label htmlFor="name" className="">
-                  Name:&nbsp;&nbsp;&nbsp;&nbsp;
-                </label>
-                <input
-                  name="name"
-                  type="text"
-                  placeholder="Enter your name..."
-                  className="w-full outline-none rounded-lg p-1 bg-gray-800 px-3"
-                />
-              </div>
-              <div className="flex flex-row flex-nowrap gap-x-2">
-                <label htmlFor="email" className="">
-                  Email:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                </label>
-                <input
-                  name="email"
-                  type="email"
-                  placeholder="Enter your Email..."
-                  className="w-full outline-none rounded-lg p-1 bg-gray-800 px-3"
-                />
-              </div>
-              <div className="flex flex-row flex-nowrap gap-x-2">
-                <label htmlFor="message" className="">
-                  Message:
-                </label>
-                <textarea
-                  name="message"
-                  type="text"
-                  placeholder="Enter your Feedback..."
-                  className="w-full outline-none rounded-lg p-1 bg-gray-800 px-3"
-                />
-              </div>
-              <button className="bg-gray-800 rounded-full p-1 px-7 w-fit flex self-center hover:bg-gray-700 transition-all duration-200 ease-in active:bg-gray-600">
-                Submit
-              </button>
-            </form>
+            <h2 className="text-2xl text-blue-400 mb-8 relative pb-4">
+              Send Us a Message
+              <span className="absolute bottom-0 left-0 w-12 h-0.5 bg-blue-400"></span>
+            </h2>
+            <Formik
+              initialValues={{
+                name: "",
+                email: "",
+                phone: "",
+                subject: "",
+                message: "",
+              }}
+              validationSchema={contactUsSchema}
+              onSubmit={submitForm}
+            >
+              <Form autoComplete="off" className="space-y-6">
+                <div>
+                  <label htmlFor="name" className="block mb-2 font-medium">
+                    Your Name
+                  </label>
+                  <Field
+                    type="text"
+                    id="name"
+                    name="name"
+                    placeholder="Enter Your Name..."
+                    className="w-full p-3 border text-slate-900 bg-gray-100 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-300 transition duration-300 ease-in-out"
+                  />
+                  <ErrorMessage
+                    name="name"
+                    component="div"
+                    className="text-red-300 text-sm font-semibold"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="email" className="block mb-2 font-medium">
+                    Email Address
+                  </label>
+                  <Field
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="Enter Your Email..."
+                    className="w-full p-3 border text-slate-900 bg-gray-100 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-300 transition duration-300 ease-in-out"
+                  />
+                  <ErrorMessage
+                    name="email"
+                    component="div"
+                    className="text-red-300 text-sm font-semibold"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="phone" className="block mb-2 font-medium">
+                    Phone Number
+                  </label>
+                  <Field
+                    type="tel"
+                    id="phone"
+                    name="phone"
+                    placeholder="Enter Your Phone Number..."
+                    className="w-full p-3 border text-slate-900 bg-gray-100 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-300 transition duration-300 ease-in-out"
+                  />
+                  <ErrorMessage
+                    name="phone"
+                    component="div"
+                    className="text-red-300 text-sm font-semibold"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="subject" className="block mb-2 font-medium">
+                    Subject
+                  </label>
+                  <Field
+                    type="text"
+                    id="subject"
+                    name="subject"
+                    placeholder="Enter Subject..."
+                    className="w-full p-3 border text-slate-900 bg-gray-100 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-300 transition duration-300 ease-in-out"
+                  />
+                  <ErrorMessage
+                    name="subject"
+                    component="div"
+                    className="text-red-300 text-sm font-semibold"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="message" className="block mb-2 font-medium">
+                    Your Message
+                  </label>
+                  <Field
+                    id="message"
+                    name="message"
+                    as="textarea"
+                    placeholder="Enter Your Message..."
+                    className="w-full p-3 border text-slate-900 bg-gray-100 border-gray-300 rounded-md min-h-[150px] resize-y focus:outline-none focus:ring-2 focus:ring-blue-300 transition duration-300 ease-in-out"
+                  />
+                  <ErrorMessage
+                    name="message"
+                    component="div"
+                    className="text-red-300 text-sm font-semibold"
+                  />
+                </div>
+
+                <button
+                  type="submit"
+                  className="flex items-center gap-2 bg-gradient-to-br from-blue-500 to-blue-400 text-white font-semibold py-3 px-6 rounded-full hover:scale-105 hover:shadow-lg transition duration-300"
+                >
+                  <i className="fas fa-paper-plane"></i> Send Message
+                </button>
+              </Form>
+            </Formik>
           </div>
         )}
 
@@ -220,25 +292,6 @@ const SiteSettings = ({ dialogRef, settings, setSettings }) => {
             </button>
             {/* Actions */}
             <div className="flex flex-row md:flex-col overflow-x-scroll md:overflow-hidden scrollbar-hide items-center">
-              <button
-                onClick={() => setSettingView("general")}
-                className={`${
-                  settingView === "general" && "bg-gray-800"
-                } flex whitespace-nowrap text-sm flex-row md:w-full p-2 hover:bg-gray-800 active:bg-inherit rounded-xl items-center transition-all duration-100 ease-in-out`}
-              >
-                <span>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="currentColor"
-                    viewBox="0 0 24 24"
-                    className="size-5"
-                  >
-                    <path d="M12 8c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4m0 6c-1.08 0-2-.92-2-2s.92-2 2-2 2 .92 2 2-.92 2-2 2"></path>
-                    <path d="m20.42 13.4-.51-.29c.05-.37.08-.74.08-1.11s-.03-.74-.08-1.11l.51-.29c.96-.55 1.28-1.78.73-2.73l-1-1.73a2.006 2.006 0 0 0-2.73-.73l-.53.31c-.58-.46-1.22-.83-1.9-1.11v-.6c0-1.1-.9-2-2-2h-2c-1.1 0-2 .9-2 2v.6c-.67.28-1.31.66-1.9 1.11l-.53-.31c-.96-.55-2.18-.22-2.73.73l-1 1.73c-.55.96-.22 2.18.73 2.73l.51.29c-.05.37-.08.74-.08 1.11s.03.74.08 1.11l-.51.29c-.96.55-1.28 1.78-.73 2.73l1 1.73c.55.95 1.77 1.28 2.73.73l.53-.31c.58.46 1.22.83 1.9 1.11v.6c0 1.1.9 2 2 2h2c1.1 0 2-.9 2-2v-.6a8.7 8.7 0 0 0 1.9-1.11l.53.31c.95.55 2.18.22 2.73-.73l1-1.73c.55-.96.22-2.18-.73-2.73m-2.59-2.78c.11.45.17.92.17 1.38s-.06.92-.17 1.38a1 1 0 0 0 .47 1.11l1.12.65-1 1.73-1.14-.66c-.38-.22-.87-.16-1.19.14-.68.65-1.51 1.13-2.38 1.4-.42.13-.71.52-.71.96v1.3h-2v-1.3c0-.44-.29-.83-.71-.96-.88-.27-1.7-.75-2.38-1.4a1.01 1.01 0 0 0-1.19-.15l-1.14.66-1-1.73 1.12-.65c.39-.22.58-.68.47-1.11-.11-.45-.17-.92-.17-1.38s.06-.93.17-1.38A1 1 0 0 0 5.7 9.5l-1.12-.65 1-1.73 1.14.66c.38.22.87.16 1.19-.14.68-.65 1.51-1.13 2.38-1.4.42-.13.71-.52.71-.96v-1.3h2v1.3c0 .44.29.83.71.96.88.27 1.7.75 2.38 1.4.32.31.81.36 1.19.14l1.14-.66 1 1.73-1.12.65c-.39.22-.58.68-.47 1.11Z"></path>
-                  </svg>
-                </span>
-                &nbsp;General
-              </button>
               <button
                 onClick={() => setSettingView("data")}
                 className={`${
