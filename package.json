@@ -12,6 +12,7 @@
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
     "@huggingface/inference": "^4.6.1",
+    "@tailwindcss/typography": "^0.5.16",
     "date-fns": "^4.1.0",
     "formik": "^2.4.6",
     "framer-motion": "^12.23.6",

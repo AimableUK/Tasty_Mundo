@@ -98,13 +98,11 @@ const Chat = ({ chat }) => {
               <span className="ml-3 text-sm">Generating recipe...</span>
             </div>
           ) : chat.result ? (
-            <p className="text-sm md:text-[16px] font-nunito text-gray-300">
+            <div className="prose prose-invert max-w-none text-gray-300 text-sm md:text-[16px] font-nunito">
               <ReactMarkdown>{chat.result}</ReactMarkdown>
-            </p>
-          ) : (
-            <div className="text-sm md:text-[16px] font-nunito text-gray-300">
-              <AIRecipe recipe={recipe} />
             </div>
+          ) : (
+            <AIRecipe recipe={recipe} />
           )}
         </div>
       </div>

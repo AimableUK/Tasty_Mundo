@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { formatChatTimestamp } from "../Utils/ChatTimestamp/formatChatTimestamp";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useChatStore } from "../../../store/useChatStore";
+import ReactMarkdown from "react-markdown";
 
 const SavedChats = ({ dialogRef, savedChats, setSavedChats }) => {
   const [previewChat, setPreviewChat] = useState(false);
@@ -173,7 +174,7 @@ const SavedChats = ({ dialogRef, savedChats, setSavedChats }) => {
           <div className="flex-1 overflow-y-auto">
             <div className="flex flex-row h-full">
               {/* Left Panel */}
-              <div className="flex-1 px-2 border-r border-slate-800 overflow-y-auto">
+              <div className="flex-1 px-2 border-r border-slate-800 overflow-y-auto max-h-full">
                 <div className="pt-2">
                   <div className="flex justify-between px-2 pb-2">
                     <h3 className="font-semibold text-sm text-gray-300">
@@ -555,11 +556,11 @@ const SavedChats = ({ dialogRef, savedChats, setSavedChats }) => {
               </div>
 
               {/* Right Panel */}
-              <div className="hidden md:flex flex-1">
+              <div className="hidden md:flex flex-1 overflow-y-auto max-h-full">
                 {previewChat ? (
                   <div
                     key={selectedChat.id}
-                    className="font-semibold text-slate-200 flex flex-col p-4 gap-y-6"
+                    className=" text-slate-200 flex flex-col p-4 gap-y-6"
                   >
                     <div className="self-end bg-slate-900 p-3 rounded-l-3xl rounded-t-3xl rounded-br-md px-4 max-w-5/6">
                       {selectedChat?.ingredients.map((ingredient, index) => (
@@ -568,7 +569,9 @@ const SavedChats = ({ dialogRef, savedChats, setSavedChats }) => {
                         </span>
                       ))}
                     </div>
-                    <div>{selectedChat.result}</div>
+                    <div>
+                      <ReactMarkdown>{selectedChat.result}</ReactMarkdown>
+                    </div>
                   </div>
                 ) : (
                   <div className="flex flex-col justify-center items-center h-full w-full font-semibold text-slate-200">
