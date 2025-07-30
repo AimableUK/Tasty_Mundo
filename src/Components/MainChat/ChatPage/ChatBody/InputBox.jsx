@@ -1,16 +1,79 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { v4 as uuidv4 } from "uuid";
+import { useChatStore } from "../../../../store/useChatStore";
 
 const InputBox = () => {
+  const [ingredients, setIngredients] = useState("");
+
+  const chats = useChatStore((state) => state.chats);
+  const addChat = useChatStore((state) => state.addChat);
+
+  const navigate = useNavigate();
+
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      handleSubmit();
+    }
+  };
+
+  const parseIngredients = (text) => {
+    return text
+      .split(",")
+      .flatMap((part) =>
+        part
+          .trim()
+          .split(" ")
+          .map((word) => word.trim().replace(/[^a-zA-Z0-9]/g, ""))
+      )
+      .filter(Boolean);
+  };
+
+  const handleSubmit = () => {
+    const trimmed = ingredients.trim();
+    if (!trimmed) return;
+
+    const ingredientsArray = parseIngredients(trimmed);
+
+    const shuffled = [...ingredientsArray].sort(() => 0.5 - Math.random());
+    const selected = shuffled.slice(0, Math.min(2, ingredientsArray.length));
+    const chatName = selected.length
+      ? `${selected.join(" ")} Recipe`
+      : "Custom Recipe";
+
+    const newId = uuidv4();
+    const newChat = {
+      id: newId,
+      chatName,
+      ingredients: ingredientsArray,
+      generatedAt: new Date().toISOString(),
+      result: "",
+    };
+
+    addChat(newChat);
+    setIngredients("");
+    setTimeout(() => {
+      navigate(`/c/${newId}`);
+    }, 50);
+  };
+
   return (
     <section className="w-11/12 md:w-3/4 lg:w-3/5 fixed bottom-0 pb-5 left-1/2 -translate-x-1/2 flex justify-center flex-row items-center gap-1 bg-primaryBody ">
       <div className="w-full flex flex-row border border-gray-600 px-3 md:px-4 py-2 md:py-3 rounded-full md:rounded-xl text-primaryBody bg-[#1b1c33]">
         <input
           type="text"
           placeholder="Enter Your Ingredients... "
+          value={ingredients}
+          onChange={(e) => setIngredients(e.target.value)}
+          onKeyDown={handleKeyPress}
           className="outline-none md:w-[300px] lg:w-[790px] bg-[#1b1c33] text-white transform transition-all duration-300 ease-in-out"
         />
       </div>
-      <button className="hover:scale-105 active:scale-90 transition-all duration-200 ease-in-out border border-gray-600 p-2 md:p-3 rounded-full md:rounded-xl font-bold bg-[#1b1c33] flex flex-row flex-nowrap">
+      <button
+        onClick={handleSubmit}
+        className="hover:scale-105 active:scale-90 transition-all duration-200 ease-in-out border border-gray-600 p-2 md:p-3 rounded-full md:rounded-xl font-bold bg-[#1b1c33] flex flex-row flex-nowrap"
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           x="0px"

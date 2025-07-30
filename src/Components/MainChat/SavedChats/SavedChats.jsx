@@ -1,13 +1,15 @@
 import React, { useCallback, useEffect, useState } from "react";
-import SavedChatsList from "../../../Data/SavedChats/SavedChats";
 import { formatChatTimestamp } from "../Utils/ChatTimestamp/formatChatTimestamp";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useChatStore } from "../../../store/useChatStore";
 
 const SavedChats = ({ dialogRef, savedChats, setSavedChats }) => {
   const [previewChat, setPreviewChat] = useState(false);
   const [selectedChat, setSelectedChat] = useState(null);
   const [deleteChat, setDeleteChat] = useState(false);
   const [editChat, setEditChat] = useState(false);
+
+  const chats = useChatStore((state) => state.chats);
 
   const [activeChatMode, setActiveChatMode] = useState(null);
 
@@ -59,7 +61,7 @@ const SavedChats = ({ dialogRef, savedChats, setSavedChats }) => {
     setQuery(value.trimStart());
   };
 
-  const filteredChats = SavedChatsList.filter((chat) =>
+  const filteredChats = chats.filter((chat) =>
     chat.chatName.toLowerCase().includes(debouncedQuery.toLowerCase())
   );
 
@@ -194,7 +196,7 @@ const SavedChats = ({ dialogRef, savedChats, setSavedChats }) => {
                   {/* History */}
                   <div className="py-2 flex flex-col gap-y-2">
                     {query?.length < 1 ? (
-                      SavedChatsList.map((chat) => (
+                      chats.map((chat) => (
                         <div
                           onClick={() => viewChat(chat)}
                           key={chat.id}

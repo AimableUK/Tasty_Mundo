@@ -3,31 +3,44 @@ import tastyMundoBW from "../../../assets/tastyMundoBW.png";
 import ChatSideBar from "./ChatSideBar/ChatSideBar";
 import ChatHeader from "./ChatHeader/ChatHeader";
 import ChatBody from "./ChatBody/ChatBody";
-import SavedChatsList from "../../../Data/SavedChats/SavedChats";
 import SavedChats from "../SavedChats/SavedChats";
 import RecipeIdea from "../RecipeIdea/RecipeIdea";
 import useClickOutside from "../Utils/useClickOutside/useClickOutside";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Chat from "./ChatBody/Chat";
 import SiteSettings from "../Settings/SiteSettings";
+import { useChatStore } from "../../../store/useChatStore";
 
 const ChatPage = () => {
+  const chats = useChatStore((state) => state.chats);
   const { chatId } = useParams();
+  const navigate = useNavigate();
 
   const [activeChat, setActiveChat] = useState(null);
+  const [chatNotFound, setChatNotFound] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    setIsLoading(true);
+
     if (chatId) {
-      const chat = SavedChatsList.find((c) => c.id === Number(chatId));
+      const chat = chats.find((c) => String(c.id) === String(chatId));
       if (chat) {
         setActiveChat(chat);
       } else {
         setActiveChat(null);
+        setChatNotFound(true);
+        setTimeout(() => {
+          setChatNotFound(false);
+          navigate("/c");
+        }, 3000);
       }
     } else {
       setActiveChat(null);
     }
-  }, [chatId]);
+
+    setIsLoading(false);
+  }, [chatId, chats, navigate]);
 
   const [savedChats, setSavedChats] = useState(false);
   const [recipeIdea, setRecipeIdea] = useState(false);
@@ -61,7 +74,26 @@ const ChatPage = () => {
         />
 
         {/* Body */}
-        {activeChat ? <Chat chat={activeChat} /> : <ChatBody />}
+        {isLoading ? (
+          <div className="p-6 text-gray-400 text-lg">Loading chat...</div>
+        ) : activeChat ? (
+          <Chat chat={activeChat} />
+        ) : (
+          <ChatBody />
+        )}
+      </div>
+
+      {/* Chat Not found */}
+      <div
+        className={`fixed pt-3 flex flex-row justify-center left-1/2 inset-0 -translate-x-1/2 w-fit md:w-3/5 max-w-lg px-8 transition-all duration-500 ease-in-out ${
+          !activeChat && chatNotFound
+            ? "translate-y-0 opacity-100"
+            : "-translate-y-24 opacity-0"
+        }`}
+      >
+        <div className="absolute flex flex-row justify-center items-center bg-red-600 p-2 rounded-md flex-wrap">
+          Unable to load conversation {chatId}
+        </div>
       </div>
 
       <SavedChats
