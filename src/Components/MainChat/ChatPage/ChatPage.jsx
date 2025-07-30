@@ -75,7 +75,9 @@ const ChatPage = () => {
 
         {/* Body */}
         {isLoading ? (
-          <div className="p-6 text-gray-400 text-lg">Loading chat...</div>
+          <div className="flex fixed justify-center left-1/2 -tanslate-x-1/2 pt-10">
+            <span className="chat-loader"></span>
+          </div>
         ) : activeChat ? (
           <Chat chat={activeChat} />
         ) : (

@@ -1,12 +1,39 @@
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import InputBox from "./InputBox";
+import { getRecipeFromMistral } from "../../APP/AI/AI";
+import AIRecipe from "../../APP/AIRecipe/AIRecipe";
+import { useChatStore } from "../../../../store/useChatStore";
+import ReactMarkdown from "react-markdown";
 
 const Chat = ({ chat }) => {
+  const [recipe, setRecipe] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const updateChatResult = useChatStore((state) => state.updateChatResult);
+
+  const getRecipe = useCallback(async () => {
+    try {
+      setLoading(true);
+      const recipeMarkdown = await getRecipeFromMistral(chat?.ingredients);
+      setRecipe(recipeMarkdown);
+      if (chat?.id) {
+        updateChatResult(chat.id, recipeMarkdown);
+      }
+    } catch (err) {
+      console.error("Error in trying to receive the recipe:", err.message);
+    } finally {
+      setLoading(false);
+    }
+  }, [chat?.id, chat?.ingredients, updateChatResult]);
+
   useEffect(() => {
     if (chat?.chatName) {
       document.title = chat.chatName;
     }
-  }, [chat]);
+
+    if (!chat?.result && chat?.ingredients?.length) {
+      getRecipe();
+    }
+  }, [chat, getRecipe]);
 
   if (!chat)
     return (
@@ -30,11 +57,12 @@ const Chat = ({ chat }) => {
     );
 
   return (
-    <div key={chat.id} className="mt-20 pb-20">
+    <div key={chat.id} className="mt-20 pb-20 z-10">
       {/* Convo */}
       <div
         key={chat.id}
-        className="chatpage font-semibold text-slate-200 flex flex-col p-4 gap-y-6"
+        className="chatpage font-semibold text-slate-200 flex flex-col p-4 gap-y-6 h-full"
+        style={{ minHeight: "100%" }}
       >
         <div className="self-end bg-slate-800 p-3 rounded-l-3xl rounded-t-3xl rounded-br-md px-4 max-w-5/6">
           {chat.ingredients?.map((ingredient, index) => (
@@ -43,10 +71,41 @@ const Chat = ({ chat }) => {
             </span>
           ))}
         </div>
-        <div>
-          <p className="text-sm md:text-[16px] font-nunito font-normal">
-            {chat.result}
-          </p>
+
+        <div className="p-4 z-10">
+          {loading ? (
+            <div className="flex justify-center items-center h-32 text-white">
+              <svg
+                className="animate-spin h-8 w-8 text-gray-200"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <circle
+                  className="opacity-25"
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  strokeWidth="4"
+                />
+                <path
+                  className="opacity-75"
+                  fill="currentColor"
+                  d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+                />
+              </svg>
+              <span className="ml-3 text-sm">Generating recipe...</span>
+            </div>
+          ) : chat.result ? (
+            <p className="text-sm md:text-[16px] font-nunito text-gray-300">
+              <ReactMarkdown>{chat.result}</ReactMarkdown>
+            </p>
+          ) : (
+            <div className="text-sm md:text-[16px] font-nunito text-gray-300">
+              <AIRecipe recipe={recipe} />
+            </div>
+          )}
         </div>
       </div>
 

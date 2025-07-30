@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import { useChatStore } from "../../../../store/useChatStore";
@@ -6,7 +6,6 @@ import { useChatStore } from "../../../../store/useChatStore";
 const InputBox = () => {
   const [ingredients, setIngredients] = useState("");
 
-  const chats = useChatStore((state) => state.chats);
   const addChat = useChatStore((state) => state.addChat);
 
   const navigate = useNavigate();
@@ -59,7 +58,7 @@ const InputBox = () => {
   };
 
   return (
-    <section className="w-11/12 md:w-3/4 lg:w-3/5 fixed bottom-0 pb-5 left-1/2 -translate-x-1/2 flex justify-center flex-row items-center gap-1 bg-primaryBody ">
+    <section className="w-11/12 md:w-3/4 lg:w-3/5 fixed bottom-0 pb-5 left-1/2 -translate-x-1/2 flex justify-center flex-row items-center gap-1 bg-primaryBody z-20">
       <div className="w-full flex flex-row border border-gray-600 px-3 md:px-4 py-2 md:py-3 rounded-full md:rounded-xl text-primaryBody bg-[#1b1c33]">
         <input
           type="text"

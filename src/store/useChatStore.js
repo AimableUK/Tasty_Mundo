@@ -1,21 +1,41 @@
 import { create } from "zustand";
+import { persist } from "zustand/middleware";
 import SavedChatsList from "../Data/SavedChats/SavedChats";
 
-export const useChatStore = create((set) => ({
-  chats: [...SavedChatsList],
+export const useChatStore = create(
+  persist(
+    (set, get) => ({
+      chats: [...SavedChatsList],
 
-  addChat: (chat) =>
-    set((state) => ({
-      chats: [...state.chats, chat],
-    })),
+      addChat: (chat) =>
+        set((state) => ({
+          chats: [...state.chats, chat],
+        })),
 
-  updateChatResult: (id, result) =>
-    set((state) => ({
-      chats: state.chats.map((chat) =>
-        chat.id === id ? { ...chat, result } : chat
-      ),
-    })),
+      updateChatResult: (id, result) =>
+        set((state) => ({
+          chats: state.chats.map((chat) =>
+            chat.id === id ? { ...chat, result } : chat
+          ),
+        })),
 
-  getChatById: (id) =>
-    useChatStore.getState().chats.find((chat) => chat.id === id),
-}));
+      editChatName: (id, newName) =>
+        set((state) => ({
+          chats: state.chats.map((chat) =>
+            chat.id === id ? { ...chat, chatName: newName } : chat
+          ),
+        })),
+
+      deleteChat: (id) =>
+        set((state) => ({
+          chats: state.chats.filter((chat) => chat.id !== id),
+        })),
+
+      getChatById: (id) => get().chats.find((chat) => chat.id === id),
+    }),
+    {
+      name: "chat-storage",
+      partialize: (state) => ({ chats: state.chats }),
+    }
+  )
+);
