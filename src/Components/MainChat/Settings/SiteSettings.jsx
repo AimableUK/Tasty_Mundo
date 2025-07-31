@@ -1,14 +1,19 @@
 import React, { useRef, useState } from "react";
-import { useSettingsStore } from "../../../store/settingsStore";
 import { ErrorMessage, Field, Formik, Form } from "formik";
 import { contactUsSchema } from "../../../Schema/contactUsSchema";
 import emailjs from "@emailjs/browser";
+import { useChatStore } from "../../../store/useChatStore";
 
 const SiteSettings = ({ dialogRef, settings, setSettings }) => {
   const [settingView, setSettingView] = useState("data");
   const [feedbackForm, setFeedbackForm] = useState(false);
 
   const [submitStatus, setSubmitStatus] = useState(null);
+
+  const chats = useChatStore((state) => state.chats);
+
+  const appVersion = "v1.0.0";
+  const formRef = useRef(null);
 
   async function onSubmit(values, actions) {
     try {
@@ -39,12 +44,6 @@ const SiteSettings = ({ dialogRef, settings, setSettings }) => {
     }
   }
 
-  const appVersion = "v1.0.0";
-  const formRef = useRef(null);
-
-  const { clearSavedRecipes, resetAllSettings, savedRecipes } =
-    useSettingsStore();
-
   const exportData = () => {
     const data = {
       savedRecipes,
@@ -55,7 +54,7 @@ const SiteSettings = ({ dialogRef, settings, setSettings }) => {
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = "recipe_data.json";
+    a.download = "TastyMUNDO_recipe_data.json";
     a.click();
     URL.revokeObjectURL(url);
   };
@@ -78,10 +77,11 @@ const SiteSettings = ({ dialogRef, settings, setSettings }) => {
         <div className="bg-gray-900 rounded-xl p-4 mb-4 shadow">
           <h3 className="text-lg font-semibold mb-2">Saved Recipes</h3>
           <p className="text-sm text-gray-400 mb-3">
-            You have {savedRecipes.length} recipe(s) saved on your device.
+            You have {chats.length} recipe{chats.length > 1 && "s"} saved on
+            your device.
           </p>
           <button
-            onClick={clearSavedRecipes}
+            // onClick={clearSavedRecipes}
             className="px-4 py-2 bg-red-800 text-white rounded-xl hover:bg-red-900 active:bg-red-950 transition"
           >
             Delete All Saved Recipes
@@ -98,20 +98,6 @@ const SiteSettings = ({ dialogRef, settings, setSettings }) => {
             className="px-4 py-2 bg-blue-800 text-gray-100 font-semibold rounded-xl hover:bg-blue-900 active:bg-blue-950 transition"
           >
             Export My Data
-          </button>
-        </div>
-
-        <div className="bg-gray-900 rounded-xl p-4 mb-4 shadow">
-          <h3 className="text-lg font-semibold mb-2">Reset Everything</h3>
-          <p className="text-sm text-gray-400 mb-3">
-            This will erase all your preferences, saved recipes, and ingredient
-            history from this device.
-          </p>
-          <button
-            onClick={resetAllSettings}
-            className="px-4 py-2 bg-red-800 text-white rounded-xl hover:bg-red-900 active:bg-red-950 transition"
-          >
-            Reset All Settings
           </button>
         </div>
       </div>

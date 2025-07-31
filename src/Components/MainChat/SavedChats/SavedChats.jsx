@@ -4,11 +4,18 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useChatStore } from "../../../store/useChatStore";
 import ReactMarkdown from "react-markdown";
 
-const SavedChats = ({ dialogRef, savedChats, setSavedChats }) => {
+const SavedChats = ({
+  dialogRef,
+  savedChats,
+  setSavedChats,
+  editChatName,
+  deleteChatData,
+}) => {
   const [previewChat, setPreviewChat] = useState(false);
   const [selectedChat, setSelectedChat] = useState(null);
   const [deleteChat, setDeleteChat] = useState(false);
   const [editChat, setEditChat] = useState(false);
+  const [editedChatName, setEditedChatName] = useState("");
 
   const chats = useChatStore((state) => state.chats);
 
@@ -58,10 +65,6 @@ const SavedChats = ({ dialogRef, savedChats, setSavedChats }) => {
     };
   }, [dialogRef, savedChats, closeSavedChats]);
 
-  const handleChange = (value) => {
-    setQuery(value.trimStart());
-  };
-
   const filteredChats = chats.filter((chat) =>
     chat.chatName.toLowerCase().includes(debouncedQuery.toLowerCase())
   );
@@ -98,12 +101,14 @@ const SavedChats = ({ dialogRef, savedChats, setSavedChats }) => {
       console.warn("Tried to Edit a chat, but no chat was selected");
       return;
     }
+    setEditedChatName(chat.chatName);
     setEditChat(true);
     setActiveChatMode({ type: "edit", id: chat.id });
   };
 
-  const handleConfirmEdit = () => {
-    console.log("Confirmed Edit");
+  const handleConfirmEdit = (id, newName) => {
+    if (!newName.trim()) return;
+    editChatName(id, newName);
     setEditChat(false);
     setActiveChatMode(null);
   };
@@ -118,21 +123,19 @@ const SavedChats = ({ dialogRef, savedChats, setSavedChats }) => {
     setActiveChatMode({ type: "delete", id: chat.id });
   };
 
-  const handleConfirmDelete = () => {
-    console.log("Confirmed Delete");
+  const handleConfirmDelete = (id) => {
+    deleteChatData(id);
     setDeleteChat(false);
     setActiveChatMode(null);
   };
 
   // Exit
   const handleExitEdit = () => {
-    console.log("Exited Edit");
     setEditChat(false);
     setActiveChatMode(null);
   };
 
   const handleExitDelete = () => {
-    console.log("Exited Delete");
     setDeleteChat(false);
     setActiveChatMode(null);
   };
@@ -151,7 +154,7 @@ const SavedChats = ({ dialogRef, savedChats, setSavedChats }) => {
               type="text"
               placeholder="Search a chat..."
               value={query}
-              onChange={(e) => handleChange(e.target.value)}
+              onChange={(e) => setQuery(e.target.value.trimStart())}
               className="w-full rounded-t-md py-3 px-3 outline-none bg-slate-950"
             />
             <svg
@@ -197,76 +200,154 @@ const SavedChats = ({ dialogRef, savedChats, setSavedChats }) => {
                   {/* History */}
                   <div className="py-2 flex flex-col gap-y-2">
                     {query?.length < 1 ? (
-                      chats.map((chat) => (
-                        <div
-                          onClick={() => viewChat(chat)}
-                          key={chat.id}
-                          className="group detail flex flex-row justify-between cursor-pointer w-full rounded-xl bg-slate-900 p-3 gap-2 items-center font-semibold text-gray-200 hover:bg-slate-800 transition-all duration-200 ease-in-out"
-                        >
-                          <h4 className="py-1">{chat.chatName}</h4>
-                          <p
-                            className={`${
-                              activeChatMode?.id === chat.id ? "hidden" : "flex"
-                            } hidden md:flex md:group-hover:hidden text-sm text-slate-400`}
+                      [...chats]
+                        .sort(
+                          (a, b) =>
+                            new Date(b.generatedAt) - new Date(a.generatedAt)
+                        )
+                        .map((chat) => (
+                          <div
+                            onClick={() => viewChat(chat)}
+                            key={chat.id}
+                            className="group detail flex flex-row justify-between cursor-pointer w-full rounded-xl bg-slate-900 p-3 gap-2 items-center font-semibold text-gray-200 hover:bg-slate-800 transition-all duration-200 ease-in-out"
                           >
-                            {formatChatTimestamp(chat.generatedAt)}
-                          </p>
-                          {activeChatMode?.type === "edit" &&
-                            activeChatMode?.id === chat.id && (
-                              <div className="flex flex-row flex-nowrap items-center">
-                                <div
-                                  onClick={handleExitEdit}
-                                  className="cursor-pointer text-slate-400 hover:bg-gray-700
+                            {activeChatMode?.id === chat.id &&
+                            activeChatMode?.type === "edit" ? (
+                              <input
+                                type="text"
+                                value={editedChatName}
+                                onChange={(e) =>
+                                  setEditedChatName(e.target.value)
+                                }
+                                onKeyDown={(e) => {
+                                  if (e.key === "Enter")
+                                    handleConfirmEdit(chat.id, editedChatName);
+                                }}
+                                className="text-sm px-2 py-1 rounded-md bg-slate-800 text-white border border-slate-600 focus:outline-none focus:ring-1 focus:ring-green-400"
+                                autoFocus
+                              />
+                            ) : (
+                              <h4 className="py-1">{chat.chatName}</h4>
+                            )}
+                            <p
+                              className={`${
+                                activeChatMode?.id === chat.id
+                                  ? "hidden"
+                                  : "flex"
+                              } hidden md:flex md:group-hover:hidden text-sm text-slate-400`}
+                            >
+                              {formatChatTimestamp(chat.generatedAt)}
+                            </p>
+                            {activeChatMode?.type === "edit" &&
+                              activeChatMode?.id === chat.id && (
+                                <div className="flex flex-row flex-nowrap items-center">
+                                  <div
+                                    onClick={handleExitEdit}
+                                    className="cursor-pointer text-slate-400 hover:bg-gray-700
                                 active:bg-inherit transform duration-100 ease-in-out rounded-md p-1"
-                                >
-                                  <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    strokeWidth={1.5}
-                                    stroke="currentColor"
-                                    className="size-6"
                                   >
-                                    <path
-                                      strokeLinecap="round"
-                                      strokeLinejoin="round"
-                                      d="M6 18 18 6M6 6l12 12"
-                                    />
-                                  </svg>
+                                    <svg
+                                      xmlns="http://www.w3.org/2000/svg"
+                                      fill="none"
+                                      viewBox="0 0 24 24"
+                                      strokeWidth={1.5}
+                                      stroke="currentColor"
+                                      className="size-6"
+                                    >
+                                      <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        d="M6 18 18 6M6 6l12 12"
+                                      />
+                                    </svg>
+                                  </div>
+                                  <div
+                                    onClick={() =>
+                                      handleConfirmEdit(
+                                        chat?.id,
+                                        editedChatName
+                                      )
+                                    }
+                                    className="cursor-pointer text-green-400 hover:bg-gray-700
+                            active:bg-inherit transform duration-100 ease-in-out rounded-md p-1"
+                                  >
+                                    <i className="bx  bx-check bx-sm"></i>
+                                  </div>
                                 </div>
+                              )}
+                            {activeChatMode?.type === "delete" &&
+                              activeChatMode?.id === chat.id && (
+                                <div className="flex flex-row flex-nowrap">
+                                  <div
+                                    onClick={handleExitDelete}
+                                    className="cursor-pointer text-slate-400 hover:bg-gray-700
+                                active:bg-inherit transform duration-100 ease-in-out rounded-md p-1"
+                                  >
+                                    <svg
+                                      xmlns="http://www.w3.org/2000/svg"
+                                      fill="none"
+                                      viewBox="0 0 24 24"
+                                      strokeWidth={1.5}
+                                      stroke="currentColor"
+                                      className="size-6"
+                                    >
+                                      <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        d="M6 18 18 6M6 6l12 12"
+                                      />
+                                    </svg>
+                                  </div>
+                                  <div
+                                    onClick={() =>
+                                      handleConfirmDelete(chat?.id)
+                                    }
+                                    className="cursor-pointer text-red-400 hover:bg-gray-700
+                            active:bg-inherit transform duration-100 ease-in-out rounded-md p-1"
+                                  >
+                                    <svg
+                                      xmlns="http://www.w3.org/2000/svg"
+                                      fill="none"
+                                      viewBox="0 0 24 24"
+                                      strokeWidth={1.5}
+                                      stroke="currentColor"
+                                      className="size-5"
+                                    >
+                                      <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0"
+                                      />
+                                    </svg>
+                                  </div>
+                                </div>
+                              )}
+                            {/* Mobile */}
+                            {activeChatMode?.id !== chat.id && (
+                              <div
+                                className={`${
+                                  selectedChat?.id === chat.id
+                                    ? "flex"
+                                    : "hidden"
+                                } flex-row md:hidden`}
+                              >
                                 <div
-                                  className="cursor-pointer text-green-400 hover:bg-gray-700
+                                  onClick={() => handleViewChat(chat)}
+                                  className="cursor-pointer text-gray-300 hover:bg-gray-700
                             active:bg-inherit transform duration-100 ease-in-out rounded-md p-1"
                                 >
-                                  <i className="bx  bx-check bx-sm"></i>
+                                  <i className="bx bx-xs bx-arrow-in-up-right-stroke-circle"></i>
                                 </div>
-                              </div>
-                            )}
-                          {activeChatMode?.type === "delete" &&
-                            activeChatMode?.id === chat.id && (
-                              <div className="flex flex-row flex-nowrap">
                                 <div
-                                  onClick={handleExitDelete}
-                                  className="cursor-pointer text-slate-400 hover:bg-gray-700
-                                active:bg-inherit transform duration-100 ease-in-out rounded-md p-1"
+                                  onClick={() => handleEditChat(chat)}
+                                  className="cursor-pointer text-gray-300 hover:bg-gray-700
+                            active:bg-inherit transform duration-100 ease-in-out rounded-md p-1"
                                 >
-                                  <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    strokeWidth={1.5}
-                                    stroke="currentColor"
-                                    className="size-6"
-                                  >
-                                    <path
-                                      strokeLinecap="round"
-                                      strokeLinejoin="round"
-                                      d="M6 18 18 6M6 6l12 12"
-                                    />
-                                  </svg>
+                                  <i className="bx bx-pencil bx-xs"></i>
                                 </div>
                                 <div
-                                  className="cursor-pointer text-red-400 hover:bg-gray-700
+                                  onClick={() => handleDeleteChat(chat)}
+                                  className="cursor-pointer text-gray-300 hover:bg-gray-700
                             active:bg-inherit transform duration-100 ease-in-out rounded-md p-1"
                                 >
                                   <svg
@@ -286,91 +367,48 @@ const SavedChats = ({ dialogRef, savedChats, setSavedChats }) => {
                                 </div>
                               </div>
                             )}
-                          {/* Mobile */}
-                          {activeChatMode?.id !== chat.id && (
-                            <div
-                              className={`${
-                                selectedChat?.id === chat.id ? "flex" : "hidden"
-                              } flex-row md:hidden`}
-                            >
-                              <div
-                                onClick={() => handleViewChat(chat)}
-                                className="cursor-pointer text-gray-300 hover:bg-gray-700
+                            {/* Desktop */}
+                            {activeChatMode?.id !== chat.id && (
+                              <div className="hidden md:group-hover:flex flex-row flex-nowrap">
+                                <div
+                                  onClick={() => handleViewChat(chat)}
+                                  className="cursor-pointer text-gray-300 hover:bg-gray-700
                             active:bg-inherit transform duration-100 ease-in-out rounded-md p-1"
-                              >
-                                <i className="bx bx-xs bx-arrow-in-up-right-stroke-circle"></i>
-                              </div>
-                              <div
-                                onClick={() => handleEditChat(chat)}
-                                className="cursor-pointer text-gray-300 hover:bg-gray-700
-                            active:bg-inherit transform duration-100 ease-in-out rounded-md p-1"
-                              >
-                                <i className="bx bx-pencil bx-xs"></i>
-                              </div>
-                              <div
-                                onClick={() => handleDeleteChat(chat)}
-                                className="cursor-pointer text-gray-300 hover:bg-gray-700
-                            active:bg-inherit transform duration-100 ease-in-out rounded-md p-1"
-                              >
-                                <svg
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  fill="none"
-                                  viewBox="0 0 24 24"
-                                  strokeWidth={1.5}
-                                  stroke="currentColor"
-                                  className="size-5"
                                 >
-                                  <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0"
-                                  />
-                                </svg>
-                              </div>
-                            </div>
-                          )}
-                          {/* Desktop */}
-                          {activeChatMode?.id !== chat.id && (
-                            <div className="hidden md:group-hover:flex flex-row flex-nowrap">
-                              <div
-                                onClick={() => handleViewChat(chat)}
-                                className="cursor-pointer text-gray-300 hover:bg-gray-700
-                            active:bg-inherit transform duration-100 ease-in-out rounded-md p-1"
-                              >
-                                <i className="bx bx-xs bx-arrow-in-up-right-stroke-circle"></i>
-                              </div>
+                                  <i className="bx bx-xs bx-arrow-in-up-right-stroke-circle"></i>
+                                </div>
 
-                              <div
-                                onClick={() => handleEditChat(chat)}
-                                className="cursor-pointer text-gray-300 hover:bg-gray-700
+                                <div
+                                  onClick={() => handleEditChat(chat)}
+                                  className="cursor-pointer text-gray-300 hover:bg-gray-700
                             active:bg-inherit transform duration-100 ease-in-out rounded-md p-1"
-                              >
-                                <i className="bx bx-pencil bx-xs"></i>
-                              </div>
-                              <div
-                                onClick={() => handleDeleteChat(chat)}
-                                className="cursor-pointer text-gray-300 hover:bg-gray-700
-                            active:bg-inherit transform duration-100 ease-in-out rounded-md p-1"
-                              >
-                                <svg
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  fill="none"
-                                  viewBox="0 0 24 24"
-                                  strokeWidth={1.5}
-                                  stroke="currentColor"
-                                  className="size-5"
                                 >
-                                  <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0"
-                                  />
-                                </svg>
+                                  <i className="bx bx-pencil bx-xs"></i>
+                                </div>
+                                <div
+                                  onClick={() => handleDeleteChat(chat)}
+                                  className="cursor-pointer text-gray-300 hover:bg-gray-700
+                            active:bg-inherit transform duration-100 ease-in-out rounded-md p-1"
+                                >
+                                  <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    strokeWidth={1.5}
+                                    stroke="currentColor"
+                                    className="size-5"
+                                  >
+                                    <path
+                                      strokeLinecap="round"
+                                      strokeLinejoin="round"
+                                      d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0"
+                                    />
+                                  </svg>
+                                </div>
                               </div>
-                            </div>
-                          )}
-                        </div>
-                      ))
+                            )}
+                          </div>
+                        ))
                     ) : filteredChats.length === 0 ? (
                       <p className="text-gray-400 text-center py-4">
                         No results found
@@ -382,7 +420,24 @@ const SavedChats = ({ dialogRef, savedChats, setSavedChats }) => {
                           key={chat.id}
                           className="group detail flex flex-row justify-between cursor-pointer w-full rounded-xl bg-slate-900 p-3 gap-2 items-center font-semibold text-gray-200 hover:bg-slate-800 transition-all duration-200 ease-in-out"
                         >
-                          <h4 className="py-1">{chat.chatName}</h4>
+                          {activeChatMode?.id === chat.id &&
+                          activeChatMode?.type === "edit" ? (
+                            <input
+                              type="text"
+                              value={editedChatName}
+                              onChange={(e) =>
+                                setEditedChatName(e.target.value)
+                              }
+                              onKeyDown={(e) => {
+                                if (e.key === "Enter")
+                                  handleConfirmEdit(chat.id, editedChatName);
+                              }}
+                              className="text-sm px-2 py-1 rounded-md bg-slate-800 text-white border border-slate-600 focus:outline-none focus:ring-1 focus:ring-green-400"
+                              autoFocus
+                            />
+                          ) : (
+                            <h4 className="py-1">{chat.chatName}</h4>
+                          )}
                           <p
                             className={`${
                               activeChatMode?.id === chat.id ? "hidden" : "flex"
@@ -414,6 +469,9 @@ const SavedChats = ({ dialogRef, savedChats, setSavedChats }) => {
                                   </svg>
                                 </div>
                                 <div
+                                  onClick={() =>
+                                    handleConfirmEdit(chat.id, editedChatName)
+                                  }
                                   className="cursor-pointer text-green-400 hover:bg-gray-700
                             active:bg-inherit transform duration-100 ease-in-out rounded-md p-1"
                                 >
@@ -445,6 +503,7 @@ const SavedChats = ({ dialogRef, savedChats, setSavedChats }) => {
                                   </svg>
                                 </div>
                                 <div
+                                  onClick={() => handleConfirmDelete(chat.id)}
                                   className="cursor-pointer text-red-400 hover:bg-gray-700
                             active:bg-inherit transform duration-100 ease-in-out rounded-md p-1"
                                 >
@@ -551,6 +610,11 @@ const SavedChats = ({ dialogRef, savedChats, setSavedChats }) => {
                         </div>
                       ))
                     )}
+                    {chats.length < 1 && (
+                      <div className="flex flex-col justify-center items-center h-full w-full font-semibold text-slate-300">
+                        No Chats found. Please start Chatting...
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
@@ -569,7 +633,7 @@ const SavedChats = ({ dialogRef, savedChats, setSavedChats }) => {
                         </span>
                       ))}
                     </div>
-                    <div>
+                    <div className="pb-7">
                       <ReactMarkdown>{selectedChat.result}</ReactMarkdown>
                     </div>
                   </div>
@@ -622,7 +686,7 @@ const SavedChats = ({ dialogRef, savedChats, setSavedChats }) => {
                   Cancel
                 </button>
                 <button
-                  onClick={() => setDeleteChat(true)}
+                  onClick={() => handleConfirmDelete(selectedChat?.id)}
                   className="bg-slate-900 hover:bg-slate-800 active:bg-slate-700 px-3 py-1 rounded-md text-red-500 font-semibold"
                 >
                   Delete
@@ -637,7 +701,12 @@ const SavedChats = ({ dialogRef, savedChats, setSavedChats }) => {
                 >
                   Cancel
                 </button>
-                <button className=" bg-slate-900 hover:bg-slate-800 active:bg-slate-700 px-3 py-1 rounded-md text-green-400 font-semibold">
+                <button
+                  onClick={() =>
+                    handleConfirmEdit(selectedChat?.id, editedChatName)
+                  }
+                  className=" bg-slate-900 hover:bg-slate-800 active:bg-slate-700 px-3 py-1 rounded-md text-green-400 font-semibold"
+                >
                   Confirm
                 </button>
               </div>

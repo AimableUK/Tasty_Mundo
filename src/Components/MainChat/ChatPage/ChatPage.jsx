@@ -13,6 +13,9 @@ import { useChatStore } from "../../../store/useChatStore";
 
 const ChatPage = () => {
   const chats = useChatStore((state) => state.chats);
+  const editChatName = useChatStore((state) => state.editChatName);
+  const deleteChat = useChatStore((state) => state.deleteChat);
+
   const { chatId } = useParams();
   const navigate = useNavigate();
 
@@ -71,6 +74,7 @@ const ChatPage = () => {
           setRecipeIdea={setRecipeIdea}
           setSavedChats={setSavedChats}
           setSettings={setSettings}
+          deleteChatData={deleteChat}
         />
 
         {/* Body */}
@@ -101,6 +105,8 @@ const ChatPage = () => {
       <SavedChats
         dialogRef={savedRef}
         savedChats={savedChats}
+        deleteChatData={deleteChat}
+        editChatName={editChatName}
         setSavedChats={setSavedChats}
       />
 
