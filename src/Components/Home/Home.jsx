@@ -23,18 +23,26 @@ import faqData from "../../Data/FAQ/faqData.js";
 
 // Testimonials
 import Testimonials from "../Testimonials/Testimonials.jsx";
+
 import { getDailyItems } from "../../utils/getDailyItems.js";
 import Chat from "../HomeChatInput/Chat.jsx";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Form, Formik, Field, ErrorMessage } from "formik";
 import { contactUsSchema } from "../../Schema/contactUsSchema.js";
 import emailjs from "@emailjs/browser";
+import { useChatStore } from "../../store/useChatStore.js";
+import { v4 as uuidv4 } from "uuid";
 
 const Home = () => {
   const trendingRef = useRef(null);
   const ingredientsRef = useRef(null);
   const [ingredientsList, setIngredientsList] = useState([]);
   const [ingredientsTop, setIngredientsTop] = useState("");
+
+  const [ingredients, setIngredients] = useState("");
+
+  const addChat = useChatStore((state) => state.addChat);
+  const navigate = useNavigate();
 
   // Sending Email
   const [submitStatus, setSubmitStatus] = useState(null);
@@ -68,13 +76,21 @@ const Home = () => {
     }
   }
 
+  const [randomTagline, setRandomTagline] = useState("");
+  const [randomSubTagline, setRandomSubTagline] = useState("");
+  const [randomPlaceholder, setRandomPlaceholder] = useState("");
+
   function getRandomItem(array) {
     return array[Math.floor(Math.random() * array.length)];
   }
 
-  const randomTagline = getRandomItem(taglines);
-  const randomSubTagline = getRandomItem(subTaglines);
-  const randomPlaceholder = getRandomItem(placeholders);
+  useEffect(() => {
+    if (taglines?.length && subTaglines?.length && placeholders?.length) {
+      setRandomTagline(getRandomItem(taglines));
+      setRandomSubTagline(getRandomItem(subTaglines));
+      setRandomPlaceholder(getRandomItem(placeholders));
+    }
+  }, []);
 
   // Trending Flavors
   const scrollLeft = (ref) =>
@@ -98,13 +114,48 @@ const Home = () => {
     });
   };
 
-  const handleSubmit = () => {
-    console.log(ingredientsList);
+  const parseIngredients = (text) => {
+    return text
+      .split(",")
+      .flatMap((part) =>
+        part
+          .trim()
+          .split(" ")
+          .map((word) => word.trim().replace(/[^a-zA-Z0-9]/g, ""))
+      )
+      .filter(Boolean);
   };
 
-  const handleSubmitTop = () => {
-    console.log(ingredientsTop);
+  const handleSubmit = () => {
+    const trimmed = ingredientsTop.trim();
+    if (!trimmed) return;
+
+    const ingredientsArray = parseIngredients(trimmed);
+
+    const shuffled = [...ingredientsArray].sort(() => 0.5 - Math.random());
+    const selected = shuffled.slice(0, Math.min(2, ingredientsArray.length));
+    const chatName = selected.length
+      ? `${selected.join(" ")} Recipe`
+      : "Custom Recipe";
+
+    const newId = uuidv4();
+    const newChat = {
+      id: newId,
+      chatName,
+      ingredients: ingredientsArray,
+      generatedAt: new Date().toISOString(),
+      result: "",
+      response: null,
+    };
+
+    addChat(newChat);
+    setIngredients("");
+    setTimeout(() => {
+      navigate(`/c/${newId}`);
+    }, 50);
   };
+
+  const isValidInput = ingredientsTop.trim().split(/\s+/).length >= 2;
 
   return (
     <div className="relative">
@@ -127,8 +178,11 @@ const Home = () => {
               />
             </div>
             <button
-              onClick={handleSubmitTop}
-              className="hover:scale-95 active:scale-90 transition-all duration-200 ease-in-out p-3 rounded-full font-bold bg-[#0e0f26] flex flex-row flex-nowrap"
+              disabled={!isValidInput}
+              onClick={handleSubmit}
+              className={`hover:scale-95 active:scale-90 transition-all duration-200 ease-in-out p-3 rounded-full font-bold bg-[#0e0f26] flex flex-row flex-nowrap ${
+                !isValidInput ? "opacity-60 cursor-not-allowed" : ""
+              }`}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -314,9 +368,9 @@ const Home = () => {
       </section>
 
       <Chat
-        handleSubmit={handleSubmit}
         randomPlaceholder={randomPlaceholder}
-        value={ingredientsList}
+        ingredientsList={ingredientsList}
+        setIngredientsList={setIngredientsList}
         onAddIngredient={addIngredient}
         trendingRef={trendingRef}
         ingredientsRef={ingredientsRef}

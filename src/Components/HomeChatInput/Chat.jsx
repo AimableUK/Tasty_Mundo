@@ -1,13 +1,52 @@
 import React, { useEffect, useState } from "react";
+import { useChatStore } from "../../store/useChatStore";
+import { useNavigate } from "react-router-dom";
+import { v4 as uuidv4 } from "uuid";
 
 const Chat = ({
-  value,
+  ingredientsList,
+  setIngredientsList,
   randomPlaceholder,
-  handleSubmit,
   trendingRef,
   ingredientsRef,
 }) => {
   const [isVisible, setIsVisible] = useState(false);
+
+  const addChat = useChatStore((state) => state.addChat);
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    console.log(ingredientsList);
+  }, [ingredientsList]);
+
+  const handleSubmit = () => {
+    const shuffled = [...ingredientsList].sort(() => 0.5 - Math.random());
+    const selected = shuffled.Math.floor(
+      Math.random * ingredientsList.length
+    ).slice(0, Math.min(2, ingredientsList.length));
+    const chatName = selected.length
+      ? `${selected.join(" ")} Recipe`
+      : "Custom Recipe";
+
+    const newId = uuidv4();
+    const newChat = {
+      id: newId,
+      chatName,
+      ingredients: ingredientsList,
+      generatedAt: new Date().toISOString(),
+      result: "",
+      response: null,
+    };
+
+    addChat(newChat);
+    setIngredientsList("");
+    setTimeout(() => {
+      navigate(`/c/${newId}`);
+    }, 50);
+  };
+
+  const isValidInput = ingredientsList.length >= 2;
 
   useEffect(() => {
     const trending = trendingRef?.current;
@@ -43,16 +82,20 @@ const Chat = ({
         <input
           type="text"
           placeholder={randomPlaceholder}
-          value={value}
+          value={ingredientsList}
+          onChange={(e) => setIngredientsList(e.target.value)}
           className={`
             no-underline outline-none w-[200px] md:focus:w-[350px] lg:focus:w-[550px] bg-[#0e0f26] text-white transform transition-all duration-300 ease-in-out
-            ${value.length > 0 && "md:w-[350px] lg:w-[550px]"}
+            ${ingredientsList.length > 0 && "md:w-[350px] lg:w-[550px]"}
             `}
         />
       </div>
       <button
+        disabled={!isValidInput}
         onClick={handleSubmit}
-        className="hover:scale-95 active:scale-90 transition-all duration-200 ease-in-out p-3 rounded-full font-bold bg-[#0e0f26] flex flex-row flex-nowrap"
+        className={`hover:scale-95 active:scale-90 transition-all duration-200 ease-in-out p-3 rounded-full font-bold bg-[#0e0f26] flex flex-row flex-nowrap ${
+          !isValidInput ? "opacity-80 cursor-not-allowed" : ""
+        }`}
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
