@@ -26,6 +26,13 @@ export const useChatStore = create(
           ),
         })),
 
+      updateChatFeedback: (id, response) =>
+        set((state) => ({
+          chats: state.chats.map((chat) =>
+            chat.id === id ? { ...chat, response } : chat
+          ),
+        })),
+
       deleteChat: (id) =>
         set((state) => ({
           chats: state.chats.filter((chat) => chat.id !== id),

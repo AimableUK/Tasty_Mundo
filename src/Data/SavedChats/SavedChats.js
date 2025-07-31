@@ -6,6 +6,7 @@ const SavedChats = [
     generatedAt: "2025-07-24T08:05:00.000Z",
     result:
       "Sauté cabbage with onions, garlic, and chili flakes for a quick and spicy stir fry.",
+    response: null,
   },
   {
     id: 2,
@@ -14,6 +15,7 @@ const SavedChats = [
     generatedAt: "2025-07-23T17:20:00.000Z",
     result:
       "Roast sweet potatoes and drizzle with honey and cinnamon for a warm dessert.",
+    response: null,
   },
   {
     id: 3,
@@ -22,6 +24,7 @@ const SavedChats = [
     generatedAt: "2025-07-23T12:50:00.000Z",
     result:
       "Blend avocado, garlic, and lemon juice for a creamy no-cook pasta sauce.",
+    response: null,
   },
   {
     id: 4,
@@ -30,6 +33,7 @@ const SavedChats = [
     generatedAt: "2025-07-22T07:40:00.000Z",
     result:
       "Fry eggs and serve on toasted buttered bread with a pinch of salt.",
+    response: null,
   },
   {
     id: 5,
@@ -38,6 +42,7 @@ const SavedChats = [
     generatedAt: "2025-07-22T10:30:00.000Z",
     result:
       "Chop pineapple, toss with lime juice, mint, and a pinch of salt for a fresh salad.",
+    response: null,
   },
   {
     id: 6,
@@ -46,6 +51,7 @@ const SavedChats = [
     generatedAt: "2025-07-21T15:10:00.000Z",
     result:
       "Make a fluffy omelette and fold it around stir-fried rice with veggies.",
+    response: null,
   },
   {
     id: 7,
@@ -54,6 +60,7 @@ const SavedChats = [
     generatedAt: "2025-07-21T19:45:00.000Z",
     result:
       "Slow cook yams and beans in a tomato-garlic base for a hearty stew.",
+    response: null,
   },
   {
     id: 8,
@@ -62,6 +69,7 @@ const SavedChats = [
     generatedAt: "2025-07-20T09:55:00.000Z",
     result:
       "Simmer lentils with chopped carrots, celery, and herbs for a comforting soup.",
+    response: null,
   },
   {
     id: 9,
@@ -70,6 +78,7 @@ const SavedChats = [
     generatedAt: "2025-07-19T11:40:00.000Z",
     result:
       "Shred mango and cabbage, toss in sweet vinegar for a tropical slaw.",
+    response: null,
   },
   {
     id: 10,
@@ -78,6 +87,7 @@ const SavedChats = [
     generatedAt: "2025-07-18T14:30:00.000Z",
     result:
       "Sauté eggplant and simmer in coconut curry sauce for a quick dish.",
+    response: null,
   },
   {
     id: 11,
@@ -86,6 +96,7 @@ const SavedChats = [
     generatedAt: "2025-07-17T08:15:00.000Z",
     result:
       "Mix corn with batter and fry until golden brown for crispy fritters.",
+    response: null,
   },
   {
     id: 12,
@@ -94,6 +105,7 @@ const SavedChats = [
     generatedAt: "2025-07-16T10:20:00.000Z",
     result:
       "Blend papaya, yogurt, honey, and a hint of ginger for a refreshing smoothie.",
+    response: null,
   },
   {
     id: 13,
@@ -102,6 +114,7 @@ const SavedChats = [
     generatedAt: "2025-07-15T07:00:00.000Z",
     result:
       "Mash bananas into pancake batter for soft, naturally sweet pancakes.",
+    response: null,
   },
   {
     id: 14,
@@ -110,6 +123,7 @@ const SavedChats = [
     generatedAt: "2025-07-14T16:35:00.000Z",
     result:
       "Cook tomatoes and garlic in olive oil, then toss with pasta for a fast meal.",
+    response: null,
   },
   {
     id: 15,
@@ -118,6 +132,7 @@ const SavedChats = [
     generatedAt: "2025-07-13T18:50:00.000Z",
     result:
       "Flash fry mixed vegetables in soy sauce for a colorful healthy stir fry.",
+    response: null,
   },
 ];
 

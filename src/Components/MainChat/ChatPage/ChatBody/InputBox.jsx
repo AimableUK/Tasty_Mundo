@@ -12,8 +12,12 @@ const InputBox = () => {
 
   const handleKeyPress = (e) => {
     if (e.key === "Enter") {
-      e.preventDefault();
-      handleSubmit();
+      if (isValidInput) {
+        e.preventDefault();
+        handleSubmit();
+      } else {
+        e.preventDefault();
+      }
     }
   };
 
@@ -48,6 +52,7 @@ const InputBox = () => {
       ingredients: ingredientsArray,
       generatedAt: new Date().toISOString(),
       result: "",
+      response: null,
     };
 
     addChat(newChat);
@@ -56,6 +61,8 @@ const InputBox = () => {
       navigate(`/c/${newId}`);
     }, 50);
   };
+
+  const isValidInput = ingredients.trim().split(/\s+/).length >= 2;
 
   return (
     <section className="w-11/12 md:w-3/4 lg:w-3/5 fixed bottom-0 pb-5 left-1/2 -translate-x-1/2 flex justify-center flex-row items-center gap-1 bg-primaryBody z-20">
@@ -70,8 +77,11 @@ const InputBox = () => {
         />
       </div>
       <button
+        disabled={!isValidInput}
         onClick={handleSubmit}
-        className="hover:scale-105 active:scale-90 transition-all duration-200 ease-in-out border border-gray-600 p-2 md:p-3 rounded-full md:rounded-xl font-bold bg-[#1b1c33] flex flex-row flex-nowrap"
+        className={`hover:scale-105 active:scale-90 transition-all duration-200 ease-in-out border border-gray-600 p-2 md:p-3 rounded-full md:rounded-xl font-bold bg-[#1b1c33] flex flex-row flex-nowrap ${
+          !isValidInput ? "opacity-50 cursor-not-allowed" : ""
+        }`}
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
