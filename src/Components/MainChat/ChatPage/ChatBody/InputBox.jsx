@@ -73,7 +73,7 @@ const InputBox = () => {
           value={ingredients}
           onChange={(e) => setIngredients(e.target.value)}
           onKeyDown={handleKeyPress}
-          className="outline-none md:w-[300px] lg:w-[790px] bg-[#1b1c33] text-white transform transition-all duration-300 ease-in-out"
+          className="outline-none w-full bg-[#1b1c33] text-white transform transition-all duration-300 ease-in-out"
         />
       </div>
       <button

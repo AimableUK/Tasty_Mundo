@@ -74,6 +74,7 @@ const ChatPage = () => {
           setRecipeIdea={setRecipeIdea}
           setSavedChats={setSavedChats}
           setSettings={setSettings}
+          chats={chats}
           deleteChatData={deleteChat}
         />
 
@@ -91,7 +92,7 @@ const ChatPage = () => {
 
       {/* Chat Not found */}
       <div
-        className={`fixed pt-3 flex flex-row justify-center left-1/2 inset-0 -translate-x-1/2 w-fit md:w-3/5 max-w-lg px-8 transition-all duration-500 ease-in-out ${
+        className={`chatNotFound fixed pt-3 flex flex-row justify-center left-1/2 inset-0 -translate-x-1/2 w-fit h-fit md:w-3/5 max-w-lg px-8 transition-all duration-500 ease-in-out ${
           !activeChat && chatNotFound
             ? "translate-y-0 opacity-100"
             : "-translate-y-24 opacity-0"

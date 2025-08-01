@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 
 const ChatHeader = ({
@@ -6,6 +6,7 @@ const ChatHeader = ({
   setRecipeIdea,
   setSavedChats,
   setSettings,
+  chats,
   deleteChatData,
 }) => {
   const [showMore, setShowMore] = useState(false);
@@ -33,20 +34,28 @@ const ChatHeader = ({
     };
   }, [showMore]);
 
+  // useEffect(() => {
+  //   const chat = chats.find((chat) => chat.id === chatId);
+  // }, [chatId, chats, handleDelete]);
+
+  // const handleDelete = (chat) => {
+  //   if (
+  //     window.confirm(
+  //       `Are you sure you want to delete this chat? ${chat?.chatName}`
+  //     )
+  //   ) {
+  //     deleteChatData(chatId);
+  //     // navigate("/c");
+  //   }
+  // };
+
   const newChat = () => {
     if (location.pathname == "/c") return;
     navigate("/c");
   };
 
-  const handleDelete = () => {
-    //  if (window.confirm("Are you sure you want to delete this chat?")) {
-    //   deleteChatData(chatId);
-    //   navigate("/c");
-    // }
-  };
-
   return (
-    <div className=" z-20 fixed flex flex-row p-1 py-3 md:py-4 px-4 md:ml-14 justify-between w-full border-b border-b-gray-700 items-center bg-primaryBody md:border-l border-l-gray-700">
+    <div className="z-20 fixed flex flex-row p-1 py-3 md:py-4 px-4 md:ml-14 justify-between w-full border-b border-b-gray-700 items-center bg-primaryBody md:border-l border-l-gray-700">
       <p className="font-roboto font-semibold text-gray-200">Tasty Mundo</p>
       <div className="relative flex flex-row flex-nowrap items-center md:mr-14">
         <svg

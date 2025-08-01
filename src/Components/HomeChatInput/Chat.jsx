@@ -16,15 +16,9 @@ const Chat = ({
 
   const navigate = useNavigate();
 
-  useEffect(() => {
-    console.log(ingredientsList);
-  }, [ingredientsList]);
-
   const handleSubmit = () => {
     const shuffled = [...ingredientsList].sort(() => 0.5 - Math.random());
-    const selected = shuffled.Math.floor(
-      Math.random * ingredientsList.length
-    ).slice(0, Math.min(2, ingredientsList.length));
+    const selected = shuffled.slice(0, Math.min(2, ingredientsList.length));
     const chatName = selected.length
       ? `${selected.join(" ")} Recipe`
       : "Custom Recipe";

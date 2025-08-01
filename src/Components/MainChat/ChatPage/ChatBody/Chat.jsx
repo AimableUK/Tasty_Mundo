@@ -12,6 +12,7 @@ const Chat = ({ chat }) => {
 
   const updateChatResult = useChatStore((state) => state.updateChatResult);
   const updateChatFeedback = useChatStore((state) => state.updateChatFeedback);
+  const deleteChat = useChatStore((state) => state.deleteChat);
   const [resultState, setResultState] = useState(chat?.response);
 
   const getRecipe = useCallback(async () => {
@@ -19,6 +20,14 @@ const Chat = ({ chat }) => {
       setLoading(true);
       const recipeMarkdown = await getRecipeFromMistral(chat?.ingredients);
       setRecipe(recipeMarkdown);
+      if (
+        recipeMarkdown === "Error fetching from Hugging Face:" ||
+        recipeMarkdown === "Sorry, I couldn't fetch a recipe at the moment."
+      ) {
+        setTimeout(() => {
+          deleteChat(chat?.id);
+        }, 3000);
+      }
       if (chat?.id) {
         updateChatResult(chat.id, recipeMarkdown);
       }
@@ -27,7 +36,7 @@ const Chat = ({ chat }) => {
     } finally {
       setLoading(false);
     }
-  }, [chat?.id, chat?.ingredients, updateChatResult]);
+  }, [chat.id, chat?.ingredients, deleteChat, updateChatResult]);
 
   useEffect(() => {
     if (chat?.chatName) {
@@ -77,7 +86,7 @@ const Chat = ({ chat }) => {
   };
 
   return (
-    <div key={chat.id} className="mt-20 pb-20 z-10">
+    <div key={chat.id} className="mt-20 pb-20 chatting">
       {/* Convo */}
       <div
         key={chat.id}

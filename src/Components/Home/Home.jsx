@@ -155,7 +155,10 @@ const Home = () => {
     }, 50);
   };
 
-  const isValidInput = ingredientsTop.trim().split(/\s+/).length >= 2;
+  const isValidInput =
+    ingredientsTop.trim().split(/\s+/).length >= 2 ||
+    (ingredientsTop.trim().includes(",") &&
+      ingredientsTop.trim().split(" ").length >= 2);
 
   return (
     <div className="relative">

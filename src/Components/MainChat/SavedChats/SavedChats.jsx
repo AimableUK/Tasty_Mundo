@@ -127,6 +127,7 @@ const SavedChats = ({
     deleteChatData(id);
     setDeleteChat(false);
     setActiveChatMode(null);
+    setPreviewChat(null)
   };
 
   // Exit
