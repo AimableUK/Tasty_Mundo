@@ -38,6 +38,8 @@ export const useChatStore = create(
           chats: state.chats.filter((chat) => chat.id !== id),
         })),
 
+      clearChats: () => set({ chats: [] }),
+
       getChatById: (id) => get().chats.find((chat) => chat.id === id),
     }),
     {

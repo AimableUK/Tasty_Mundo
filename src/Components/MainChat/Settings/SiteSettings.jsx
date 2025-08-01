@@ -3,14 +3,17 @@ import { ErrorMessage, Field, Formik, Form } from "formik";
 import { contactUsSchema } from "../../../Schema/contactUsSchema";
 import emailjs from "@emailjs/browser";
 import { useChatStore } from "../../../store/useChatStore";
+import toast, { Toaster } from "react-hot-toast";
 
 const SiteSettings = ({ dialogRef, settings, setSettings }) => {
   const [settingView, setSettingView] = useState("data");
   const [feedbackForm, setFeedbackForm] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const [submitStatus, setSubmitStatus] = useState(null);
 
   const chats = useChatStore((state) => state.chats);
+  const clearChats = useChatStore((state) => state.clearChats);
 
   const appVersion = "v1.0.0";
   const formRef = useRef(null);
@@ -45,18 +48,53 @@ const SiteSettings = ({ dialogRef, settings, setSettings }) => {
   }
 
   const exportData = () => {
-    const data = {
-      savedRecipes,
-    };
-    const blob = new Blob([JSON.stringify(data, null, 2)], {
-      type: "application/json",
-    });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "TastyMUNDO_recipe_data.json";
-    a.click();
-    URL.revokeObjectURL(url);
+    toast.promise(
+      new Promise((resolve, reject) => {
+        try {
+          const data = {
+            chats,
+          };
+          const blob = new Blob([JSON.stringify(data, null, 2)], {
+            type: "application/json",
+          });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement("a");
+          a.href = url;
+          a.download = "TASTYMUNDO_Data.json";
+          a.click();
+          URL.revokeObjectURL(url);
+
+          setTimeout(() => {
+            resolve();
+          }, 500);
+        } catch (error) {
+          reject(error);
+        }
+      }),
+      {
+        loading: "Exporting your data...",
+        success: "Your data was exported successfully!",
+        error: "Failed to export your data.",
+      }
+    );
+  };
+
+  const handleClear = () => {
+    return toast.promise(
+      new Promise((resolve, reject) => {
+        try {
+          clearChats();
+          setTimeout(() => resolve(), 500);
+        } catch (error) {
+          reject(error);
+        }
+      }),
+      {
+        loading: "Clearing saved recipes...",
+        success: "All saved recipes cleared!",
+        error: "Failed to clear saved recipes.",
+      }
+    );
   };
 
   const viewForm = () => {
@@ -81,11 +119,40 @@ const SiteSettings = ({ dialogRef, settings, setSettings }) => {
             your device.
           </p>
           <button
-            // onClick={clearSavedRecipes}
+            onClick={() => setIsModalOpen((prev) => !prev)}
             className="px-4 py-2 bg-red-800 text-white rounded-xl hover:bg-red-900 active:bg-red-950 transition"
           >
             Delete All Saved Recipes
           </button>
+
+          {isModalOpen && (
+            <div className="ring-2 ring-red-900 mt-5 bg-gray-800 rounded-xl p-2">
+              <h3 className="text-lg font-semibold mb-2 ">
+                Delete Saved Recipes
+              </h3>
+              <p>
+                Are you sure you want to clear <strong>all Recipes</strong>?
+                This action cannot be undone.
+              </p>
+              <div className="flex justify-end gap-x-1">
+                <button
+                  onClick={() => setIsModalOpen(false)}
+                  className="px-4 py-2 bg-gray-700 text-gray-100 font-semibold rounded-xl hover:bg-gray-800 active:bg-gray-900 transition"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={() => {
+                    handleClear();
+                    setIsModalOpen(false);
+                  }}
+                  className="px-4 py-2 bg-red-800 text-gray-100 font-semibold rounded-xl hover:bg-red-900 active:bg-red-950 transition"
+                >
+                  Clear
+                </button>
+              </div>
+            </div>
+          )}
         </div>
 
         <div className="bg-gray-900 rounded-xl p-4 mb-4 shadow">
@@ -100,6 +167,7 @@ const SiteSettings = ({ dialogRef, settings, setSettings }) => {
             Export My Data
           </button>
         </div>
+        <Toaster position="top-center" reverseOrder={false} />
       </div>
     ),
     about: (
