@@ -88,7 +88,7 @@ const ChatHeader = ({
           onClick={() => setShowMore((prev) => !prev)}
           className="cursor-pointer active:scale-90"
         >
-          <i class="bx bx-sm bx-dots-horizontal-rounded rotate-90 md:rotate-0"></i>
+          <i className="bx bx-sm bx-dots-horizontal-rounded rotate-90 md:rotate-0"></i>
         </div>
         {showMore && (
           <div

@@ -3,6 +3,7 @@ import { formatChatTimestamp } from "../Utils/ChatTimestamp/formatChatTimestamp"
 import { useLocation, useNavigate } from "react-router-dom";
 import { useChatStore } from "../../../store/useChatStore";
 import ReactMarkdown from "react-markdown";
+import toast, { Toaster } from "react-hot-toast";
 
 const SavedChats = ({
   dialogRef,
@@ -43,11 +44,6 @@ const SavedChats = ({
     setSelectedChat(null);
     setQuery("");
   }, [setSavedChats]);
-
-  useEffect(() => {
-    setPreviewChat(false);
-    setSelectedChat(null);
-  }, []);
 
   useEffect(() => {
     function ClickOutSide(event) {
@@ -107,8 +103,21 @@ const SavedChats = ({
   };
 
   const handleConfirmEdit = (id, newName) => {
-    if (!newName.trim()) return;
+    if (!newName.trim()) {
+      toast.error("Chat name cannot be empty!");
+      return;
+    }
+
+    const chat = chats.find((chat) => chat.id === id);
+
+    if (!chat) {
+      toast.error("Chat not found!");
+      return;
+    }
+
     editChatName(id, newName);
+    toast.success(`${chat.chatName} renamed to successfully!`);
+
     setEditChat(false);
     setActiveChatMode(null);
   };
@@ -116,7 +125,7 @@ const SavedChats = ({
   // Delete
   const handleDeleteChat = (chat) => {
     if (!chat) {
-      console.warn("Tried to delete a chat, but no chat was selected");
+      console.warn("Tried to delete a recipe, but no chat was selected");
       return;
     }
     setDeleteChat(true);
@@ -124,10 +133,22 @@ const SavedChats = ({
   };
 
   const handleConfirmDelete = (id) => {
+    const chat = chats.find((chat) => chat.id === id);
+
+    if (!chat) {
+      toast.error(`Recipe not found!`);
+      return;
+    }
+
     deleteChatData(id);
+    toast.success(`${chat.chatName} deleted successfully!`);
+
+    if (previewChat?.id === id) {
+      setPreviewChat(null);
+      setActiveChatMode(null);
+    }
+
     setDeleteChat(false);
-    setActiveChatMode(null);
-    setPreviewChat(null)
   };
 
   // Exit
@@ -714,6 +735,7 @@ const SavedChats = ({
             )}
           </div>
         </div>
+        <Toaster position="top-center" reverseOrder={true} />
       </div>
     )
   );
