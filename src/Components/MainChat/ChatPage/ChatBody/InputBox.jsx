@@ -62,7 +62,11 @@ const InputBox = () => {
     }, 50);
   };
 
-  const isValidInput = ingredients.trim().split(/\s+/).length >= 2;
+  const isValidInput =
+    ingredients
+      .trim()
+      .split(/[\s,]+/)
+      .filter(Boolean).length >= 2;
 
   return (
     <section className="w-11/12 md:w-3/4 lg:w-3/5 fixed bottom-0 pb-5 left-1/2 -translate-x-1/2 flex justify-center flex-row items-center gap-1 bg-primaryBody z-20">

@@ -9,6 +9,7 @@ const Chat = ({
   randomPlaceholder,
   trendingRef,
   ingredientsRef,
+  handleInputChange,
 }) => {
   const [isVisible, setIsVisible] = useState(false);
 
@@ -76,8 +77,8 @@ const Chat = ({
         <input
           type="text"
           placeholder={randomPlaceholder}
-          value={ingredientsList}
-          onChange={(e) => setIngredientsList(e.target.value)}
+          value={ingredientsList.join(", ")}
+          onChange={(e) => handleInputChange(e)}
           className={`
             no-underline outline-none w-[200px] md:focus:w-[350px] lg:focus:w-[550px] bg-[#0e0f26] text-white transform transition-all duration-300 ease-in-out
             ${ingredientsList.length > 0 && "md:w-[350px] lg:w-[550px]"}

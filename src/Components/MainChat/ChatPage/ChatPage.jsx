@@ -10,6 +10,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import Chat from "./ChatBody/Chat";
 import SiteSettings from "../Settings/SiteSettings";
 import { useChatStore } from "../../../store/useChatStore";
+import toast, { Toaster } from "react-hot-toast";
 
 const ChatPage = () => {
   const chats = useChatStore((state) => state.chats);
@@ -20,7 +21,6 @@ const ChatPage = () => {
   const navigate = useNavigate();
 
   const [activeChat, setActiveChat] = useState(null);
-  const [chatNotFound, setChatNotFound] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -32,9 +32,8 @@ const ChatPage = () => {
         setActiveChat(chat);
       } else {
         setActiveChat(null);
-        setChatNotFound(true);
+        toast.error("Chat not found!");
         setTimeout(() => {
-          setChatNotFound(false);
           navigate("/c");
         }, 3000);
       }
@@ -43,7 +42,8 @@ const ChatPage = () => {
     }
 
     setIsLoading(false);
-  }, [chatId, chats, navigate]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [chatId, navigate]);
 
   const [savedChats, setSavedChats] = useState(false);
   const [recipeIdea, setRecipeIdea] = useState(false);
@@ -70,7 +70,6 @@ const ChatPage = () => {
       <div className="w-full h-full">
         {/* Header */}
         <ChatHeader
-          tastyMundoBW={tastyMundoBW}
           setRecipeIdea={setRecipeIdea}
           setSavedChats={setSavedChats}
           setSettings={setSettings}
@@ -90,18 +89,7 @@ const ChatPage = () => {
         )}
       </div>
 
-      {/* Chat Not found */}
-      <div
-        className={`chatNotFound fixed pt-3 flex flex-row justify-center left-1/2 inset-0 -translate-x-1/2 w-fit h-fit md:w-3/5 max-w-lg px-8 transition-all duration-500 ease-in-out ${
-          !activeChat && chatNotFound
-            ? "translate-y-0 opacity-100"
-            : "-translate-y-24 opacity-0"
-        }`}
-      >
-        <div className="absolute flex flex-row justify-center items-center bg-red-600 p-2 rounded-md flex-wrap">
-          Chat UnAvailable: {chatId}
-        </div>
-      </div>
+      <Toaster position="top-center" reverseOrder={true} />
 
       <SavedChats
         dialogRef={savedRef}

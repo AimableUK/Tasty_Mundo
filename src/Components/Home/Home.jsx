@@ -149,16 +149,26 @@ const Home = () => {
     };
 
     addChat(newChat);
-    setIngredients("");
+    setIngredientsTop("");
     setTimeout(() => {
       navigate(`/c/${newId}`);
     }, 50);
   };
 
+  const handleInputChange = (e) => {
+    const value = e.target.value;
+    const array = value
+      .split(",")
+      .map((i) => i.trim())
+      .filter(Boolean);
+    setIngredientsList(array);
+  };
+
   const isValidInput =
-    ingredientsTop.trim().split(/\s+/).length >= 2 ||
-    (ingredientsTop.trim().includes(",") &&
-      ingredientsTop.trim().split(" ").length >= 2);
+    ingredientsTop
+      .trim()
+      .split(/[\s,]+/)
+      .filter(Boolean).length >= 2;
 
   return (
     <div className="relative">
@@ -377,6 +387,7 @@ const Home = () => {
         onAddIngredient={addIngredient}
         trendingRef={trendingRef}
         ingredientsRef={ingredientsRef}
+        handleInputChange={handleInputChange}
       />
 
       {/* New From TastyMundo */}
