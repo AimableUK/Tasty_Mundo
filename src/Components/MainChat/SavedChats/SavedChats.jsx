@@ -66,8 +66,8 @@ const SavedChats = ({
   );
 
   const newChat = () => {
-    if (location.pathname == "/c") return;
     closeSavedChats();
+    if (location.pathname == "/c") return;
     navigate("/c");
   };
 

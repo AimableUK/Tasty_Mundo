@@ -114,12 +114,15 @@ const SiteSettings = ({ dialogRef, settings, setSettings }) => {
         <div className="bg-gray-900 rounded-xl p-4 mb-4 shadow">
           <h3 className="text-lg font-semibold mb-2">Saved Recipes</h3>
           <p className="text-sm text-gray-400 mb-3">
-            You have {chats.length} recipe{chats.length > 1 && "s"} saved on
-            your device.
+            You have {chats.length || (chats.length === 0 && "No")} recipe
+            {chats.length > 1 && "s"} saved on your device.
           </p>
           <button
             onClick={() => setIsModalOpen((prev) => !prev)}
-            className="px-4 py-2 bg-red-800 text-white rounded-xl hover:bg-red-900 active:bg-red-950 transition"
+            disabled={chats.length === 0}
+            className={`${
+              chats.length === 0 && "cursor-not-allowed"
+            } px-4 py-2 bg-red-800 text-white rounded-xl hover:bg-red-900 active:bg-red-950 transition`}
           >
             Delete All Saved Recipes
           </button>
@@ -157,11 +160,14 @@ const SiteSettings = ({ dialogRef, settings, setSettings }) => {
         <div className="bg-gray-900 rounded-xl p-4 mb-4 shadow">
           <h3 className="text-lg font-semibold mb-2">Export My Data</h3>
           <p className="text-sm text-gray-400 mb-3">
-            Download your saved recipes and ingredients as a JSON file.
+            Download your saved recipes as a JSON file.
           </p>
           <button
             onClick={exportData}
-            className="px-4 py-2 bg-blue-800 text-gray-100 font-semibold rounded-xl hover:bg-blue-900 active:bg-blue-950 transition"
+            disabled={chats.length === 0}
+            className={`${
+              chats.length === 0 && "cursor-not-allowed"
+            } px-4 py-2 bg-blue-800 text-gray-100 font-semibold rounded-xl hover:bg-blue-900 active:bg-blue-950 transition`}
           >
             Export My Data
           </button>
