@@ -1,11 +1,10 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import SavedChats from "./SavedChats";
 
 export const useChatStore = create(
   persist(
     (set, get) => ({
-      chats: [...SavedChats],
+      chats: [],
 
       addChat: (chat) =>
         set((state) => ({

@@ -19,31 +19,30 @@ const SiteSettings = ({ dialogRef, settings, setSettings }) => {
   const formRef = useRef(null);
 
   async function onSubmit(values, actions) {
+    const promise = emailjs.send(
+      import.meta.env.VITE_EMAILJS_SERVICE_KEY,
+      import.meta.env.VITE_EMAILJS_TEMPLATE_KEY,
+      {
+        name: values.name,
+        email: values.email,
+        phone: values.phone,
+        subject: values.subject,
+        message: values.message,
+      },
+      import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+    );
+
+    toast.promise(promise, {
+      loading: "Sending message...",
+      success: "Message sent successfully!",
+      error: "Failed to send message. Please try again.",
+    });
+
     try {
-      await emailjs.send(
-        import.meta.env.VITE_EMAILJS_SERVICE_KEY,
-        import.meta.env.VITE_EMAILJS_TEMPLATE_KEY,
-        {
-          name: values.name,
-          email: values.email,
-          phone: values.phone,
-          subject: values.subject,
-          message: values.message,
-        },
-        import.meta.env.VITE_EMAILJS_PUBLIC_KEY
-      );
-
-      setSubmitStatus("success");
-
-      setTimeout(() => {
-        actions.resetForm();
-        setSubmitStatus(null);
-      }, 3000);
-    } catch (e) {
-      setSubmitStatus("error");
-      setTimeout(() => {
-        setSubmitStatus(null);
-      }, 3000);
+      await promise;
+      actions.resetForm();
+    } catch (error) {
+      // handled by toast
     }
   }
 
@@ -331,19 +330,9 @@ const SiteSettings = ({ dialogRef, settings, setSettings }) => {
                     disabled={isSubmitting}
                     className="flex items-center gap-2 bg-gradient-to-br from-blue-500 to-blue-400 text-white font-semibold py-3 px-6 rounded-full hover:scale-105 hover:shadow-lg transition duration-300"
                   >
-                    <i className="fas fa-paper-plane"></i> Send Message
+                    <i className="fas fa-paper-plane"></i>
+                    {isSubmitting ? "Sending..." : "Send Message"}
                   </button>
-                  {isSubmitting && <span className="loader"></span>}
-                  {submitStatus === "success" && (
-                    <p className="text-green-500 font-semibold">
-                      Message sent successfully!
-                    </p>
-                  )}
-                  {submitStatus === "error" && (
-                    <p className="text-red-500 font-semibold">
-                      Failed to send message. Please try again.
-                    </p>
-                  )}
                 </Form>
               )}
             </Formik>
