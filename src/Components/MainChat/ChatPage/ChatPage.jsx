@@ -99,7 +99,7 @@ const ChatPage = () => {
         }`}
       >
         <div className="absolute flex flex-row justify-center items-center bg-red-600 p-2 rounded-md flex-wrap">
-          Unable to load conversation {chatId}
+          Chat UnAvailable: {chatId}
         </div>
       </div>
 

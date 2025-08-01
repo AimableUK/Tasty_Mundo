@@ -34,20 +34,20 @@ const ChatHeader = ({
     };
   }, [showMore]);
 
-  // useEffect(() => {
-  //   const chat = chats.find((chat) => chat.id === chatId);
-  // }, [chatId, chats, handleDelete]);
+  useEffect(() => {
+    const chat = chats.find((chat) => chat.id === chatId);
+  }, [chatId, chats]);
 
-  // const handleDelete = (chat) => {
-  //   if (
-  //     window.confirm(
-  //       `Are you sure you want to delete this chat? ${chat?.chatName}`
-  //     )
-  //   ) {
-  //     deleteChatData(chatId);
-  //     // navigate("/c");
-  //   }
-  // };
+  const handleDelete = (chat) => {
+    if (
+      window.confirm(
+        `Are you sure you want to delete this chat? ${chat?.chatName}`
+      )
+    ) {
+      deleteChatData(chatId);
+      // navigate("/c");
+    }
+  };
 
   const newChat = () => {
     if (location.pathname == "/c") return;
