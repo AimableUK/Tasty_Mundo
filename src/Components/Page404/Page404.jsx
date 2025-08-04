@@ -19,7 +19,7 @@ const Page404 = () => {
               to="/"
               className="mt-6 px-6 py-2 bg-primaryColor hover:bg-blue-500 rounded-full text-white font-medium transition-all transform hover:scale-105"
             >
-              Go To Home
+              Back Home
             </Link>
           </div>
 
