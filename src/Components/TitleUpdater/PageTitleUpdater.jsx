@@ -5,7 +5,7 @@ const PageTitleUpdater = () => {
   const location = useLocation();
 
   useEffect(() => {
-    let title = "MalosFlix";
+    let title = "TastyMundo";
 
     if (location.pathname === "/") {
       title = "TastyMundo - AI Chef";
@@ -20,7 +20,7 @@ const PageTitleUpdater = () => {
     } else if (location.pathname === "/c") {
       title = "Tasty Mundo Chat";
     } else if (location.pathname.startsWith("/c")) {
-      title = "Chat Viewing";
+      title = "Recipe Viewing";
     } else {
       title = "404 Page Not Found";
     }
