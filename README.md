@@ -3,22 +3,19 @@
 **Tasty Mundo AI** is an AI-powered recipe generator that helps users discover new dishes based on ingredients they have on hand.  
 Built with **React** and **Tailwind CSS**, the app currently stores recipes in **localStorage** for persistence, with plans for future backend integration.
 
----
 
 ## 🌟 Overview
 
 Tasty Mundo AI is designed to make cooking smarter and more creative. Whether you're a home chef or just experimenting in the kitchen, the app helps you create personalized recipes instantly.
 
----
 
 ## ⚙️ Tech Stack
 
 - **Frontend:** React (Vite)
 - **Styling:** Tailwind CSS
-- **AI Engine:** Local model / API (planned future backend integration)
+- **AI Engine:** Using Hugging Face Model
 - **Storage:** Browser localStorage
 
----
 
 ## 🍳 Features
 
@@ -27,9 +24,6 @@ Tasty Mundo AI is designed to make cooking smarter and more creative. Whether yo
 ✅ Simple, modern, and responsive UI with Tailwind CSS  
 ✅ Future support for user accounts, meal planning, and cloud sync  
 
----
-
----
 
 ## 🖼️ Preview
 
@@ -64,8 +58,6 @@ npm run dev
 
 Then open [http://localhost:5173](http://localhost:5173) in your browser.
 
----
-
 ## 🧭 Roadmap
 
 - [ ] Add backend for user authentication & recipe management  
@@ -73,7 +65,6 @@ Then open [http://localhost:5173](http://localhost:5173) in your browser.
 - [ ] Improve AI recipe generation with custom models  
 - [ ] Add nutritional insights and meal planning tools  
 
----
 
 ## 🧑‍🍳 Author
 
